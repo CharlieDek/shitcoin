@@ -1,2 +1,2 @@
 # shitcoin
-Get rich...be a legend...
+Get rich...be a legend...shitcoin.
