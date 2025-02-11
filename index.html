@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- I love universal paperclips https://www.decisionproblem.com/paperclips/ -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="shortcut icon" type="img/png" href="img/fave-coin.png"/>
+    <link rel="stylesheet"media="screen" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+    <title>shitcoin</title>
+    <meta name="author" content="Charlie Dektar" />
+
+    <!-- <link rel="stylesheet" href="https://unpkg.com/98.css" /> -->
+
+</head>
+<body>
+<div id="particles-js"></div>    
+<div id="networth">Net worth: $103434.00</div>
+<div class="container" id="debug">
+    <div id="demandDebug"></div>
+    <div id="popularityDebug"></div>
+</div>
+<!-- <div id="levelBadge">Level: Just Browsing</div> TODO -->
+<div id="cash"></div>
+<div class="container-vertical-center">
+    <!-- <div class="plot">NFT's are getting big.....</div>
+    <div class="plot">Oh yeah this is somehign happening..</div>
+    <div class="plot">Oh yeah this is somehign happening..</div>
+    <div class="plot">Oh yeah this is somehign happening..</div>
+    <div class="plot">Oh yeah this is somehign happening..</div> -->
+</div>
+
+<div class="container">
+    <div class="item" id="projectsPanel">
+        <h3>Projects</h3>
+        <div class="container-vertical-center">
+            <button class="actionBtn" id="createX">Create an account on x.com</button>
+            <button class="actionBtn" id="quitWork">Quit Work</button>
+            <button class="actionBtn" id="makeRob">Create an account on Robinhood</button>
+            <button class="actionBtn" id="makeAccount">Create an account on CoinWorld ($15)</button>
+            <button class="actionBtn" id="makeAccountNFT">Create an account on NFTLand ($150)</button>
+            <button class="actionBtn" id="makeShitcoin">Make Shitcoin ($100)</button>
+
+            <button class="actionBtn" id="makeTwitterBotAction">Make Twitter bot</button>
+            <button class="actionBtn" id="teamUpWithCelebAction">Team Up With Celebrity ($10,000)</button>
+            <button class="actionBtn" id="nftRedesignAction">NFT redesign ($500)</button>
+            <button class="actionBtn" id="getIntoPoliticsAction">Get into politics ($10,000)</button>
+            <button class="actionBtn" id="selfPromo">Promo Vid With New Home</button>
+            <!-- attention panel? mr. beast video -->
+            <button class="actionBtn" id=""></button>
+        </div>                
+    </div>
+    <div class="item" id="workPanel">
+        <h3>Work</h3> 
+        <div class="container-center">
+            <div id="workItem0" class="workItem"></div><div id="workItem1" class="workItem"></div><div id="workItem2" class="workItem"></div><div id="workItem3" class="workItem"></div><div id="workItem4" class="workItem"></div><div id="workItem5" class="workItem"></div><div id="workItem6" class="workItem"></div><div id="workItem7" class="workItem"></div><div id="workItem8" class="workItem"></div><div id="workItem9" class="workItem"></div><div id="workItem10" class="workItem"></div><div id="workItem11" class="workItem"></div><div id="workItem12" class="workItem"></div><div id="workItem13" class="workItem"></div><div id="workItem14" class="workItem"></div><div id="workItem15" class="workItem"></div><div id="workItem16" class="workItem"></div><div id="workItem17" class="workItem"></div><div id="workItem18" class="workItem"></div><div id="workItem19" class="workItem"></div><div id="workItem20" class="workItem"></div><div id="workItem21" class="workItem"></div><div id="workItem22" class="workItem"></div><div id="workItem23" class="workItem"></div><div id="workItem24" class="workItem"></div><div id="workItem25" class="workItem"></div><div id="workItem26" class="workItem"></div><div id="workItem27" class="workItem"></div><div id="workItem28" class="workItem"></div><div id="workItem29" class="workItem"></div><div id="workItem30" class="workItem"></div><div id="workItem31" class="workItem"></div><div id="workItem32" class="workItem"></div>
+        </div>
+        <div class="progress-indicator segmented">
+            <span id="work-progress" class="progress-indicator-bar" />
+          </div>
+        <div class="workWarning" id="lowWarning">Hey, is everything ok?</div>
+        <div class="workWarning" id="midWarning">How can we motivate you more?</div>
+        <div class="workWarning" id="highWarning">We're starting you on a PIP.</div>
+    </div>
+    <div class="item" id="socialsPanel">
+        <h3>x.com</h3>
+        <div id="xChunk">
+            <div id="tweet-container">
+                <button class="regBtn" id="twitterBtn">Tweet</button>
+                <!-- <button class="regBtn" id="tweetCrazyBtn">Tweet CRAZY</button> -->
+                <!-- <button class="regBtn" id="twitterBtn">Boost</button> -->
+                <div class="sunken-panel" id="twitterTL" style="height: 120px; width: 240px;">
+                    <table class="interactive">
+                      <thead>
+                        <tr>
+                            <th>likes</th>
+                            <th>tweet</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                  </div>                
+            </div>
+        </div>        
+        <div id="apologyChunk">
+            <div class="content-divider">--------------------------------------------</div>
+            <h4>Apology</h4>
+            <div class="container-vertical-center">
+                <div>Click to add a few letters at a time of apology</div>
+                <button class="regBtn" id="writeAplogy">Draft apology...</button>
+                </div>
+        </div>
+    </div>
+    <div class="item" id="robinhoodPanel">
+        <h3>Robinhood</h3>
+        <div class="container-vertical">        
+            <div>
+                <div class="rob-container">
+                    <span class="robValuation" id="robinHoodTSLA">$90.00</span>
+                    <button class="robBtn" id="buyTSLA">$TSLA</button>
+                </div>
+            </div>
+            <div>
+                <div class="rob-container">
+                    <span class="robValuation" id="robinHoodNVDA">$200.00</span>
+                    <button class="robBtn" id="buyNVDA">$NVDA</button>
+                </div>                
+            </div>
+            <div>
+                <div class="rob-container">
+                    <span class="robValuation" id="robinHoodGME">$150.00</span>
+                    <button class="robBtn" id="buyGME">$GME</button>
+                </div>                
+            </div>
+        </div>
+        <div class="container-center">
+            <button class="regBtn" id="dontCancelRob">Don't cancel</button>
+            <button class="regBtn" id="cancelRob">Account settings</button>
+        </div>
+    </div>
+    <div class="item" id="coinWorldPanel">
+        <h3><!--<img src="img/fave-coin.png" height="15">-->  CoinWorld</h3>
+        <div class="content-stat-div"><span>ShitCoin value:</span> <span id="coins_value_div">0</span></div>
+        <div class="content-stat-div"><span>My ShitCoins:</span> <span id="coins_held_div">0</span></div>
+        <div class="content-stat-div"><span>ShitCoins in circulation:</span> <span id="coins_circulating_div">0</span></div>
+        <div class="content-divider">--------------------------------------------</div>
+        <!-- <div class="graph-container"> -->
+            <!-- <svg viewBox="0 0 300 150"> -->
+                <!-- <path id="graph-line" d="M0,75" /> -->
+            <!-- </svg> -->
+        <!-- </div> -->
+         <!-- buying and selling shitcoins -->
+    </div>
+    <div class="item" id="nftPanel">
+        <h3>NFTLand</h3>
+        <div class="container-center">
+            <div id="nftPriceLabel">NFT Price: $0.01</div>
+            <div class="field-row" style="width: 180px"><input id="nftPriceRange" type="range" min="1" max="100" value="10" /></div>
+        </div>
+
+        <div class="container-center">
+            <button id="mintNFT" class="regBtn">Mint NFT</div>
+            <div class="field-row" style="width: 180px"><input id="nftVibrancyRange" type="range" min="1" max="100" value="10" /></div>
+            <div class="container-center" id="nftStack"></div>
+        </div>
+    </div>
+    </div>
+    <div class="item">
+        this one
+    </div>
+  </div>
+<!-- scripts -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="js/particles.js/particles.min.js"></script>
+
+<script src="js/global-vars.js"></script>
+<script src="js/particle-config.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
