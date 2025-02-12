@@ -1,6 +1,5 @@
 function getRandomNumber(min, max) {
-    const random = Math.random() * (max - min) + min;
-    return parseFloat(random.toFixed(2));
+    return Math.random() * (max - min) + min;
 }
 
 var debug = false;
@@ -21,6 +20,13 @@ var workInterval = 1900;
 var emptyEmailIndices = new Set(Array.from({ length: 33 }, (_, i) => i));
 var unrespondedEmailIndices = new Set();
 
+// key dynamic globals
+var popularity = 0.1;
+var popularity_fluctuation = 0.01;
+var crypto_market_popularity = 1.0;
+var crypto_market_going_up = true;
+var crypto_up_bonus = 1.0;
+
 // work
 refreshWorkInterval = null;
 
@@ -34,17 +40,21 @@ var nvda_valuation = getRandomNumber(30, 50);
 var rob_going_up = false;
 refreshRobinhoodInterval = null;
 
-
 // nftworld
 var nft_vibrancy = 10;
 var nft_eyes = false;
 var nfts_ordered_by_true_value = [];
 var nft_price = 1;
+const minNFTPrice = 0.01;
+const maxNFTPrice = 1000000.0;
+var my_nft_boost = 0.0003;
+
+// coinworld
+var shitCoins = new Object();
 
 //twitter
 const most_popular_tweeters = ["@elonmusk", "@BarackObama", "@Cristiano", "@justinbieber", "@rihanna", "@katyperry", "@narendramodi", "@realDonaldTrump", "@taylorswift13", "@NASA", "@ladygaga", "@YouTube", "@KimKardashian", "@EllenDeGeneres", "@X", "@BillGates", "@selenagomez", "@imVkohli", "@neymarjr", "@cnnbrk", "@CNN", "@jtimberlake", "@PMOIndia", "@nytimes", "@espn", "@britneyspears", "@shakira", "@KingJames", "@ChampionsLeague", "@ddlovato", "@realmadrid", "@BBCBreaking", "@FCBarcelona", "@jimmyfallon", "@SrBachchan", "@BTS_twt", "@NBA", "@akshaykumar", "@MileyCyrus", "@BeingSalmanKhan", "@premierleague", "@bts_bighit", "@iamsrk", "@JLo", "@SportsCenter", "@BrunoMars", "@Oprah", "@BBCWorld", "@sachin_rt", "@NiallOfficial"];
 const max_tweets = 20;
-var popularity = 0.1;
 const phase_1_tweets = [
     'twitter is so funny hahah',
     'mkay gnight all c u tmrw',

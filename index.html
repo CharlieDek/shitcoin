@@ -20,6 +20,7 @@
 <div class="container" id="debug">
     <div id="demandDebug"></div>
     <div id="popularityDebug"></div>
+    <div id="crypto_market_popularity_debug"></div>
 </div>
 <!-- <div id="levelBadge">Level: Just Browsing</div> TODO -->
 <div id="cash"></div>
@@ -43,7 +44,7 @@
             <button class="actionBtn" id="makeShitcoin">Make Shitcoin ($100)</button>
 
             <button class="actionBtn" id="makeTwitterBotAction">Make Twitter bot</button>
-            <button class="actionBtn" id="teamUpWithCelebAction">Team Up With Celebrity ($10,000)</button>
+            <button class="actionBtn" id="teamUpWithCelebAction">Team Up With TikTok Celebrity ($10,000)</button>
             <button class="actionBtn" id="nftRedesignAction">NFT redesign ($500)</button>
             <button class="actionBtn" id="getIntoPoliticsAction">Get into politics ($10,000)</button>
             <button class="actionBtn" id="selfPromo">Promo Vid With New Home</button>
@@ -112,7 +113,7 @@
                 <div class="rob-container">
                     <span class="robValuation" id="robinHoodGME">$150.00</span>
                     <button class="robBtn" id="buyGME">$GME</button>
-                </div>                
+                </div>
             </div>
         </div>
         <div class="container-center">
@@ -122,10 +123,19 @@
     </div>
     <div class="item" id="coinWorldPanel">
         <h3><!--<img src="img/fave-coin.png" height="15">-->  CoinWorld</h3>
+        <div class="container-vertical" id="shitHolder">
+            <!-- <div> -->
+                <!-- <div class="rob-container" id="shitContainer_1"> -->
+                    <!-- <span class="coinValuation" id="shitValuation_1">$90.00</span> -->
+                    <!-- <button class="coinBtn" id="buyShit_1">$SHIT</button> -->
+                <!-- </div> -->
+            <!-- </div> -->
+        </div>
+        <div class="content-divider">--------------------------------------------</div>
         <div class="content-stat-div"><span>ShitCoin value:</span> <span id="coins_value_div">0</span></div>
         <div class="content-stat-div"><span>My ShitCoins:</span> <span id="coins_held_div">0</span></div>
         <div class="content-stat-div"><span>ShitCoins in circulation:</span> <span id="coins_circulating_div">0</span></div>
-        <div class="content-divider">--------------------------------------------</div>
+
         <!-- <div class="graph-container"> -->
             <!-- <svg viewBox="0 0 300 150"> -->
                 <!-- <path id="graph-line" d="M0,75" /> -->
@@ -141,8 +151,9 @@
         </div>
 
         <div class="container-center">
-            <button id="mintNFT" class="regBtn">Mint NFT</div>
+            <div id="nftSpacer"></div>
             <div class="field-row" style="width: 180px"><input id="nftVibrancyRange" type="range" min="1" max="100" value="10" /></div>
+            <button id="mintNFT" class="regBtn">Mint NFT</div>
             <div class="container-center" id="nftStack"></div>
         </div>
     </div>
@@ -153,7 +164,7 @@
   </div>
 <!-- scripts -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script src="js/particles.js/particles.min.js"></script>
+<script src="js/particles.js/particles.js"></script>
 
 <script src="js/global-vars.js"></script>
 <script src="js/particle-config.js"></script>

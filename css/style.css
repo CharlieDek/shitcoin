@@ -11,6 +11,7 @@
     --top-title-color: #8b8b8b91;
     --dialogue-color: #5f5f5f;
     --rob-color: #CCFE02;
+    --coin-color: #0f4eff;
     --twitter-color: #2e9df0;
     --cancel-color: #ff3232;
 
@@ -28,9 +29,6 @@
   --dialog-gray-light: #b5b5b5;
   --link-blue: #0000ff;
   --range-spacing: 10px;
-
-
-
 
 
   .field-row {
@@ -276,7 +274,13 @@ path {
   }
 
   #nftStack {
+    top: -167px;
     position: relative; /* Needed for absolute positioning inside */
+}
+
+#nftSpacer {
+    height: 142px;
+    width: 200px;
 }
 
 .nft-svg {
@@ -704,6 +708,54 @@ html, body {
 .content-stat-div {
     display: none;
     justify-content: space-between;    
+}
+
+.coinBtn {
+    flex-grow: 0;
+    background-color: transparent;
+    color: var(--regular_text);
+    padding: 5px;
+    font-size: 13px;
+    width: 60px;
+    margin: 5px;
+    white-space: normal;
+    word-wrap: break-word;
+    text-align: center;
+    box-shadow: var(--border-raised-outer), var(--border-raised-inner);    
+    border: none;
+}
+
+.coinBtn:hover {
+    box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
+    cursor: url("../img/hand-cursor.png"), auto;    
+}
+
+.coinBtn:active {
+    box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
+    background-color: var(--coin-color);
+    color: white;    
+    cursor: url("../img/hand-cursor.png"), auto;    
+}
+
+.coinBtn:focus {
+    box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
+    outline: 1px dotted #000000;
+    outline-offset: -4px;    
+    cursor: url("../img/hand-cursor.png"), auto;
+}
+
+.coinValuation:hover {
+    cursor: url("../img/hand-cursor.png"), auto;    
+    background-color: var(--coin-color);
+    color: white;
+}
+
+.coinValuation:active {
+    cursor: url("../img/hand-cursor.png"), auto;    
+}
+
+.coinValuation:focus {
+    cursor: url("../img/hand-cursor.png"), auto;
 }
 
 /* 768 small stuff */
