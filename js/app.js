@@ -367,7 +367,8 @@ function addShit() {
         price: value,
         name: shitName,
         chanceToDrop: 0.99965,
-        coinUniqueBonus: Math.random()
+        coinUniqueBonus: Math.random(),
+        boost: 0.0
     }
     // Create the new div element
     var newDiv = $(`<div class="rob-container" id="shitContainer_${newID}"><span class="coinValuation" id="shitValuation_${newID}">\$${value}</span><button class="coinBtn" id="buyShit_${newID}">${shitName}</button></div></div>`);
@@ -380,15 +381,13 @@ function removeShit(shitID) {
 }
 
 function boostCoin(shitID) {
-    console.log(popularity);
-    shitCoins[shitID].coinUniqueBonus += (popularity/10.0);
-    console.log(shitCoins[shitID].chanceToDrop);
-    shitCoins[shitID].chanceToDrop -= 0.0001;
+    popularity = 2.0;
+    shitCoins[shitID].boost += popularity;
+    shitCoins[shitID].chanceToDrop -= 0.00004;
 }
 
 $(document).on('click', '.coinValuation', function () {
     let id_str = $(this).attr("id").slice(14);
-    console.log(id_str);
     boostCoin(id_str);
 });
 
@@ -406,10 +405,8 @@ function refreshShit(shitID, shitDict) {
     // Flip the coin's state with very low probabilities.
     var r = Math.random();
     if (goingUp && r > shitDict.chanceToDrop) {   // When going up, small chance to flip down
-        console.log("v")
         goingUp = false;
     } else if (!goingUp && r < 0.0003) {  // When falling, small chance to flip up
-        console.log("^")
         goingUp = true;
     }
 
@@ -420,7 +417,7 @@ function refreshShit(shitID, shitDict) {
         // Once the price passes a threshold, ramp up the growth rate.
         var growthRate;
         growthRate = 0.0001 + 0.0003 * coinUniqueBonus;
-        newPrice = (shitDict.price * 1000 * (1 + growthRate)) / 1000;
+        newPrice = ((shitDict.price * 1000 * (1 + growthRate)) / 1000) + shitDict.boost;
     } else {
         // When going down, use a higher decline rate to simulate a fast crash.
         var declineRate = 0.05 + 0.1 * coinUniqueBonus;
@@ -434,6 +431,12 @@ function refreshShit(shitID, shitDict) {
         shitCoins[shitID].goingUp = goingUp;
         shitCoins[shitID].price = newPrice;
         $(`#shitValuation_${shitID}`).html(newPrice.toFixed(2));
+        if (shitDict.boost > 0.1) {
+            console.log(shitDict.boost);
+            shitDict.boost -= 0.1;
+        } else {
+            shitDict.boost = 0.0;
+        }
     }
 
 }
