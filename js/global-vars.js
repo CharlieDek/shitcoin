@@ -6,7 +6,7 @@ var debug = false;
 var phase = 0;
 var global_ticks = 0;
 var globalIntervalTickSpeed = 9;
-// globalIntervalTickSpeed = 1000; // TODO remove
+// globalIntervalTickSpeed = 500; // TODO remove
 
 var bank_worth = 1032.84;
 var coins_held = 0.0;
@@ -25,7 +25,10 @@ var popularity = 0.1;
 var popularity_fluctuation = 0.01;
 var crypto_market_popularity = 1.0;
 var crypto_market_going_up = true;
-var crypto_up_bonus = 1.0;
+
+// legal
+var num_boosts_used = 0;
+var mistrust_popularity = 0.0  // mistrust is a down-pressure on popularity, welcomes lawsuits, and can be alleviated
 
 // work
 refreshWorkInterval = null;
@@ -40,7 +43,7 @@ var nvda_valuation = getRandomNumber(30, 50);
 var rob_going_up = false;
 refreshRobinhoodInterval = null;
 
-// nftworld
+// nftland
 var nft_vibrancy = 10;
 var nft_eyes = false;
 var nfts_ordered_by_true_value = [];
@@ -48,26 +51,90 @@ var nft_price = 1;
 const minNFTPrice = 0.01;
 const maxNFTPrice = 1000000.0;
 var my_nft_boost = 0.0003;
+var nfts_sold = 0;
 
 // coinworld
 var shitCoins = new Object();
+var lifetimeCoinworldBuys = 0.0;
+var coinsShowing = false;
+var buyLimit1Used = false;
+var buyLimit2Used = false;
+var buyLimit3Used = false;
+const UNLOCK_LIFETIME_I_BUY = 5;
+const UNLOCK_LIFETIME_II_BUY = 10000;
+const UNLOCK_LIFETIME_III_BUY = 100000;
+
+var default_shit_buy_quantity = 1;
+var coinworld_buy_amt = 1;
+const shitNameArr = [
+    "$ASS",
+    "$ASS2",
+    "$QQQQ",
+    "$SCAM",
+    "$MEME",
+    "$RICH",
+    "$HIGH",
+    "$LOKO",
+    "$FARM",
+    "$PNZI",
+    "$ZEN3",
+    "$BONK",
+    "$8008",
+    "$DOEG",
+    "$PUMP",
+    "$RUG",
+    "$KITE",
+    "$MARK",
+    "$GOAT",
+];
 
 //twitter
 const most_popular_tweeters = ["@elonmusk", "@BarackObama", "@Cristiano", "@justinbieber", "@rihanna", "@katyperry", "@narendramodi", "@realDonaldTrump", "@taylorswift13", "@NASA", "@ladygaga", "@YouTube", "@KimKardashian", "@EllenDeGeneres", "@X", "@BillGates", "@selenagomez", "@imVkohli", "@neymarjr", "@cnnbrk", "@CNN", "@jtimberlake", "@PMOIndia", "@nytimes", "@espn", "@britneyspears", "@shakira", "@KingJames", "@ChampionsLeague", "@ddlovato", "@realmadrid", "@BBCBreaking", "@FCBarcelona", "@jimmyfallon", "@SrBachchan", "@BTS_twt", "@NBA", "@akshaykumar", "@MileyCyrus", "@BeingSalmanKhan", "@premierleague", "@bts_bighit", "@iamsrk", "@JLo", "@SportsCenter", "@BrunoMars", "@Oprah", "@BBCWorld", "@sachin_rt", "@NiallOfficial"];
-const max_tweets = 20;
+const max_tweets = 40;
 const phase_1_tweets = [
     'twitter is so funny hahah',
     'mkay gnight all c u tmrw',
     'food is lowkey goated when being hungry is the vibe',
     'i have to grind harder this year lol',
     '@cristiano Ill buy one lol',
-    'i like  twitter',
+    'opportunity be knockin\'!',
+    'grind now, shine later',
+    'i like  twitter! u guys are so funny',
     'shoulder hurts so bad from the gym lmao',
     'does anyone know if robinhood is still doing their premium free trial?',
     'who else feels like getting in the shower is like a warm bath',
     'should I start a robinhood lul',
     'anyone else puts on nvda?',
+    'Opportunities don’t happen, you create them.',
     'i keep forgettin how much i really like  twitter lol'
+];
+
+const engagement_tweets = [
+    "Tipping is such a scam! Who else thinks we should never tip again?",
+    "Wow, what an awesome video! I have never watched a video like that.",
+    "What do people call bread where you're from?",
+    "Poor people should low key die! DM if you agree!",
+    "Without googling, name a movie that needs a sequel!",
+    "I just got bird flu should I go to PyCon?!",
+    "A WITCH WILL CURSE YOU IF YOU DONT LIKE THIS POST! SHARE TO SPREAD AWARENESS.",
+    "where i'm from if you ask someone to take off their shoes they'll shoot you dead! who else?",
+    "vaccines are a scam!",
+    "all men need to hear this vvv!",
+    "am i the only one who thinks stealing is ok?",
+    "cheerleading is more of a sport than golf!",
+    "Which one of these does NOT belong in a soup?? vvv",
+    "What's your most WOKE opinion?",
+];
+
+const apology_tweets = [
+    "I am so sorry for the consequences that my actions have caused, and for my part in those actions.",
+]
+
+const pump_tweet_functions = [
+    (coin_name) => `${coin_name} is going crazy!`,
+    (coin_name) => `${coin_name} is Him right now!`,
+    (coin_name) => `${coin_name} is such a bargain rn omg i just bought like \$5,000 and it's way up`,
+    (coin_name) => `who else just made %5000 today with ${coin_name}!? so awesome`,
 ];
 
 

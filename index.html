@@ -38,20 +38,40 @@
         <div class="container-vertical-center">
             <button class="actionBtn" id="createX">Create an account on x.com</button>
             <button class="actionBtn" id="quitWork">Quit Work</button>
+            <button class="actionBtn" id="restartWorkBtn">Restart work</button>
             <button class="actionBtn" id="makeRob">Create an account on Robinhood</button>
+            <!-- <button class="actionBtn" id="autoboyShit">Autobuy First Shitcoin</button> -->
+            <button class="actionBtn" id="learnEngagement">Start engagement farming.</button>
+            <button class="actionBtn" id="coinworldBuyLimit1" disabled>Increase CoinWorld buy limit</button>
+            <button class="actionBtn" id="coinworldBuyLimit2" disabled>Increase CoinWorld buy limit II</button>
+            <button class="actionBtn" id="coinworldBuyLimit3" disabled>Increase CoinWorld buy limit III</button>
+            <button class="actionBtn" id="learnApologies">So sorry...</button>
             <button class="actionBtn" id="makeAccount">Create an account on CoinWorld ($15)</button>
-            <button class="actionBtn" id="makeAccountNFT">Create an account on NFTLand ($150)</button>
+            <button class="actionBtn" id="makeAccn ountNFT">Create an account on NFTLand ($150)</button>
             <button class="actionBtn" id="makeShitcoin">Make Shitcoin ($100)</button>
+            <button class="actionBtn" id="makeStockIndicator">Stock Market Indicator ($2,500)</button>
+            <button class="actionBtn" id="makeShitcoin">Autobuy Shitcoins</button>
 
             <button class="actionBtn" id="makeTwitterBotAction">Make Twitter bot</button>
             <button class="actionBtn" id="teamUpWithCelebAction">Team Up With TikTok Celebrity ($10,000)</button>
+            <button class="actionBtn" id="teamUpWithCelebAction2">Team Up With C-List Celebrity ($60,000)</button>
             <button class="actionBtn" id="nftRedesignAction">NFT redesign ($500)</button>
-            <button class="actionBtn" id="getIntoPoliticsAction">Get into politics ($10,000)</button>
+            <button class="actionBtn" id="getIntoPoliticsAction1">Get into politics ($10,000)</button>
+            <button class="actionBtn" id="getIntoPoliticsAction2">Get into politics ($20,000)</button>
+            <button class="actionBtn" id="getIntoPoliticsAction3">Get deeper into politics ($50,000)</button>
             <button class="actionBtn" id="selfPromo">Promo Vid With New Home</button>
             <!-- attention panel? mr. beast video -->
-            <button class="actionBtn" id=""></button>
+            <!-- <button class="actionBtn" id=""></button> -->
         </div>                
     </div>
+    <div class="item" id="prepPanel">
+        <h3>Prep</h3>
+        <h4>buy gold</h4>
+        <div>also let's display gold on the top in bars form</div>
+        <h4>private security costs</h4>
+        <h4>New Zealand property</h4>
+        <h4>Longevity research</h4>
+    </div>    
     <div class="item" id="workPanel">
         <h3>Work</h3> 
         <div class="container-center">
@@ -59,7 +79,7 @@
         </div>
         <div class="progress-indicator segmented">
             <span id="work-progress" class="progress-indicator-bar" />
-          </div>
+        </div>
         <div class="workWarning" id="lowWarning">Hey, is everything ok?</div>
         <div class="workWarning" id="midWarning">How can we motivate you more?</div>
         <div class="workWarning" id="highWarning">We're starting you on a PIP.</div>
@@ -68,7 +88,25 @@
         <h3>x.com</h3>
         <div id="xChunk">
             <div id="tweet-container">
-                <button class="regBtn" id="twitterBtn">Tweet</button>
+                <div>
+                    <div id="twitterOptionFieldRegular" class="field-row twitterOption">
+                        <input checked id="twitterRadioRegular" type="radio" name="twitter-option">
+                        <label for="twitterRadioRegular">Normal tweet</label>
+                    </div>
+                    <div id="twitterOptionFieldEngagement" class="field-row twitterOption">
+                        <input disabled id="twitterRadioEngagement" type="radio" name="twitter-option">
+                        <label for="twitterRadioEngagement">Engagement</label>
+                    </div>
+                    <div id="twitterOptionFieldPumpCoins" class="field-row twitterOption">
+                    <input id="twitterRadioPumpCoins" type="radio" name="twitter-option">
+                        <label for="twitterRadioPumpCoins">Pump coins</label>
+                    </div>
+                    <div id="twitterOptionFieldApologize" class="field-row twitterOption">
+                    <input id="twitterRadioApologize" type="radio" name="twitter-option">
+                        <label for="twitterRadioApologize">Apologize</label>
+                    </div>
+                </div>
+                <button class="actionBtn" id="twitterBtn">Tweet</button>
                 <!-- <button class="regBtn" id="tweetCrazyBtn">Tweet CRAZY</button> -->
                 <!-- <button class="regBtn" id="twitterBtn">Boost</button> -->
                 <div class="sunken-panel" id="twitterTL" style="height: 120px; width: 240px;">
@@ -84,7 +122,10 @@
                     </table>
                   </div>                
             </div>
-        </div>        
+        </div>
+        <div class="progress-indicator">
+            <span id="popularity-progress" class="progress-indicator-bar" />
+        </div>
         <div id="apologyChunk">
             <div class="content-divider">--------------------------------------------</div>
             <h4>Apology</h4>
@@ -96,6 +137,7 @@
     </div>
     <div class="item" id="robinhoodPanel">
         <h3>Robinhood</h3>
+        <div id="stockindicator">Market: v</div>
         <div class="container-vertical">        
             <div>
                 <div class="rob-container">
@@ -123,18 +165,19 @@
     </div>
     <div class="item" id="coinWorldPanel">
         <h3><!--<img src="img/fave-coin.png" height="15">-->  CoinWorld</h3>
-        <div class="container-vertical" id="shitHolder">
-            <!-- <div> -->
-                <!-- <div class="rob-container" id="shitContainer_1"> -->
-                    <!-- <span class="coinValuation" id="shitValuation_1">$90.00</span> -->
-                    <!-- <button class="coinBtn" id="buyShit_1">$SHIT</button> -->
-                <!-- </div> -->
-            <!-- </div> -->
-        </div>
+        <fieldset id="shitHolder">
+            <legend>Shitcoin holdings</legend>
+        </fieldset>
         <div class="content-divider">--------------------------------------------</div>
-        <div class="content-stat-div"><span>ShitCoin value:</span> <span id="coins_value_div">0</span></div>
-        <div class="content-stat-div"><span>My ShitCoins:</span> <span id="coins_held_div">0</span></div>
-        <div class="content-stat-div"><span>ShitCoins in circulation:</span> <span id="coins_circulating_div">0</span></div>
+        <fieldset id="myShit">
+            <legend>My Shitcoin</legend>
+            <!-- <div class="content-stat-div"><span>ShitCoins in circulation:</span> <span id="coins_circulating_div">0</span></div>             -->
+            <!-- <div class="container-center"><button class="actionBtn" id="mintCoins">Mint Coins</button></div> -->
+            <div class="coin-container" id="shitContainer_MINE">
+                <span class="coinValuation" id="shitValuation_MINE">$0.0001</span>
+                <button class="coinBtn" id="buyShit_MINE">$SHIT</button>
+            </div>
+        </fieldset>
 
         <!-- <div class="graph-container"> -->
             <!-- <svg viewBox="0 0 300 150"> -->

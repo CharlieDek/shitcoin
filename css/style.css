@@ -14,9 +14,11 @@
     --coin-color: #0f4eff;
     --twitter-color: #2e9df0;
     --cancel-color: #ff3232;
+    --down-market-color: #ff794c;
+    --up-market-color: #3baf5a;
 
 
-  /* Borders from 98.css https://jdan.github.io/98.css/ */
+  /* From 98.css https://jdan.github.io/98.css/ */
   --text-color: #222222;
   --surface: #c0c0c0;
   --button-highlight: #ffffffd4;
@@ -30,11 +32,142 @@
   --link-blue: #0000ff;
   --range-spacing: 10px;
 
+  --border-width: 1px;
+  --border-raised-outer: inset -1px -1px var(--window-frame),
+  inset 1px 1px var(--button-highlight);
+  --border-raised-inner: inset -2px -2px var(--button-shadow),
+  inset 2px 2px var(--button-face);
+  --border-sunken-outer: inset -1px -1px var(--button-highlight),
+  inset 1px 1px var(--window-frame);
+  --border-sunken-inner: inset -2px -2px var(--button-face),
+  inset 2px 2px var(--button-shadow);
+  --default-button-border-raised-outer: inset -2px -2px var(--window-frame), inset 1px 1px var(--window-frame);
+  --default-button-border-raised-inner: inset 2px 2px var(--button-highlight), inset -3px -3px var(--button-shadow), inset 3px 3px var(--button-face);
+  --default-button-border-sunken-outer: inset 2px 2px var(--window-frame), inset -1px -1px var(--window-frame);
+  --default-button-border-sunken-inner: inset -2px -2px var(--button-highlight), inset 3px 3px var(--button-shadow), inset -3px -3px var(--button-face);
 
-  .field-row {
+
+
+  --radio-width: 12px;
+  --checkbox-width: 13px;
+  --radio-label-spacing: 6px;
+  --range-track-height: 4px;
+  --range-spacing: 10px;
+
+  /* Some detailed computations for radio buttons and checkboxes */
+  --radio-total-width-precalc: var(--radio-width) + var(--radio-label-spacing);
+  --radio-total-width: calc(var(--radio-total-width-precalc));
+  --radio-left: calc(-1 * var(--radio-total-width-precalc));
+  --radio-dot-width: 4px;
+  --radio-dot-top: calc(var(--radio-width) / 2 - var(--radio-dot-width) / 2);
+  --radio-dot-left: calc(
+    -1 * (var(--radio-total-width-precalc)) + var(--radio-width) / 2 - var(
+        --radio-dot-width
+      ) / 2
+  );
+
+  --checkbox-total-width-precalc: var(--checkbox-width) +
+    var(--radio-label-spacing);
+  --checkbox-total-width: calc(var(--checkbox-total-width-precalc));
+  --checkbox-left: calc(-1 * var(--checkbox-total-width-precalc));
+  --checkmark-width: 7px;
+  --checkmark-left: 3px;  
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin: 0;
+  background: 0;
+  position: fixed;
+  opacity: 0;
+  border: none;
+}
+
+input[type="radio"] + label,
+input[type="checkbox"] + label {
+  line-height: 13px;
+}
+
+input[type="radio"] + label {
+  position: relative;
+  margin-left: var(--radio-total-width);
+}
+
+input[type="radio"] + label::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: calc(-1 * (var(--radio-total-width-precalc)));
+  display: inline-block;
+  width: var(--radio-width);
+  height: var(--radio-width);
+  margin-right: var(--radio-label-spacing);
+  background: url("./icon/radio-border.svg");
+}
+
+:disabled,
+:disabled + label,
+input[readonly],
+input[readonly] + label {
+    color: var(--button-shadow);
+    -webkit-font-smoothing: none;
+}
+
+input[type="radio"]:active + label::before {
+  background: url("./icon/radio-border-disabled.svg");
+}
+
+
+input[type="radio"]:checked + label::after {
+  content: "";
+  display: block;
+  width: var(--radio-dot-width);
+  height: var(--radio-dot-width);
+  top: var(--radio-dot-top);
+  left: var(--radio-dot-left);
+  position: absolute;
+  background: url("./icon/radio-dot.svg");
+}
+
+input[type="radio"]:focus + label,
+input[type="checkbox"]:focus + label {
+  outline: 1px dotted #000000;
+}
+
+input[type="radio"][disabled] + label::before {
+  background: url("./icon/radio-border-disabled.svg");
+}
+
+input[type="radio"][disabled]:checked + label::after {
+  background: url("./icon/radio-dot-disabled.svg");
+}
+
+input[type="checkbox"] + label {
+  position: relative;
+  margin-left: var(--checkbox-total-width);
+}
+
+input[type="checkbox"] + label::before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * (var(--checkbox-total-width-precalc)));
+  display: inline-block;
+  width: var(--checkbox-width);
+  height: var(--checkbox-width);
+  background: var(--button-highlight);
+  box-shadow: var(--border-field);
+  margin-right: var(--radio-label-spacing);
+}
+
+
+  
+.field-row {
     display: flex;
     align-items: center;
-    cursor: url("../img/cursor.png"), auto;    
+    cursor: url("../img/cursor.png"), auto;
   }
   
   [class^="field-row"] + [class^="field-row"] {
@@ -54,9 +187,10 @@ input {
     cursor: url("../img/cursor.png"), auto;    
 }
 
-  label {
-    cursor: url("../img/cursor.png"), auto;    
-  }
+label {
+    cursor: url("../img/cursor.png"), auto;
+    font-size: 10px;
+}
 
   .field-row-stacked * + * {
     margin-top: var(--grouped-element-spacing);
@@ -66,7 +200,7 @@ input {
     -webkit-appearance: none;
     width: 100%;
     background: transparent;
-    background: svg-load("./icon/indicator-horizontal.svg");
+    background: url("./icon/indicator-horizontal.svg");
 
   }
   
@@ -87,7 +221,7 @@ input {
   }
   
   input[type="range"].has-box-indicator::-webkit-slider-thumb {
-    /* background: svg-load("./icon/indicator-rectangle-horizontal.svg"); */
+    /* background: url("./icon/indicator-rectangle-horizontal.svg"); */
     transform: translateY(-10px);
   }
   
@@ -103,7 +237,7 @@ input {
   }
   
   input[type="range"].has-box-indicator::-moz-range-thumb {
-    /* background: svg-load("./icon/indicator-rectangle-horizontal.svg"); */
+    /* background: url("./icon/indicator-rectangle-horizontal.svg"); */
     transform: translateY(0px);
   }
   
@@ -153,6 +287,7 @@ input {
       1px -1px 0 darkgrey, 0 -1px 0 darkgrey, 1px 1px 0 white, -1px -1px darkgrey;
   }
   
+  
   .is-vertical > input[type="range"]::-moz-range-track {
     border-left: 1px solid grey;
     border-right: 0;
@@ -177,29 +312,25 @@ input {
     transform: translateY(0px) scaleX(-1);
   }
 
+legend,
+ul.tree-view,
+.window,
+.title-bar,
+li[role=tab] {
+      font-family: "Pixelated MS Sans Serif", Arial;
+      -webkit-font-smoothing: none;
+      font-size: 11px;
+}
 
+legend {
+    background: none;
+}  
 
-
-
-
-
-
-
-
-  /* From 98.css https://jdan.github.io/98.css/ */
-  --border-width: 1px;
-  --border-raised-outer: inset -1px -1px var(--window-frame),
-  inset 1px 1px var(--button-highlight);
-  --border-raised-inner: inset -2px -2px var(--button-shadow),
-  inset 2px 2px var(--button-face);
-  --border-sunken-outer: inset -1px -1px var(--button-highlight),
-  inset 1px 1px var(--window-frame);
-  --border-sunken-inner: inset -2px -2px var(--button-face),
-  inset 2px 2px var(--button-shadow);
-  --default-button-border-raised-outer: inset -2px -2px var(--window-frame), inset 1px 1px var(--window-frame);
-  --default-button-border-raised-inner: inset 2px 2px var(--button-highlight), inset -3px -3px var(--button-shadow), inset 3px 3px var(--button-face);
-  --default-button-border-sunken-outer: inset 2px 2px var(--window-frame), inset -1px -1px var(--window-frame);
-  --default-button-border-sunken-inner: inset -2px -2px var(--button-highlight), inset 3px 3px var(--button-shadow), inset -3px -3px var(--button-face);
+fieldset {
+    border-image: url("./icon/groupbox-border.svg") 2;
+    padding: calc(2 * var(--border-width) + var(--element-spacing));
+    padding-block-start: var(--element-spacing);
+    margin: 0;
 }
 
 @font-face {
@@ -208,7 +339,7 @@ input {
     src: url("fonts/ms_sans_serif.woff2") format("woff2");
     font-weight: normal;
     font-style: normal;
-  }
+}
   
   @font-face {
     font-family: "Pixelated MS Sans Serif";
@@ -216,7 +347,7 @@ input {
     src: url("fonts/ms_sans_serif_bold.woff2") format("woff2");
     font-weight: bold;
     font-style: normal;
-  }
+}
 
 .graph-container {
     width: 170px;
@@ -477,8 +608,17 @@ html, body {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    border: 1px dotted black;
+    border: 1px dotted var(--button-shadow);
+    /* border-image: url("./icon/groupbox-border.svg") 2;     */
     padding: 3px;
+}
+
+.coin-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 1px solid black;
 }
 
 .container-vertical-center {
@@ -486,7 +626,7 @@ html, body {
     display: flex;
     align-items: center;
     flex-direction: column;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .container-center {
@@ -520,8 +660,8 @@ html, body {
     margin: 5px;
     flex-grow: 0;
 
-    box-shadow: var(--border-raised-outer), var(--border-raised-inner);
-    border: none;
+    box-shadow: var(--border-raised-outer), var(--border-raised-inner); /*  */
+    border: none; /*  */
     background-color: transparent;
     color: var(--regular_text);
     padding: 5px;
@@ -530,11 +670,13 @@ html, body {
     word-wrap: break-word;
     text-align: left;
     display: none;
+    overflow-y: auto; /* Enables scrolling */
+
 
 }
 
 .item:hover {
-    outline: 1px dotted var(--text-color);
+    outline: 1px dotted var(--button-shadow);
     outline-offset: -4px;    
 }
   
@@ -553,17 +695,17 @@ html, body {
     font-family: "Pixelated MS Sans Serif", sans-serif;
 }
 
-.regBtn:hover {
+.regBtn:hover:enabled {
     box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);    
     cursor: url("../img/hand-cursor.png"), auto;    
 }
 
-.regBtn:active {
+.regBtn:active:enabled {
     box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
     cursor: url("../img/hand-cursor.png"), auto;    
 }
 
-.regBtn:focus {
+.regBtn:focus:enabled {
     box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
     outline: 1px dotted #000000;
     outline-offset: -4px;    
@@ -586,17 +728,17 @@ html, body {
     display: none;
 }
 
-.actionBtn:hover {
+.actionBtn:hover:enabled {
     box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);    
     cursor: url("../img/hand-cursor.png"), auto;    
 }
 
-.actionBtn:active {
+.actionBtn:active:enabled {
     box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
     cursor: url("../img/hand-cursor.png"), auto;    
 }
 
-.actionBtn:focus {
+.actionBtn:focus:enabled {
     box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
     outline: 1px dotted #000000;
     outline-offset: -4px;    
@@ -604,6 +746,46 @@ html, body {
 }
 
 /* Robinhood */
+
+#stockindicator {
+    display: none;
+    text-align: center;
+}
+
+.downMarket {
+    color: var(--down-market-color);
+}
+
+.upMarket {
+    color: var(--up-market-color);
+}
+
+button:disabled,
+button:disabled:active,
+button:disabled:hover,
+button:disabled:focus,
+button[disabled],
+button[disabled]:active,
+button[disabled]:focus,
+button[disabled]:hover {
+    color: var(--button-shadow);
+    text-shadow: 1px 1px 0 var(--button-highlight);    
+    font-family: "Pixelated MS Sans Serif", Arial;
+    -webkit-font-smoothing: none;
+    background-color: transparent;
+    background-color: transparent;
+    cursor: url("../img/cursor.png"), auto;    
+}
+
+/* button[disabled]:active{
+    color: var(--button-shadow);
+    text-shadow: 1px 1px 0 var(--button-highlight);    
+    font-family: "Pixelated MS Sans Serif", Arial;
+    -webkit-font-smoothing: none;
+    cursor: url("../img/cursor.png");
+    background-color: pink;
+}
+ */
 .robBtn {
     flex-grow: 0;
     background-color: transparent;
@@ -619,18 +801,18 @@ html, body {
     border: none;
 }
 
-.robBtn:hover {
+.robBtn:hover:enabled {
     box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
     cursor: url("../img/hand-cursor.png"), auto;    
 }
 
-.robBtn:active {
+.robBtn:active:enabled {
     box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
     background-color: var(--rob-color);
     cursor: url("../img/hand-cursor.png"), auto;    
 }
 
-.robBtn:focus {
+.robBtn:focus:enabled {
     box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
     outline: 1px dotted #000000;
     outline-offset: -4px;    
@@ -661,15 +843,28 @@ html, body {
 
 /* Socials */
 #twitterBtn {
-    height: 24px;
+    height: 44px;
+    display:block;
+}
+
+.twitterOption {
+    display: none;
 }
 
 #tweet-container {
+    font-size: 20px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
     padding: 3px;
+}
+
+.tweet-settings-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 #tweetCrazyBtn {
@@ -681,6 +876,8 @@ html, body {
     font-size: 9px;
     width: 240px;
     max-height: 150px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #twitterBtn:active {
@@ -710,6 +907,42 @@ html, body {
     justify-content: space-between;    
 }
 
+#shitHolder {
+    height: 152px;
+}
+
+.buyShitBtnSmall {
+    flex-grow: 0;
+    background-color: transparent;
+    color: var(--regular_text);
+    padding: 3px;
+    font-size: 13px;
+    margin: -2px;
+    white-space: normal;
+    word-wrap: break-word;
+    text-align: center;
+    border: none;
+}
+
+.buyShitBtnSmall:hover:enabled {
+    box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
+    cursor: url("../img/hand-cursor.png"), auto;    
+}
+
+.buyShitBtnSmall:active:enabled {
+    box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
+    background-color: var(--coin-color);
+    color: white;    
+    cursor: url("../img/hand-cursor.png"), auto;    
+}
+
+.buyShitBtnSmall:focus:enabled {
+    box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
+    outline: 1px dotted #000000;
+    outline-offset: -4px;    
+    cursor: url("../img/hand-cursor.png"), auto;
+}
+
 .coinBtn {
     flex-grow: 0;
     background-color: transparent;
@@ -725,19 +958,19 @@ html, body {
     border: none;
 }
 
-.coinBtn:hover {
+.coinBtn:hover:enabled {
     box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
     cursor: url("../img/hand-cursor.png"), auto;    
 }
 
-.coinBtn:active {
+.coinBtn:active:enabled {
     box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
     background-color: var(--coin-color);
-    color: white;    
+    color: white;
     cursor: url("../img/hand-cursor.png"), auto;    
 }
 
-.coinBtn:focus {
+.coinBtn:focus:enabled {
     box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
     outline: 1px dotted #000000;
     outline-offset: -4px;    
