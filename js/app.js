@@ -492,14 +492,14 @@ makeRobBtn.click(function() {
 
 createXBtn.click(function() {
     socialsPanel.show();
-    // createXBtn.hide();
+    createXBtn.hide();
 });
 
 function endWork() {
     clearInterval(refreshWorkInterval);
     refreshWorkInterval = null;
     workPanel.hide();
-    // quitWork.hide();
+    quitWork.hide();
     if (!coinWorldPanel.is(':visible')) makeAccountNFT.show();
 }
 
