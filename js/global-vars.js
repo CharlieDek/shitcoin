@@ -25,15 +25,19 @@ var popularity = 0.1;
 var popularity_fluctuation = 0.01;
 var crypto_market_popularity = 1.0;
 var crypto_market_going_up = true;
+var lifetimeMaxCash = 0;
 
 // legal
 var num_boosts_used = 0;
 var mistrust_popularity = 0.0  // mistrust is a down-pressure on popularity, welcomes lawsuits, and can be alleviated
+const BIG_ENOUGH_TO_SUE = 500000;
+var legalProblemsStarted = false;
 
 // work
-refreshWorkInterval = null;
+var refreshWorkInterval;
 
 // robinhood
+var refreshRobTickSpeed = 1500;
 var gme_holdings = 0;
 var tsla_holdings = 0;
 var nvda_holdings = 0;
@@ -41,7 +45,7 @@ var gme_valuation = getRandomNumber(1, 5);
 var tsla_valuation = getRandomNumber(10, 20);
 var nvda_valuation = getRandomNumber(30, 50);
 var rob_going_up = false;
-refreshRobinhoodInterval = null;
+var refreshRobinhoodInterval;
 
 // nftland
 var nft_vibrancy = 10;
@@ -55,13 +59,49 @@ var nfts_sold = 0;
 
 // coinworld
 var shitCoins = new Object();
+const MY_SHIT_BUY_ID = "buyShit_MINE";
+const MY_SHIT_VALUE_ID = "shitValuation_MINE";
+var myShitCreated = false;
+var my_shitcoin_crashes = 0;
+var myShitCoin = {
+    goingUp: true,
+    price: 0.01,
+    name: "$SHIT",
+    chanceToDrop: 0.99955,
+    boost: 0.0,
+    quantity: 1,
+    lifetimeMinted: 1
+}
+
+// legal
+const legalRefreshTickSpeed = 4001;
+var LAWYER_RATE = 1000;
+var legalRefreshInterval;
+var numLawyers = 0;
+const MAX_LAWYERS = 21;
+var lawsuitsObj = new Object();
+const LAWSUIT_NAMES = [
+    "W.D. TEXAS",
+    "S.D. TEXAS",
+    "P.A. SUP",
+    "N.D. OHIO",
+    "S.E.C.",
+    "C.F.P.B.",
+    "F.T.C. II",
+    "C.F.T.C. II",
+    "LI V CoinWorld",
+    "SABIN V $SHIT",
+    "LINSKY V $SHIT",
+    "A.G. NY",
+];
+
 var lifetimeCoinworldBuys = 0.0;
 var coinsShowing = false;
 var buyLimit1Used = false;
 var buyLimit2Used = false;
 var buyLimit3Used = false;
 const UNLOCK_LIFETIME_I_BUY = 5;
-const UNLOCK_LIFETIME_II_BUY = 10000;
+const UNLOCK_LIFETIME_II_BUY = 5000;
 const UNLOCK_LIFETIME_III_BUY = 100000;
 
 var default_shit_buy_quantity = 1;
@@ -108,14 +148,13 @@ const phase_1_tweets = [
     'Opportunities don’t happen, you create them.',
     'i keep forgettin how much i really like  twitter lol'
 ];
-
 const engagement_tweets = [
     "Tipping is such a scam! Who else thinks we should never tip again?",
     "Wow, what an awesome video! I have never watched a video like that.",
     "What do people call bread where you're from?",
     "Poor people should low key die! DM if you agree!",
     "Without googling, name a movie that needs a sequel!",
-    "I just got bird flu should I go to PyCon?!",
+    "I just got bird flu should I go to MOVIE?!",
     "A WITCH WILL CURSE YOU IF YOU DONT LIKE THIS POST! SHARE TO SPREAD AWARENESS.",
     "where i'm from if you ask someone to take off their shoes they'll shoot you dead! who else?",
     "vaccines are a scam!",
@@ -125,17 +164,16 @@ const engagement_tweets = [
     "Which one of these does NOT belong in a soup?? vvv",
     "What's your most WOKE opinion?",
 ];
-
 const apology_tweets = [
     "I am so sorry for the consequences that my actions have caused, and for my part in those actions.",
 ]
-
 const pump_tweet_functions = [
     (coin_name) => `${coin_name} is going crazy!`,
     (coin_name) => `${coin_name} is Him right now!`,
     (coin_name) => `${coin_name} is such a bargain rn omg i just bought like \$5,000 and it's way up`,
     (coin_name) => `who else just made %5000 today with ${coin_name}!? so awesome`,
 ];
+var engagementBotInterval;
 
 
 const c_ORIGINAL_BG_COLORS = ["#f5f5f57d", "#7a7a7a1f"];

@@ -2,7 +2,8 @@
 <html>
 <head>
     <!-- I love universal paperclips https://www.decisionproblem.com/paperclips/ -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    bad
     <meta charset="utf-8">
     <link rel="shortcut icon" type="img/png" href="img/fave-coin.png"/>
     <link rel="stylesheet"media="screen" href="css/style.css">
@@ -16,6 +17,7 @@
 </head>
 <body>
 <div id="particles-js"></div>    
+<!-- <div id="storyDiv">..........................NFT's are dying down</div> -->
 <div id="networth">Net worth: $103434.00</div>
 <div class="container" id="debug">
     <div id="demandDebug"></div>
@@ -36,25 +38,29 @@
     <div class="item" id="projectsPanel">
         <h3>Projects</h3>
         <div class="container-vertical-center">
-            <button class="actionBtn" id="createX">Create an account on x.com</button>
+            <div class="btn actionBtn" tabindex="0" id="createX" disabled>Create an account on x.com</div>
             <button class="actionBtn" id="quitWork">Quit Work</button>
             <button class="actionBtn" id="restartWorkBtn">Restart work</button>
             <button class="actionBtn" id="makeRob">Create an account on Robinhood</button>
-            <!-- <button class="actionBtn" id="autoboyShit">Autobuy First Shitcoin</button> -->
-            <button class="actionBtn" id="learnEngagement">Start engagement farming.</button>
+            <!-- <button class="actionBtn" id="autoboyShit">AutobuyFirst Shitcoin</button> -->
+            <button class="actionBtn" id="learnEngagement" disabled>Start engagement farming</button>
             <button class="actionBtn" id="coinworldBuyLimit1" disabled>Increase CoinWorld buy limit</button>
             <button class="actionBtn" id="coinworldBuyLimit2" disabled>Increase CoinWorld buy limit II</button>
             <button class="actionBtn" id="coinworldBuyLimit3" disabled>Increase CoinWorld buy limit III</button>
             <button class="actionBtn" id="learnApologies">So sorry...</button>
             <button class="actionBtn" id="makeAccount">Create an account on CoinWorld ($15)</button>
-            <button class="actionBtn" id="makeAccn ountNFT">Create an account on NFTLand ($150)</button>
+            <button class="actionBtn" id="makeAccountNFT">Create an account on NFTLand ($150)</button>
+            <button class="actionBtn" id="engagementBotBtn">Twitter Bot ($5,000)</button>
             <button class="actionBtn" id="makeShitcoin">Make Shitcoin ($100)</button>
             <button class="actionBtn" id="makeStockIndicator">Stock Market Indicator ($2,500)</button>
             <button class="actionBtn" id="makeShitcoin">Autobuy Shitcoins</button>
 
             <button class="actionBtn" id="makeTwitterBotAction">Make Twitter bot</button>
-            <button class="actionBtn" id="teamUpWithCelebAction">Team Up With TikTok Celebrity ($10,000)</button>
-            <button class="actionBtn" id="teamUpWithCelebAction2">Team Up With C-List Celebrity ($60,000)</button>
+            <button class="actionBtn" id="teamUpWithCelebAction1">Team Up With TikTok Influencer ($450)</button>
+            <button class="actionBtn" id="teamUpWithCelebAction2">Team Up With D-List Celebrity ($15,000)</button>
+            <button class="actionBtn" id="teamUpWithCelebAction3">Team Up With C-List Celebrity ($30,000)</button>
+            <button class="actionBtn" id="teamUpWithCelebAction4">Team Up With B-List Celebrity ($90,000)</button>
+            <button class="actionBtn" id="teamUpWithCelebAction5">Team Up With A-List Celebrity ($570,000)</button>
             <button class="actionBtn" id="nftRedesignAction">NFT redesign ($500)</button>
             <button class="actionBtn" id="getIntoPoliticsAction1">Get into politics ($10,000)</button>
             <button class="actionBtn" id="getIntoPoliticsAction2">Get into politics ($20,000)</button>
@@ -64,14 +70,6 @@
             <!-- <button class="actionBtn" id=""></button> -->
         </div>                
     </div>
-    <div class="item" id="prepPanel">
-        <h3>Prep</h3>
-        <h4>buy gold</h4>
-        <div>also let's display gold on the top in bars form</div>
-        <h4>private security costs</h4>
-        <h4>New Zealand property</h4>
-        <h4>Longevity research</h4>
-    </div>    
     <div class="item" id="workPanel">
         <h3>Work</h3> 
         <div class="container-center">
@@ -106,7 +104,8 @@
                         <label for="twitterRadioApologize">Apologize</label>
                     </div>
                 </div>
-                <button class="actionBtn" id="twitterBtn">Tweet</button>
+                <!-- <div class="btn actionBtn" tabindex="0" id="twitterBtn">Tweet</div> -->
+                <button class="actionBtn" tabindex="0" id="twitterBtn">Tweet</button>
                 <!-- <button class="regBtn" id="tweetCrazyBtn">Tweet CRAZY</button> -->
                 <!-- <button class="regBtn" id="twitterBtn">Boost</button> -->
                 <div class="sunken-panel" id="twitterTL" style="height: 120px; width: 240px;">
@@ -188,23 +187,39 @@
     </div>
     <div class="item" id="nftPanel">
         <h3>NFTLand</h3>
-        <div class="container-center">
+        <div class="container-center-nft">
             <div id="nftPriceLabel">NFT Price: $0.01</div>
             <div class="field-row" style="width: 180px"><input id="nftPriceRange" type="range" min="1" max="100" value="10" /></div>
         </div>
 
-        <div class="container-center">
+        <div class="container-center-nft">
             <div id="nftSpacer"></div>
             <div class="field-row" style="width: 180px"><input id="nftVibrancyRange" type="range" min="1" max="100" value="10" /></div>
-            <button id="mintNFT" class="regBtn">Mint NFT</div>
-            <div class="container-center" id="nftStack"></div>
+            <button id="mintNFT" class="regBtn">Mint NFT</button>
+            <div class="container-center-nft" id="nftStack"></div>
         </div>
     </div>
+    <div class="item" id="prepPanel">
+        <h3>Prep</h3>
+        <h4>buy gold</h4>
+        <div>also let's display gold on the top in bars form</div>
+        <h4>private security costs</h4>
+        <h4>New Zealand property</h4>
+        <h4>Longevity research</h4>
+    </div>    
+    <div class="item" id="legalPanel">
+        <h3>Legal</h3>
+        <!-- <h3>Regain access to CoinWorld ($100,000.00)</h3> -->
+        <div class="lawyer-container">
+            <button id="minusLawyerBtn" class="regBtn" disabled>–</button>
+            <span id="lawyerCountSpan">0</span><span>&nbspLAWYERS</span>
+            <button id="plusLawyerBtn" class="regBtn">+</button>
+        </div>        
+        <fieldset id="lawsuitHolder">
+            <legend>Lawsuits</legend>
+        </fieldset>        
     </div>
-    <div class="item">
-        this one
     </div>
-  </div>
 <!-- scripts -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="js/particles.js/particles.js"></script>

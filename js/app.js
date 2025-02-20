@@ -7,6 +7,7 @@ var netWorth = $("#net-worth");
 // projects
 var projectsPanel = $("#projectsPanel");
 var makeCoinworldAccountBtn = $("#makeAccount");
+var legalPanel = $("#legalPanel");
 var makeRobBtn = $("#makeRob");
 var quitWork = $("#quitWork");
 var createXBtn = $("#createX");
@@ -19,8 +20,12 @@ var coinworldBuyLimit2 = $("#coinworldBuyLimit2");
 var coinworldBuyLimit3 = $("#coinworldBuyLimit3");
 var makeShitcoin = $("#makeShitcoin");
 var makeAccountNFT = $("#makeAccountNFT");
-var teamUpWithCelebAction = $("#teamUpWithCelebAction");
+var engagementBotBtn = $("#engagementBotBtn");
+var teamUpWithCelebAction1 = $("#teamUpWithCelebAction1");
 var teamUpWithCelebAction2 = $("#teamUpWithCelebAction2");
+var teamUpWithCelebAction3 = $("#teamUpWithCelebAction3");
+var teamUpWithCelebAction4 = $("#teamUpWithCelebAction4");
+var teamUpWithCelebAction5 = $("#teamUpWithCelebAction5");
 var getIntoPoliticsAction1 = $("#getIntoPoliticsAction1");
 var getIntoPoliticsAction2 = $("#getIntoPoliticsAction2");
 var getIntoPoliticsAction3 = $("#getIntoPoliticsAction3");
@@ -31,8 +36,12 @@ const projectToPrice = {
     150: makeAccountNFT,
     100: makeShitcoin,
     500: nftRedesignAction,
-    10000: teamUpWithCelebAction,
-    60000: teamUpWithCelebAction2,
+    5000: engagementBotBtn,
+    450: teamUpWithCelebAction1,
+    15000: teamUpWithCelebAction2,
+    30000: teamUpWithCelebAction3,
+    90000: teamUpWithCelebAction4,
+    570000: teamUpWithCelebAction5,
     10000: getIntoPoliticsAction1,
     100000: getIntoPoliticsAction2,
     1000000: getIntoPoliticsAction3,
@@ -49,7 +58,6 @@ var buyGME = $("#buyGME");
 var buyTSLA = $("#buyTSLA");
 var cancelRob = $("#cancelRob");
 var dontCancelRob = $("#dontCancelRob");
-// var autoboyShit = $("#autoboyShit");
 
 // work
 var workPanel = $("#workPanel");
@@ -58,6 +66,12 @@ var midWarning = $("#midWarning");
 var highWarning = $("#highWarning");
 var restartWorkBtn = $("#restartWorkBtn");
 var workProgress = $("#work-progress");
+
+// legal
+var lawsuitHolder = $("#lawsuitHolder");
+var lawyerCountSpan = $("#lawyerCountSpan");
+var plusLawyerBtn = $("#plusLawyerBtn");
+var minusLawyerBtn = $("#minusLawyerBtn");
 
 // prepper
 var prepPanel = $("#prepPanel");
@@ -74,7 +88,6 @@ var twitterOptionFieldRegular = $("#twitterOptionFieldRegular");
 var twitterOptionFieldEngagement = $("#twitterOptionFieldEngagement");
 var twitterOptionFieldPumpCoins = $("#twitterOptionFieldPumpCoins");
 var twitterOptionFieldApologize = $("#twitterOptionFieldApologize");
-var twitterOptionPump = $("#twitterOptionFieldPumpCoins");
 var twitterOptionApologize = $("#twitterOptionFieldApologize");
 
 //coinworld
@@ -83,7 +96,7 @@ var coins_held_div = $("#coins_held_div");
 var coins_circulating_div = $("#coins_circulating_div");
 var coins_value_div = $("#coins_value_div");
 var shitHolder = $("#shitHolder");
-
+var myShit = $("#myShit");
 
 // nftland
 var nftPanel = $("#nftPanel");
@@ -152,6 +165,42 @@ function colorChange(promptID) {
     }
 }
 
+function suitNameUsed(s) {
+    for (const [key, value] of Object.entries(lawsuitsObj)) {
+        if (value.name === s) {
+            return true;
+        }
+    }    
+    return false;
+}
+
+function getUniqueLawsuitName() {
+    var suitName = getRandFromArr(LAWSUIT_NAMES);
+    while (suitNameUsed(suitName)) {
+        suitName = getRandFromArr(LAWSUIT_NAMES);
+    }
+    return suitName;
+}
+
+function makeLawsuit() {
+    if (!legalProblemsStarted) {
+        startLegalProblems();
+    }
+    if (Object.keys(lawsuitsObj).length > 5) return;
+    let lawsuitName = getUniqueLawsuitName();
+    let lawsuitID = Math.random().toString(36).substring(8);
+    const lawsuitAmt = Math.max(1000 * parseInt((bank_worth/1000) * Math.random() * 0.7), 10000);
+
+    lawsuitsObj[lawsuitID] = {
+        name: lawsuitName,
+        originalTotal: lawsuitAmt,
+        amtRemaining: lawsuitAmt,
+    }
+
+    var lawsuit = `<div class="lawsuit" id="lawsuit_${lawsuitID}"><span>${lawsuitName}</span><span id="lawsuitAmt_${lawsuitID}">\$${formatNumber(lawsuitAmt)}</span></div>`;
+    lawsuitHolder.append(lawsuit);
+}
+
 function makeCoinWorld() {
     coinworld_sub = true;
     bank_worth -= 15.00;
@@ -182,9 +231,9 @@ function teamUpWithCeleb(popularityGain, celebTweet) {
     popularity += popularityGain;
 }
 
-teamUpWithCelebAction.click(function() {
-    teamUpWithCelebAction.hide();
-    bank_worth -= 10000;
+teamUpWithCelebAction1.click(function() {
+    teamUpWithCelebAction1.hide();
+    bank_worth -= 10000; 
     setCash();
     teamUpWithCeleb(1.5, "$SHIT is teaming up with TikTok prankster K.J. Seter, we takin' over! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
 });
@@ -199,6 +248,13 @@ teamUpWithCelebAction2.click(function() {
 learnEngagementBtn.click(function() {
     learnEngagementBtn.hide();
     $('#twitterRadioEngagement').prop('disabled', false);
+});
+
+engagementBotBtn.click(function() {
+    engagementBotBtn.hide();
+    bank_worth -= 5000;
+    setCash();
+    engagementBotInterval = setInterval(makeEngagementBotTweet, 1300);
 });
 
 learnApologiesBtn.click(function() {
@@ -257,6 +313,9 @@ makeAccountNFT.click(function() {
     makeAccountNFT.hide();
     bank_worth -= 150.00;
     setCash();
+    setTimeout(function() {
+        teamUpWithCelebAction.show();
+    }, 60000);    
 });
 
 function insertSorted(list, newItem) {
@@ -425,7 +484,7 @@ nftVibrancyRange.on('input', function () {
 
 // ROBINHOOD
 makeRobBtn.click(function() {
-    refreshRobinhoodInterval = setInterval(refreshRob, 1500);    
+    refreshRobinhoodInterval = setInterval(refreshRob, refreshRobTickSpeed);
     robinhoodPanel.show();
     makeRobBtn.hide();
     makeStockIndicatorBtn.show();    
@@ -433,24 +492,29 @@ makeRobBtn.click(function() {
 
 createXBtn.click(function() {
     socialsPanel.show();
-    createXBtn.hide();
+    // createXBtn.hide();
 });
 
 function endWork() {
     clearInterval(refreshWorkInterval);
     refreshWorkInterval = null;
     workPanel.hide();
-    quitWork.hide();
-    if (!coinWorldPanel.is(':visible')) makeCoinworldAccountBtn.show();
+    // quitWork.hide();
+    if (!coinWorldPanel.is(':visible')) makeAccountNFT.show();
 }
 
 function restartWork() {
+    console.log("work progress bar to 0, work divs disappear plz");
     restartWorkBtn.hide();
     emptyEmailIndices = new Set(Array.from({ length: 33 }, (_, i) => i));
     unrespondedEmailIndices = new Set();        
-    refreshWorkInterval = setInterval(refreshWork, workInterval);        
+    setProgressPercent();
+    $(".workItem").html("");
+    $(".workWarning").hide();
+    refreshWorkInterval = setInterval(refreshWork, workInterval);
     workPanel.show();
     quitWork.show();
+
 }
 
 quitWork.click(function() {
@@ -462,7 +526,7 @@ restartWorkBtn.click(function() {
 });
 
 
-function nameUsed(s) {
+function shitNameUsed(s) {
     for (const [key, value] of Object.entries(shitCoins)) {
         if (value.name === s) {
             return true;
@@ -473,7 +537,7 @@ function nameUsed(s) {
 
 function getUniqueShitName() {
     var shitName = getRandFromArr(shitNameArr);
-    while (nameUsed(shitName)) {
+    while (shitNameUsed(shitName)) {
         shitName = getRandFromArr(shitNameArr);        
     }
     return shitName;
@@ -494,7 +558,7 @@ function addShit() {
         price: value,
         name: shitName,
         chanceToDrop: 0.99955,
-        coinUniqueBonus: Math.random(),
+        coinUniqueBonus: 0.1,
         boost: 0.0,
         quantity: quantity
     }
@@ -550,8 +614,7 @@ function boostCoin(shitID, boosterPopularity) {
     shitCoins[shitID].chanceToDrop -= 0.00004;
 }
 
-function sellCoin(coinValuation) {
-    let id_str = coinValuation.attr("id").slice(14);
+function sellCoin(id_str) {
     if (shitCoins[id_str].price <= 0) {
         return;
     }
@@ -563,8 +626,22 @@ function sellCoin(coinValuation) {
     paintShit(id_str, 0, 0);
 }
 
+function sellMyCoin() {
+    var sell_payout = (myShitCoin.quantity * myShitCoin.price) / 100;
+    bank_worth += sell_payout;
+    setCash();
+    console.log("todo lower price when u sell ur own coin");
+    myShitCoin.quantity = 0;
+    paintShit("MINE", 0, 0);
+}
+
 $(document).on('click', '.coinValuation', function () {
-    sellCoin($(this));
+    let full_id_str = $(this).attr("id");
+    if (full_id_str === MY_SHIT_VALUE_ID) {
+        sellMyCoin();
+    } else {
+        sellCoin(full_id_str.slice(14));        
+    }
 });
 
 function buyCoin(shitID, quantity) {
@@ -574,7 +651,6 @@ function buyCoin(shitID, quantity) {
     }
     bank_worth -= transactionTotal;
     lifetimeCoinworldBuys += transactionTotal;
-    console.log(lifetimeCoinworldBuys);
     if ((!buyLimit1Used) && lifetimeCoinworldBuys > (UNLOCK_LIFETIME_I_BUY/2)) {
         coinworldBuyLimit1.show();
         if ((!buyLimit1Used) && lifetimeCoinworldBuys > UNLOCK_LIFETIME_I_BUY) {
@@ -601,14 +677,24 @@ function buyCoin(shitID, quantity) {
     paintShit(shitID, shitCoins[shitID].price, shitCoins[shitID].quantity);
 }
 
+function buyMyCoin() {
+    myShitCoin.quantity += coinworld_buy_amt;
+    console.log("todo: big dump crashes price");
+    paintShit("MINE", myShitCoin.price, myShitCoin.quantity);
+}
+
 $(document).on('click', '.coinBtn', function () {
-    let id_str = $(this).attr("id").slice(8);
-    buyCoin(id_str, coinworld_buy_amt);
+    let full_id = $(this).attr("id");
+    if (full_id === MY_SHIT_BUY_ID) {
+        buyMyCoin();
+    } else {
+        let id_str = full_id.slice(8);
+        buyCoin(id_str, coinworld_buy_amt);
+    }
 });
 
 
 function paintShit(shitID, price, quantity) {
-    
     $(`#shitValuation_${shitID}`).html(`\$${formatShitValue(price*quantity)}`);
 }
 
@@ -660,16 +746,59 @@ function refreshShit(shitID, shitDict) {
     }
 }
 
+function refreshMyShit() {
+    // Get the coin's current state from our global object.
+    var goingUp = myShitCoin.goingUp;
+    var coinUniqueBonus = popularity / 100;
+
+    // Flip the coin's state with very low probabilities.
+    var r = Math.random();
+    if (goingUp && r > myShitCoin.chanceToDrop) {   // When going up, small chance to flip down
+        goingUp = false;
+    } else if (!goingUp && r < 0.0003) {  // When falling, small chance to flip up
+        goingUp = true;
+    }
+
+    var newPrice;
+    if (goingUp) {
+        var growthRate;
+        growthRate = 0.0002 + 0.0005 * coinUniqueBonus;
+        newPrice = ((myShitCoin.price * 1000 * (1 + growthRate)) / 1000) + myShitCoin.boost;
+    } else {
+        var declineRate = 0.018 + 0.1 * coinUniqueBonus;
+        newPrice = myShitCoin.price * (1 - declineRate);
+    }
+    if ( (0.50 < r) && (r < 0.52)) {
+        newPrice = myShitCoin.price*2 - newPrice;
+    }
+
+    if (newPrice < 0.01) {
+        newPrice = 0.01;
+        myShitCoin.chanceToDrop = 0.99954,
+        myShitCoin.boost = 0.0;
+        my_shitcoin_crashes++;
+        myShit.goingUp = true;
+    } else {
+        myShitCoin.goingUp = goingUp;
+        myShitCoin.price = newPrice;
+        paintShit("MINE", newPrice, myShitCoin.quantity);
+
+        if (myShitCoin.boost > 0.1) {
+            myShitCoin.boost -= 0.1;
+        } else {
+            myShitCoin.boost = 0.0;
+        }
+    }
+}
+
 coinworldBuyLimit1.click(function() {
     coinworld_buy_amt = 1000;
     coinworldBuyLimit1.hide();
-    makeAccountNFT.show();    
 });
 
 coinworldBuyLimit2.click(function() {
-    coinworld_buy_amt = 10000;    
+    coinworld_buy_amt = 10000;
     coinworldBuyLimit2.hide();
-    twitterOptionFieldPumpCoins.show();    
 });
 
 coinworldBuyLimit3.click(function() {
@@ -678,6 +807,9 @@ coinworldBuyLimit3.click(function() {
 });
 
 function refreshCoinPanel() {
+    if (myShitCreated) {
+        refreshMyShit();
+    }
     for (const [key, value] of Object.entries(shitCoins)) {
         refreshShit(key, value);
         if (key in shitCoins) {
@@ -716,13 +848,13 @@ function makeMyShitcoin() {
     coins_held_div.show();
     coins_value_div.show();
     $('.content-stat-div').css("display", "flex");
-
+    myShit.show();
 
     makeShitcoin.hide();
     refreshCoinPanel();
 
     bank_worth -= 100.00;
-
+    myShitCreated = true;
     setCash();    
 }
 
@@ -832,6 +964,34 @@ cancelRob.click(function() {
 
 });
 
+
+plusLawyerBtn.click(function() {
+    if (numLawyers < MAX_LAWYERS) {
+        numLawyers++;
+        lawyerCountSpan.html(numLawyers);
+        minusLawyerBtn.prop('disabled', false);
+    }
+    if (numLawyers === MAX_LAWYERS) {
+        plusLawyerBtn.prop('disabled', true);
+    } else {
+        plusLawyerBtn.prop('disabled', false);
+    }
+});
+
+minusLawyerBtn.click(function() {
+    if (numLawyers > 0) {
+        numLawyers--;
+        lawyerCountSpan.html(numLawyers);
+        plusLawyerBtn.prop('disabled', false);        
+    }
+    if (numLawyers === 0) {
+        minusLawyerBtn.prop('disabled', true);
+    } else {
+        minusLawyerBtn.prop('disabled', false);
+    }
+
+});
+
 function setNetWorth() {
     var my_coin_value = coin_value * coins_held;
     var calculated_worth = (bank_worth + my_coin_value).toFixed(2);
@@ -883,23 +1043,8 @@ function enable_disable_btns_against_cash() {
 }
 
 function setCash() {
+    lifetimeMaxCash = Math.max(bank_worth, lifetimeMaxCash);
     let bank_str = formatNumber(bank_worth);
-    // todo disable everything that u don't have enough cash for
-    // if (gme_valuation > bank_worth) {
-    //     buyGME.prop("disabled", true);
-    // } else {
-    //     buyGME.prop("disabled", false);        
-    // }
-    // if (tsla_valuation > bank_worth)  {
-    //     buyTSLA.prop("disabled", true);
-    // } else {
-    //     buyTSLA.prop("disabled", false);        
-    // }
-    // if (nvda_valuation > bank_worth) {
-    //     buyNVDA.prop("disabled", true);
-    // } else {
-    //     buyNVDA.prop("disabled", false);        
-    // }
     enable_disable_btns_against_cash();
     cash.html(`Cash: \$${bank_str}`);
 }
@@ -918,28 +1063,35 @@ function refreshRob() {
 
     if (Math.random() < 0.25) {
         gme_valuation -= gme_diff_today;
+        gme_valuation = Math.max(gme_valuation, 0.1);
     } else {
         gme_valuation += gme_diff_today;
     }
     if (Math.random() < 0.35) {
         nvda_valuation -= nvda_diff_today;
+        nvda_valuation = Math.max(nvda_valuation, 0.1);
     } else {
         nvda_valuation += nvda_diff_today;
     }
     if (Math.random() < 0.10) {
         tsla_valuation -= tsla_diff_today;
+        tsla_valuation = Math.max(tsla_valuation, 0.1);
     } else {
         tsla_valuation += tsla_diff_today;
     }
 
     if (Math.random() > 0.95) {
         rob_going_up = !rob_going_up;
-        if (rob_going_up){
-            stockIndicatorDiv.html("Market: ^");
-            stockIndicatorDiv.addClass("upMarket");
+        if (!rob_going_up && Math.random() > 0.91) { // hacky way to make it go u more than down
+            rob_going_up = true;
         } else {
-            stockIndicatorDiv.html("Market: v");
-            stockIndicatorDiv.addClass("downMarket");
+            if (rob_going_up){
+                stockIndicatorDiv.html("Market: ^");
+                stockIndicatorDiv.addClass("upMarket");
+            } else {
+                stockIndicatorDiv.html("Market: v");
+                stockIndicatorDiv.addClass("downMarket");
+            }
         }
     }
     setRob();
@@ -981,6 +1133,69 @@ function setProgressPercent() {
         highWarning.show();
     }
     workProgress.css("width", `${percent_filled}%`);
+}
+
+function deleteSuit(suitID) {
+    delete lawsuitsObj[suitID];
+    $(`#lawsuit_${suitID}`).remove();    
+}
+
+function paintSuit(suitID) {
+    const amtRemaining = lawsuitsObj[suitID].amtRemaining;
+    $(`#lawsuitAmt_${suitID}`).html(`\$${formatNumber(amtRemaining)}`);
+}
+
+function legalRefresh() {
+    if (numLawyers === 0) {
+        for (const [suitID, suitObj] of Object.entries(lawsuitsObj)) {
+            lawsuitsObj[suitID].amtRemaining += Math.min(1000, parseInt(lawsuitsObj[suitID].amtRemaining * .01));
+            paintSuit(suitID);
+        }
+        return;
+    }
+    var legalCost = numLawyers * LAWYER_RATE;
+    bank_worth -= legalCost;
+
+    if (bank_worth < legalCost) {
+        numLawyers = Math.max(parseInt(bank_worth / LAWYER_RATE), 0);
+        lawyerCountSpan.html(numLawyers);
+        if (numLawyers === 0) {
+            minusLawyerBtn.prop('disabled', true);            
+        }
+    }
+
+    var lawyersRemaining = numLawyers;
+    for (const [suitID, suitObj] of Object.entries(lawsuitsObj)) {
+        var paymentAmt = suitObj.originalTotal/20;
+
+        // our lawyers help get payments down
+        var lawyerDiscountedAmt = paymentAmt;
+        if (lawyersRemaining > 2) {
+            lawyerDiscountedAmt /= 3;
+            lawyersRemaining -= 3;
+        } else if (lawyersRemaining > 0) {
+            lawyerDiscountedAmt /= lawyersRemaining;
+            lawyersRemaining = 0;
+        }
+        if (paymentAmt >= bank_worth) {
+            if (suitObj.amtRemaining > bank_worth) {
+                lawsuitsObj[suitID].amtRemaining -= bank_worth;
+                paintSuit(suitID);
+                bank_worth = 0;
+            } else {
+                bank_worth -= suitObj.amtRemaining;
+                deleteSuit(suitID);
+            }
+        } else { // have enough to pay our tenth
+            bank_worth -= lawyerDiscountedAmt;
+            lawsuitsObj[suitID].amtRemaining -= parseInt(paymentAmt);
+            paintSuit(suitID);
+            if (lawsuitsObj[suitID].amtRemaining <= 1) {
+                deleteSuit(suitID);                
+            }
+        }
+    }
+    setCash();
 }
 
 // work
@@ -1039,43 +1254,6 @@ document.querySelectorAll('table.interactive').forEach(element => {
     })
   });
 
-// TWITTER
-// function makeNewTweet(tweetType) {
-//     total_tweets += 1;
-//     if (!rob_btn_shown && total_tweets > 3) {
-//         makeRobBtn.show();
-//         rob_btn_shown = true;
-//     }
-//     if (tweetType === "twitterRadioRegular") {
-//         return getRandFromArr(phase_1_tweets);
-//     } else if (tweetType === "twitterRadioEngagement") {
-//         let celebStr = "";
-//         for (let i = 0; i < getRandomNumber(0, 2); i++) {
-//             const randomCeleb = getRandFromArr(most_popular_tweeters);
-//             celebStr += " " + randomCeleb;
-//         }
-//         const randomTweet = getRandFromArr(engagement_tweets);
-//         return randomTweet + " " + celebStr;
-//     } else if (tweetType === "twitterRadioPumpCoins") {
-//         // shit logic
-//         var shitID = getRandomKey(shitCoins); // TODO maybe boost specific one..
-//         var shitName = shitCoins[shitID].name;
-//         const randomTweetTemplate = getRandFromArr(pump_tweets);
-//         const randomTweet = randomTweetTemplate(shitName);
-//         boostCoin(shitID);
-//         console.log("boost " + shitID);
-
-//         // forming tweet
-//         let celebStr = "";
-//         for (let i = 0; i < getRandomNumber(0, 2); i++) {
-//             const randomCeleb = getRandFromArr(most_popular_tweeters);
-//             celebStr += " " + randomCeleb;
-//         }
-//         return randomTweet + " " + celebStr;        
-//     } else if (tweetType === "twitterRadioApologize") {
-
-//     }
-// }
 
 function paintNextTweet(tweetStr, likes) {
     const newRow = `<tr><td>${formatToInt(likes)}</td><td>${tweetStr}</td></tr>`;
@@ -1089,13 +1267,24 @@ function paintNextTweet(tweetStr, likes) {
         makeRobBtn.show();
         rob_btn_shown = true;
     }
-    if (total_tweets == 30) {
+    if (total_tweets == 10) {
         learnEngagementBtn.show();
+    }
+    else if (total_tweets == 30) {
+        learnEngagementBtn.prop('disabled', false);
+    } else if (total_tweets == 100) {
+        engagementBotBtn.show();
     }
 }
 
-function addTweet() {
-    var tweetType = $('input[name="twitter-option"]:checked').attr('id');
+function makeEngagementBotTweet() {
+    addTweet("twitterRadioEngagement");
+}
+
+function addTweet(tweetType) {
+    if (!tweetType) {
+        var tweetType = $('input[name="twitter-option"]:checked').attr('id');
+    }
 
     var likes = 0;
     var newTweet;
@@ -1123,12 +1312,12 @@ function addTweet() {
             randLikesCoeff = getRandomNumber(5000, 10000);
         }
         likes = parseInt(popularity * randLikesCoeff);
-        if (popularity > 5) {
-            twitterOptionPump.show();
-        }
         if (popularity < 50) {
             popularity += Math.min(0.35, likes / 3000);
             popularity = roundFloat(popularity, 5);
+            if (popularity > 15) {
+                twitterOptionFieldPumpCoins.show();                
+            }
         }
     } else if (tweetType === "twitterRadioPumpCoins") {
         // tweet str
@@ -1137,20 +1326,21 @@ function addTweet() {
             const randomCeleb = getRandFromArr(most_popular_tweeters);
             celebStr += " " + randomCeleb;
         }
-
-        // get my crypto from current shitcoins and pick one to boost
-        // boost that one
         var shitID = getTopValueKey(shitCoins);
         const randomTweetTemplate = getRandFromArr(pump_tweet_functions);
         const randomTweet = randomTweetTemplate(shitCoins[shitID].name);
         newTweet = randomTweet + " " + celebStr;
         boostCoin(shitID, popularity/50.0);
         mistrust_popularity += 0.5;
+        if ((lifetimeMaxCash > BIG_ENOUGH_TO_SUE) && Math.random() > 0.92) {
+            makeLawsuit();
+        }
     } else if (tweetType === "twitterRadioApologize") {
         newTweet = getRandFromArr(apology_tweets);
         let randLikesCoeff = getRandomNumber(30, 50);
         likes = parseInt(popularity * randLikesCoeff);
-        console.log("update trust or whatever");
+        mistrust_popularity -= 0.5;
+        mistrust_popularity = Math.min(mistrust_popularity, 0);
     }
 
     paintNextTweet(newTweet, likes);
@@ -1207,8 +1397,7 @@ function globalRefresh() {
         }
     }
 
-
-    if (bank_worth <= 5 && !refreshWorkInterval) {
+    if (bank_worth <= 50 && !refreshWorkInterval) {
         restartWorkBtn.show();
     }
 
@@ -1217,7 +1406,11 @@ function globalRefresh() {
     }
 }
 
-
+function startLegalProblems() {
+    legalPanel.show();
+    legalRefreshInterval = setInterval(legalRefresh, legalRefreshTickSpeed);
+    legalProblemsStarted = true;    
+}
 
 function startGame() {
     setCash();
@@ -1227,9 +1420,9 @@ function startGame() {
     twitterOptionFieldRegular.show();
     twitterOptionFieldEngagement.show();
 
-    // globalQuickInterval = setInterval(globalRefresh, globalIntervalTickSpeed); // TODO uncomment
-    // workPanel.show(); // TODO uncomment
-    // refreshWorkInterval = setInterval(refreshWork, workInterval); // TODO uncomment
+    globalQuickInterval = setInterval(globalRefresh, globalIntervalTickSpeed); // TODO uncomment
+    workPanel.show(); // TODO uncomment
+    refreshWorkInterval = setInterval(refreshWork, workInterval); // TODO uncomment
     createXBtn.show(); // TODO uncomment
     projectsPanel.show(); // TODO uncomment
 
@@ -1239,20 +1432,28 @@ function startGame() {
     // enable_disable_btns_against_cash();
 
     // social testing
-    // socialsPanel.show();
+    // socialsPanel.show(); // TODO
+    // twitterOptionFieldPumpCoins.show(); // TODO remove
 
     // twitterOptionPump.show();
     // prepPanel.show();
 
     // coinworld testing
     // makeCoinworldAccountBtn.show();
-    makeCoinWorld(); // TODO remove
-    addShit();
-    popularity = 80;
-    coinworldBuyLimit1.show();
-    // coinworldBuyLimit2.show();
-    // coinworldBuyLimit3.show();
-    makeShitcoin.show();
+    // makeCoinWorld(); // TODO remove
+    // addShit(); // TODO remove
+    // popularity = 80; // TODO remove
+    // coinworldBuyLimit1.show(); // TODO remove
+    // coinworldBuyLimit1.prop("disabled", false);
+    // coinworldBuyLimit2.show(); // TODO remove
+    // coinworldBuyLimit3.show(); // TODO remove
+    // makeShitcoin.show(); // TODO remove
+
+    // legal testingPP
+    // bank_worth = 10000000; // TODO remove
+    // coinworld_buy_amt = 1000; // TODO remove
+    // setCash(); // TODO remove
+    // startLegalProblems(); // TODO remove
 
     // makeThatShitcoin(); // TODO remove
 

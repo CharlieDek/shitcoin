@@ -397,15 +397,16 @@ path {
     cursor: url("../img/hand-cursor.png"), auto;
   }
 
-  .sunken-panel {
+.sunken-panel {
     box-sizing: border-box;
     border: 2px groove transparent;
     border-image: url("./icon/sunken-panel-border.svg") 2;
     overflow: auto;
-  }
+}
 
   #nftStack {
-    top: -167px;
+    top: -137px;
+    left: -38px;
     position: relative; /* Needed for absolute positioning inside */
 }
 
@@ -594,12 +595,18 @@ html, body {
     display: none;
 }
 
+#storyDiv {
+    position: fixed;
+    left: 5px;
+    font-size: 12px;
+}
+
 
 /* Container stuff */
 .container {
     margin: 5px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
@@ -613,9 +620,31 @@ html, body {
     padding: 3px;
 }
 
+.lawsuit {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    /* border-image: url("./icon/groupbox-border.svg") 2;     */
+    padding: 3px;
+}
+
 .coin-container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 1px solid black;
+}
+
+#lawyerCountSpan {
+    width: 15px;
+    text-align: center;
+}
+
+.lawyer-container {
+    display: flex;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     border-bottom: 1px solid black;
@@ -633,6 +662,13 @@ html, body {
     margin: 5px;
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.container-center-nft {
+    margin: 5px;
+    display: flex;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
@@ -777,6 +813,50 @@ button[disabled]:hover {
     cursor: url("../img/cursor.png"), auto;    
 }
 
+.btn {
+    text-align: center;
+    user-select: none;    
+}
+
+.btn:disabled,
+.btn:disabled:active,
+.btn:disabled:hover,
+.btn:disabled:focus,
+.btn[disabled],
+.btn[disabled]:active,
+.btn[disabled]:focus,
+.btn[disabled]:hover {
+    color: var(--button-shadow);
+    text-shadow: 1px 1px 0 var(--button-highlight);    
+    font-family: "Pixelated MS Sans Serif", Arial;
+    -webkit-font-smoothing: none;
+    background-color: transparent;
+    background-color: transparent;
+    cursor: url("../img/cursor.png"), auto;
+    outline: none;
+    box-shadow: var(--border-raised-outer), var(--border-raised-inner);
+    pointer-events: none;    
+}
+
+.btn:hover {
+    box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
+    cursor: url("../img/hand-cursor.png"), auto;     
+}
+
+.btn:active {
+    box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
+    cursor: url("../img/hand-cursor.png"), auto;    
+}
+
+.btn:focus {
+    box-shadow: var(--border-sunken-outer), var(--border-sunken-inner);
+    outline: 1px dotted #000000;
+    outline-offset: -4px;    
+    cursor: url("../img/hand-cursor.png"), auto;
+}
+
+
+
 /* button[disabled]:active{
     color: var(--button-shadow);
     text-shadow: 1px 1px 0 var(--button-highlight);    
@@ -907,6 +987,10 @@ button[disabled]:hover {
     justify-content: space-between;    
 }
 
+#myShit {
+    display: none;
+}
+
 #shitHolder {
     height: 152px;
 }
@@ -954,7 +1038,7 @@ button[disabled]:hover {
     white-space: normal;
     word-wrap: break-word;
     text-align: center;
-    box-shadow: var(--border-raised-outer), var(--border-raised-inner);    
+    box-shadow: var(--border-raised-outer), var(--border-raised-inner);
     border: none;
 }
 
