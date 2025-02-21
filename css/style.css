@@ -14,6 +14,7 @@
     --coin-color: #0f4eff;
     --twitter-color: #2e9df0;
     --cancel-color: #ff3232;
+    --fresh-lawsuit-color: #ff3232;
     --down-market-color: #ff794c;
     --up-market-color: #3baf5a;
 
@@ -162,8 +163,6 @@ input[type="checkbox"] + label::before {
   margin-right: var(--radio-label-spacing);
 }
 
-
-  
 .field-row {
     display: flex;
     align-items: center;
@@ -192,53 +191,74 @@ label {
     font-size: 10px;
 }
 
-  .field-row-stacked * + * {
+.field-row-stacked * + * {
     margin-top: var(--grouped-element-spacing);
-  }
+}
 
-  input[type="range"] {
+input[type="range"] {
     -webkit-appearance: none;
+    appearance: none;
     width: 100%;
     background: transparent;
-    background: url("./icon/indicator-horizontal.svg");
-
-  }
+}
   
-  input[type="range"]:focus {
+input[type="range"]:focus {
     outline: none;
-  }
+}
+
+/* input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    height: 23px;
+    width: 22px; 
+    background: url('./icon/indicator-horizontal.svg') no-repeat center/contain;
+    background-size: contain;
+    cursor: url("../img/hand-cursor.png"), auto;
+    background-position: 10px 50%;
+    box-shadow: none;
+    transform: translateY(-11px);
+    border: none;
+  } */
+
   
   input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
     appearance: none;
+    height: 26px;
+    width: 21px;
     background: url('./icon/indicator-horizontal.svg') no-repeat center/contain;
     cursor: url("../img/hand-cursor.png"), auto;
-    -webkit-appearance: none;
-    height: 21px;
-    width: 11px;
-    transform: translateY(-8px);
+    margin-top: -12px; 
+    background-position: 7px 50%;
+    margin-left: -3px;    
     box-shadow: none;
-    border: none;    
-  }
-  
+    border: none;
+}
+
   input[type="range"].has-box-indicator::-webkit-slider-thumb {
     /* background: url("./icon/indicator-rectangle-horizontal.svg"); */
     transform: translateY(-10px);
-  }
+    background-color: orange;
+}
   
   input[type="range"]::-moz-range-thumb {
     background: url('./icon/indicator-horizontal.svg') no-repeat center/contain;
     cursor: url("../img/hand-cursor.png"), auto;
-
-    height: 21px;
-    width: 11px;
+    height: 23px; /* Larger height for a bigger vertical hit area */
+    width: 22px;  /* Larger width for a bigger horizontal hit area */
     border: 0;
     border-radius: 0;
     transform: translateY(2px);
   }
   
   input[type="range"].has-box-indicator::-moz-range-thumb {
-    /* background: url("./icon/indicator-rectangle-horizontal.svg"); */
-    transform: translateY(0px);
+    background: url('./icon/indicator-horizontal.svg') no-repeat center/contain;
+    cursor: url("../img/hand-cursor.png"), auto;
+    height: 21px;
+    width: 11px;
+    border: 0;
+    border-radius: 0;
+    transform: translateY(2px);
   }
   
   input[type="range"]::-webkit-slider-runnable-track {
@@ -358,11 +378,11 @@ fieldset {
     /* padding: 4px; */
 }
 
-path {
-    fill: var(--cancel-color);
-    stroke: var(--surface);
-    stroke-width: 3;
-}  
+/* path { */
+    /* fill: var(--cancel-color); */
+    /* stroke: var(--surface); */
+    /* stroke-width: 3; */
+/* }   */
 
 .progress-indicator {
 	height: 32px;
@@ -405,14 +425,28 @@ path {
 }
 
   #nftStack {
-    top: -137px;
+    top: -179px;
     left: -38px;
     position: relative; /* Needed for absolute positioning inside */
 }
 
+#nftCurveRangeField {
+    display: none;
+}
+
+#nftCurveSpacer {
+    height: 20px;
+    width: 162px;
+}
+
 #nftSpacer {
-    height: 142px;
+    height: 120px;
     width: 200px;
+}
+
+.nftSlider {
+    width: 100px;
+    margin: 13px;
 }
 
 .nft-svg {
@@ -606,9 +640,21 @@ html, body {
 .container {
     margin: 5px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
 }
+
+/* 768 small stuff */
+@media (max-width: 610px) {
+    .container {
+        margin: 5px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+
 
 .rob-container {
     display: flex;
@@ -627,6 +673,10 @@ html, body {
     flex-wrap: wrap;
     /* border-image: url("./icon/groupbox-border.svg") 2;     */
     padding: 3px;
+}
+
+.freshLawsuit {
+    color: var(--fresh-lawsuit-color);
 }
 
 .coin-container {
@@ -916,6 +966,12 @@ button[disabled]:hover {
     display: none;
 }
 
+#robSuspensionMessage {
+    font-weight: bold;
+    display: none;
+    font-size: 10px;
+}
+
 #cancelRob:active {
     background-color: var(--cancel-color);
 }
@@ -925,6 +981,7 @@ button[disabled]:hover {
 #twitterBtn {
     height: 44px;
     display:block;
+    line-height: 44px;;
 }
 
 .twitterOption {
@@ -1075,10 +1132,7 @@ button[disabled]:hover {
     cursor: url("../img/hand-cursor.png"), auto;
 }
 
-/* 768 small stuff */
-@media (max-width: 768px) {
 
-}
 
 .animated {
     -webkit-animation-duration: 1.2s;

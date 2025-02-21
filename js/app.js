@@ -29,6 +29,7 @@ var teamUpWithCelebAction5 = $("#teamUpWithCelebAction5");
 var getIntoPoliticsAction1 = $("#getIntoPoliticsAction1");
 var getIntoPoliticsAction2 = $("#getIntoPoliticsAction2");
 var getIntoPoliticsAction3 = $("#getIntoPoliticsAction3");
+var getRealAction = $("#getRealAction");
 
 const projectToPrice = {
     2500: makeStockIndicatorBtn,
@@ -37,7 +38,7 @@ const projectToPrice = {
     100: makeShitcoin,
     500: nftRedesignAction,
     5000: engagementBotBtn,
-    450: teamUpWithCelebAction1,
+    1150: teamUpWithCelebAction1,
     15000: teamUpWithCelebAction2,
     30000: teamUpWithCelebAction3,
     90000: teamUpWithCelebAction4,
@@ -52,6 +53,7 @@ var robinhoodPanel = $("#robinhoodPanel");
 var robinHoodNVDA = $("#robinHoodNVDA");
 var robinHoodTSLA = $("#robinHoodTSLA");
 var robinHoodGME = $("#robinHoodGME");
+var robSuspensionMessage = $("#robSuspensionMessage");
 var stockIndicatorDiv = $("#stockindicator");
 var buyNVDA = $("#buyNVDA");
 var buyGME = $("#buyGME");
@@ -85,6 +87,7 @@ var twitterTableBody = $("#twitterTL tbody");
 var popularityProgress = $("#popularity-progress");
 
 var twitterOptionFieldRegular = $("#twitterOptionFieldRegular");
+var twitterOptionFieldPumpMy = $("#twitterOptionPumpMy");
 var twitterOptionFieldEngagement = $("#twitterOptionFieldEngagement");
 var twitterOptionFieldPumpCoins = $("#twitterOptionFieldPumpCoins");
 var twitterOptionFieldApologize = $("#twitterOptionFieldApologize");
@@ -100,11 +103,12 @@ var myShit = $("#myShit");
 
 // nftland
 var nftPanel = $("#nftPanel");
-var vibrancy_input = $('input[type="range"]');
 var mintNFT = $("#mintNFT");
 var nftStack = $("#nftStack");
 var nftPriceRange = $('#nftPriceRange');
 var nftVibrancyRange = $('#nftVibrancyRange');
+var nftCurveRange = $('#nftCurveRange');
+var nftCurveRangeField = $('#nftCurveRangeField');
 var nftPriceLabel = $('#nftPriceLabel');
 
 // debug
@@ -186,7 +190,7 @@ function makeLawsuit() {
     if (!legalProblemsStarted) {
         startLegalProblems();
     }
-    if (Object.keys(lawsuitsObj).length > 5) return;
+    if (Object.keys(lawsuitsObj).length > MAX_LAWSUITS) return;
     let lawsuitName = getUniqueLawsuitName();
     let lawsuitID = Math.random().toString(36).substring(8);
     const lawsuitAmt = Math.max(1000 * parseInt((bank_worth/1000) * Math.random() * 0.7), 10000);
@@ -197,7 +201,7 @@ function makeLawsuit() {
         amtRemaining: lawsuitAmt,
     }
 
-    var lawsuit = `<div class="lawsuit" id="lawsuit_${lawsuitID}"><span>${lawsuitName}</span><span id="lawsuitAmt_${lawsuitID}">\$${formatNumber(lawsuitAmt)}</span></div>`;
+    var lawsuit = `<div class="lawsuit freshLawsuit" id="lawsuit_${lawsuitID}"><span>${lawsuitName}</span><span id="lawsuitAmt_${lawsuitID}">\$${formatNumber(lawsuitAmt)}</span></div>`;
     lawsuitHolder.append(lawsuit);
 }
 
@@ -227,27 +231,56 @@ makeStockIndicatorBtn.click(function() {
 
 function teamUpWithCeleb(popularityGain, celebTweet) {
     paintNextTweet(celebTweet, parseInt(Math.random() * 100 * popularityGain));
-    console.log("todo boost my $shit coin");
     popularity += popularityGain;
 }
 
 teamUpWithCelebAction1.click(function() {
     teamUpWithCelebAction1.hide();
-    bank_worth -= 10000; 
+    bank_worth -= 1150;
+    my_nft_boost += 0.001;
     setCash();
-    teamUpWithCeleb(1.5, "$SHIT is teaming up with TikTok prankster K.J. Seter, we takin' over! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
+    teamUpWithCeleb(2, "I'm teaming up with TikTok prankster K.J. Seter, our NFT's takin' over! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
 });
 
 teamUpWithCelebAction2.click(function() {
     teamUpWithCelebAction2.hide();
-    bank_worth -= 60000;
+    bank_worth -= 15000;
     setCash();
+    popularity_cap += 5;
+    console.log("todo boost my own coin if that's in the tewet");    
     teamUpWithCeleb(3, "RT Simon Baker: I am teaming up with $SHIT, let's shit on that thing! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
+});
+
+teamUpWithCelebAction3.click(function() {
+    teamUpWithCelebAction3.hide();
+    bank_worth -= 30000;
+    setCash();
+    popularity_cap += 10;
+    console.log("todo boost my own coin if that's in the tewet");    
+    teamUpWithCeleb(5, "RT C-List: I am teaming up with $SHIT, let's shit on that thing! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
+});
+
+teamUpWithCelebAction4.click(function() {
+    teamUpWithCelebAction4.hide();
+    bank_worth -= 90000;
+    setCash();
+    popularity_cap += 15;
+    console.log("todo boost my own coin if that's in the tewet");    
+    teamUpWithCeleb(7, "RT B-List: I am teaming up with $SHIT, let's shit on that thing! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
+});
+
+teamUpWithCelebAction5.click(function() {
+    teamUpWithCelebAction5.hide();
+    bank_worth -= 570000;
+    setCash();
+    popularity_cap += 20;
+    console.log("todo boost my own coin if that's in the tewet");    
+    teamUpWithCeleb(10, "RT A-List: I am teaming up with $SHIT, let's shit on that thing! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
 });
 
 learnEngagementBtn.click(function() {
     learnEngagementBtn.hide();
-    $('#twitterRadioEngagement').prop('disabled', false);
+    $('#twitterRadioEngagement').attr("disabled", null);
 });
 
 engagementBotBtn.click(function() {
@@ -274,6 +307,7 @@ nftRedesignAction.click(function() {
     setCash();
     nft_eyes = true;
     nftRedesignAction.hide();
+    // nftCurveRangeField.css('display', 'flex');
     popularity++;
 });
 
@@ -314,8 +348,8 @@ makeAccountNFT.click(function() {
     bank_worth -= 150.00;
     setCash();
     setTimeout(function() {
-        teamUpWithCelebAction.show();
-    }, 60000);    
+        teamUpWithCelebAction1.show();
+    }, 60000);
 });
 
 function insertSorted(list, newItem) {
@@ -348,12 +382,174 @@ function getNftValue() {
     return baseValue * my_nft_boost;
 }
 
-function makeNFT() {
-    // Choose a shape type: square, parallelogram, or triangle, or circle
-    // let shapeType = ["square", "parallelogram", "triangle"][Math.floor(Math.random() * 3)];
+function makeNFTRoundness(cornerRoundness=1) {
+    console.log(cornerRoundness);
+    // cornerRoundness = 1;
     let shapeType = ["square", "parallelogram", "triangle", "oval"][Math.floor(Math.random() * 4)];
+    let color = `hsl(${Math.random() * 360}, ${nft_vibrancy}%, 50%)`;
+  
+    let svgNS = "http://www.w3.org/2000/svg";
+    let svg = document.createElementNS(svgNS, "svg");
+    svg.classList.add("nft-svg");    
+    svg.setAttribute("width", "100");
+    svg.setAttribute("height", "100");
+  
+    let shape;
     
-    // Use the vibrancy variable (assumed to be 0-100) in the saturation value.
+    // Scale cornerRoundness (1-100) to a reasonable pixel radius (e.g., 0 to 40)
+    let radius = (cornerRoundness - 1) * 60 / 99; // Maps 1->0, 100->40
+  
+    if (shapeType === "square") {
+      shape = document.createElementNS(svgNS, "rect");
+      shape.setAttribute("x", "10");
+      shape.setAttribute("y", "10");
+      shape.setAttribute("width", "80");
+      shape.setAttribute("height", "80");
+      shape.setAttribute("rx", radius);
+      shape.setAttribute("ry", radius);
+      
+      let angle = Math.random() * 90 - 45;
+      shape.setAttribute("transform", `rotate(${angle},50,50)`);
+      
+    } else if (shapeType === "parallelogram") {
+      let offset = Math.floor(Math.random() * 41) - 20;
+      let points = `10,10 90,10 ${90 + offset},90 ${10 + offset},90`;
+      
+      if (radius > 0) {
+        shape = document.createElementNS(svgNS, "path");
+        // Define four corners
+        let ax = 10, ay = 10;                // Top-left
+        let bx = 90, by = 10;                // Top-right
+        let cx = 90 + offset, cy = 90;       // Bottom-right
+        let dx = 10 + offset, dy = 90;       // Bottom-left
+        
+        // Points along each side (10% and 90% along)
+        let abStartX = ax + 0.1 * (bx - ax), abStartY = ay + 0.1 * (by - ay);
+        let abEndX = ax + 0.9 * (bx - ax), abEndY = ay + 0.9 * (by - ay);
+        let bcStartX = bx + 0.1 * (cx - bx), bcStartY = by + 0.1 * (cy - by);
+        let bcEndX = bx + 0.9 * (cx - bx), bcEndY = by + 0.9 * (cy - by);
+        let cdStartX = cx + 0.1 * (dx - cx), cdStartY = cy + 0.1 * (dy - cy);
+        let cdEndX = cx + 0.9 * (dx - cx), cdEndY = cy + 0.9 * (dy - cy);
+        let daStartX = dx + 0.1 * (ax - dx), daStartY = dy + 0.1 * (ay - dy);
+        let daEndX = dx + 0.9 * (ax - dx), daEndY = dy + 0.9 * (ay - dy);
+        
+        let pathD = `
+          M ${abStartX},${abStartY}
+          L ${abEndX},${abEndY}
+          Q ${bx},${by} ${bcStartX},${bcStartY}
+          L ${bcEndX},${bcEndY}
+          Q ${cx},${cy} ${cdStartX},${cdStartY}
+          L ${cdEndX},${cdEndY}
+          Q ${dx},${dy} ${daStartX},${daStartY}
+          L ${daEndX},${daEndY}
+          Q ${ax},${ay} ${abStartX},${abStartY}
+          Z`;
+        shape.setAttribute("d", pathD);
+      } else {
+        shape = document.createElementNS(svgNS, "polygon");
+        shape.setAttribute("points", points);
+      }
+      
+    } else if (shapeType === "triangle") {
+      let shiftLeft = Math.floor(Math.random() * 21) - 10;
+      let shiftRight = Math.floor(Math.random() * 21) - 10;
+      let points = `50,10 ${10 + shiftLeft},90 ${90 + shiftRight},90`;
+      
+      if (radius > 0) {
+        shape = document.createElementNS(svgNS, "path");
+        // Define three corners
+        let ax = 50, ay = 10;                   // Top
+        let bx = 90 + shiftRight, by = 90;      // Bottom-right
+        let cx = 10 + shiftLeft, cy = 90;       // Bottom-left
+        
+        // Points along each side
+        let abStartX = ax + 0.1 * (bx - ax), abStartY = ay + 0.1 * (by - ay);
+        let abEndX = ax + 0.9 * (bx - ax), abEndY = ay + 0.9 * (by - ay);
+        let bcStartX = bx + 0.1 * (cx - bx), bcStartY = by + 0.1 * (cy - by);
+        let bcEndX = bx + 0.9 * (cx - bx), bcEndY = by + 0.9 * (cy - by);
+        let caStartX = cx + 0.1 * (ax - cx), caStartY = cy + 0.1 * (ay - cy);
+        let caEndX = cx + 0.9 * (ax - cx), caEndY = cy + 0.9 * (ay - cy);
+        
+        let pathD = `
+          M ${abStartX},${abStartY}
+          L ${abEndX},${abEndY}
+          Q ${bx},${by} ${bcStartX},${bcStartY}
+          L ${bcEndX},${bcEndY}
+          Q ${cx},${cy} ${caStartX},${caStartY}
+          L ${caEndX},${caEndY}
+          Q ${ax},${ay} ${abStartX},${abStartY}
+          Z`;
+        shape.setAttribute("d", pathD);
+      } else {
+        shape = document.createElementNS(svgNS, "polygon");
+        shape.setAttribute("points", points);
+      }
+      
+    } else if (shapeType === "oval") {
+      let rx = Math.random() * 22 + 26;
+      let ry = Math.random() * 22 + 26;
+      shape = document.createElementNS(svgNS, "ellipse");
+      shape.setAttribute("cx", "50");
+      shape.setAttribute("cy", "50");
+      shape.setAttribute("rx", rx);
+      shape.setAttribute("ry", ry);
+    }
+    
+    shape.setAttribute("fill", color);
+    shape.setAttribute("stroke", "none"); // Prevent any outline
+    svg.appendChild(shape);
+    if (nft_eyes) {
+        // Base positions for the left and right eyes
+        let baseLeftEye = { x: 43, y: 35 };
+        let baseRightEye = { x: 57, y: 35 };
+    
+        // Add slight random offsets to the eye positions (range: ±5 pixels)
+        let leftEyeX = baseLeftEye.x + (Math.random() * 10 - 5);
+        let leftEyeY = baseLeftEye.y + (Math.random() * 10 - 5);
+        let rightEyeX = baseRightEye.x + (Math.random() * 10 - 5);
+        let rightEyeY = baseRightEye.y + (Math.random() * 10 - 5);
+    
+        let leftEyeOuter = document.createElementNS(svgNS, "circle");
+        leftEyeOuter.setAttribute("cx", leftEyeX);
+        leftEyeOuter.setAttribute("cy", leftEyeY);
+        leftEyeOuter.setAttribute("r", "4");
+        leftEyeOuter.setAttribute("fill", "white");
+    
+        let leftEyeInner = document.createElementNS(svgNS, "circle");
+        leftEyeInner.setAttribute("cx", leftEyeX);
+        leftEyeInner.setAttribute("cy", leftEyeY);
+        leftEyeInner.setAttribute("r", "2");
+        leftEyeInner.setAttribute("fill", "black");
+    
+        let rightEyeOuter = document.createElementNS(svgNS, "circle");
+        rightEyeOuter.setAttribute("cx", rightEyeX);
+        rightEyeOuter.setAttribute("cy", rightEyeY);
+        rightEyeOuter.setAttribute("r", "4");
+        rightEyeOuter.setAttribute("fill", "white");
+    
+        let rightEyeInner = document.createElementNS(svgNS, "circle");
+        rightEyeInner.setAttribute("cx", rightEyeX);
+        rightEyeInner.setAttribute("cy", rightEyeY);
+        rightEyeInner.setAttribute("r", "2");
+        rightEyeInner.setAttribute("fill", "black");
+    
+        // Append eyes so they appear on top of the shape
+        svg.appendChild(leftEyeOuter);
+        svg.appendChild(leftEyeInner);
+        svg.appendChild(rightEyeOuter);
+        svg.appendChild(rightEyeInner);
+    }
+
+    // get random string for nft id and add id to svg before pushing to stack
+    let nftID = Math.random().toString(36).substring(7);
+    svg.setAttribute("id", nftID);
+    let nftValue = getNftValue();
+    nftStack.append(svg);
+    insertSorted(nfts_ordered_by_true_value, { key: nftValue, value: nftID});
+}
+
+function makeNFT() {
+    let shapeType = ["square", "parallelogram", "triangle", "oval"][Math.floor(Math.random() * 4)];
     let color = `hsl(${Math.random() * 360}, ${nft_vibrancy}%, 50%)`;
   
     let svgNS = "http://www.w3.org/2000/svg";
@@ -456,7 +652,8 @@ function makeNFT() {
 }
 
 mintNFT.click(function() {
-    makeNFT();
+    // makeNFT();
+    makeNFTRoundness(nftCurveRange.val());
 });
 
 function updateNftPricePerInput() {
@@ -469,7 +666,7 @@ function updateNftPricePerInput() {
     } else {
         new_price = roundFloat(new_price, 2);
     }
-    nftPriceLabel.text(`NFT Price: $${new_price}`);
+    nftPriceLabel.text(`$${new_price}`);
     nft_price = new_price;
 }
 
@@ -500,7 +697,7 @@ function endWork() {
     refreshWorkInterval = null;
     workPanel.hide();
     quitWork.hide();
-    if (!coinWorldPanel.is(':visible')) makeAccountNFT.show();
+    if (!nftPanel.is(':visible')) makeAccountNFT.show();
 }
 
 function restartWork() {
@@ -614,6 +811,12 @@ function boostCoin(shitID, boosterPopularity) {
     shitCoins[shitID].chanceToDrop -= 0.00004;
 }
 
+function boostMyCoin(boosterPopularity) {
+    num_boosts_used++;
+    myShitCoin.boost += boosterPopularity*boosterPopularity;
+    myShitCoin.chanceToDrop -= 0.00005;
+}
+
 function sellCoin(id_str) {
     if (shitCoins[id_str].price <= 0) {
         return;
@@ -654,19 +857,19 @@ function buyCoin(shitID, quantity) {
     if ((!buyLimit1Used) && lifetimeCoinworldBuys > (UNLOCK_LIFETIME_I_BUY/2)) {
         coinworldBuyLimit1.show();
         if ((!buyLimit1Used) && lifetimeCoinworldBuys > UNLOCK_LIFETIME_I_BUY) {
-            coinworldBuyLimit1.prop("disabled", false);
+            coinworldBuyLimit1.attr("disabled", null);
             buyLimit1Used = true;
         }
     } else if ((!buyLimit2Used) && lifetimeCoinworldBuys > (UNLOCK_LIFETIME_II_BUY/2)) {
         coinworldBuyLimit2.show();
         if ((!buyLimit2Used) && lifetimeCoinworldBuys > UNLOCK_LIFETIME_II_BUY) {
-            coinworldBuyLimit2.prop("disabled", false);
+            coinworldBuyLimit2.attr("disabled", null);
             buyLimit2Used = true;
         }
     } else if ((!buyLimit3Used) && lifetimeCoinworldBuys > (UNLOCK_LIFETIME_III_BUY/2)) {
         coinworldBuyLimit3.show();
         if ((!buyLimit3Used) && lifetimeCoinworldBuys > UNLOCK_LIFETIME_III_BUY) {
-            coinworldBuyLimit3.prop("disabled", false);
+            coinworldBuyLimit3.attr("disabled", null);
             buyLimit3Used = true;
         }
     }
@@ -679,7 +882,6 @@ function buyCoin(shitID, quantity) {
 
 function buyMyCoin() {
     myShitCoin.quantity += coinworld_buy_amt;
-    console.log("todo: big dump crashes price");
     paintShit("MINE", myShitCoin.price, myShitCoin.quantity);
 }
 
@@ -753,9 +955,9 @@ function refreshMyShit() {
 
     // Flip the coin's state with very low probabilities.
     var r = Math.random();
-    if (goingUp && r > myShitCoin.chanceToDrop) {   // When going up, small chance to flip down
+    if (goingUp && r > myShitCoin.chanceToDrop) {
         goingUp = false;
-    } else if (!goingUp && r < 0.0003) {  // When falling, small chance to flip up
+    } else if (!goingUp && r < 0.0003) {
         goingUp = true;
     }
 
@@ -777,7 +979,7 @@ function refreshMyShit() {
         myShitCoin.chanceToDrop = 0.99954,
         myShitCoin.boost = 0.0;
         my_shitcoin_crashes++;
-        myShit.goingUp = true;
+        myShitCoin.goingUp = true;
     } else {
         myShitCoin.goingUp = goingUp;
         myShitCoin.price = newPrice;
@@ -855,6 +1057,10 @@ function makeMyShitcoin() {
 
     bank_worth -= 100.00;
     myShitCreated = true;
+
+    twitterOptionFieldPumpMy.show();
+    twitterOptionFieldRegular.hide();
+
     setCash();    
 }
 
@@ -863,6 +1069,9 @@ makeShitcoin.click(function() {
 });
 
 buyGME.click(function() {
+    bank_worth += 3000; // ah cool cheat
+    setCash(); // ah cool cheat
+
     if (bank_worth < gme_valuation) {
         return;
     }
@@ -937,6 +1146,10 @@ dontCancelRob.click(function() {
 });
 
 cancelRob.click(function() {
+    if (timeToCancelRob) {
+        robinhoodPanel.hide();
+        return;
+    }
     if ($(this).html() == "Account settings") {
         cancelRob.html("Cancel account");
         dontCancelRob.html("(Exit)");
@@ -969,12 +1182,12 @@ plusLawyerBtn.click(function() {
     if (numLawyers < MAX_LAWYERS) {
         numLawyers++;
         lawyerCountSpan.html(numLawyers);
-        minusLawyerBtn.prop('disabled', false);
+        minusLawyerBtn.attr("disabled", null);
     }
     if (numLawyers === MAX_LAWYERS) {
-        plusLawyerBtn.prop('disabled', true);
+        plusLawyerBtn.attr("disabled", "disabled");
     } else {
-        plusLawyerBtn.prop('disabled', false);
+        plusLawyerBtn.attr("disabled", null);
     }
 });
 
@@ -982,12 +1195,12 @@ minusLawyerBtn.click(function() {
     if (numLawyers > 0) {
         numLawyers--;
         lawyerCountSpan.html(numLawyers);
-        plusLawyerBtn.prop('disabled', false);        
+        plusLawyerBtn.attr("disabled", null);        
     }
     if (numLawyers === 0) {
-        minusLawyerBtn.prop('disabled', true);
+        minusLawyerBtn.attr("disabled", "disabled");
     } else {
-        minusLawyerBtn.prop('disabled', false);
+        minusLawyerBtn.attr("disabled", null);
     }
 
 });
@@ -1016,16 +1229,18 @@ function formatToInt(num) {
 
 function enable_disable_btn_against_cash(btn, valueToClick) {
     if (valueToClick > bank_worth) {
-        if (!btn.prop("disabled")) btn.prop("disabled", true);
+        if (!btn.attr("disabled")) btn.attr("disabled", "disabled");
     } else {
-        if (btn.prop("disabled")) btn.prop("disabled", false);
+        if (btn.attr("disabled")) btn.attr("disabled", null);
     }
 }
 
 function enable_disable_btns_against_cash() {
-    enable_disable_btn_against_cash(buyGME, gme_valuation);
-    enable_disable_btn_against_cash(buyTSLA, tsla_valuation);
-    enable_disable_btn_against_cash(buyNVDA, nvda_valuation);
+    if (!timeToCancelRob) {
+        enable_disable_btn_against_cash(buyGME, gme_valuation);
+        enable_disable_btn_against_cash(buyTSLA, tsla_valuation);
+        enable_disable_btn_against_cash(buyNVDA, nvda_valuation);
+    }
 
     // iterate over shitCoins and enabledisable based on current buy amt
     for (const [key, value] of Object.entries(shitCoins)) {
@@ -1143,6 +1358,7 @@ function deleteSuit(suitID) {
 function paintSuit(suitID) {
     const amtRemaining = lawsuitsObj[suitID].amtRemaining;
     $(`#lawsuitAmt_${suitID}`).html(`\$${formatNumber(amtRemaining)}`);
+    $(`#lawsuit_${suitID}`).removeClass("freshLawsuit");
 }
 
 function legalRefresh() {
@@ -1160,7 +1376,7 @@ function legalRefresh() {
         numLawyers = Math.max(parseInt(bank_worth / LAWYER_RATE), 0);
         lawyerCountSpan.html(numLawyers);
         if (numLawyers === 0) {
-            minusLawyerBtn.prop('disabled', true);            
+            minusLawyerBtn.attr("disabled", "disabled");            
         }
     }
 
@@ -1271,8 +1487,8 @@ function paintNextTweet(tweetStr, likes) {
         learnEngagementBtn.show();
     }
     else if (total_tweets == 30) {
-        learnEngagementBtn.prop('disabled', false);
-    } else if (total_tweets == 100) {
+        learnEngagementBtn.attr("disabled", null);
+    } else if (total_tweets == 75) {
         engagementBotBtn.show();
     }
 }
@@ -1312,10 +1528,10 @@ function addTweet(tweetType) {
             randLikesCoeff = getRandomNumber(5000, 10000);
         }
         likes = parseInt(popularity * randLikesCoeff);
-        if (popularity < 50) {
+        if (popularity < popularity_cap) {
             popularity += Math.min(0.35, likes / 3000);
             popularity = roundFloat(popularity, 5);
-            if (popularity > 15) {
+            if (popularity > 15 && coinWorldPanel.is(':visible')) {
                 twitterOptionFieldPumpCoins.show();                
             }
         }
@@ -1330,11 +1546,37 @@ function addTweet(tweetType) {
         const randomTweetTemplate = getRandFromArr(pump_tweet_functions);
         const randomTweet = randomTweetTemplate(shitCoins[shitID].name);
         newTweet = randomTweet + " " + celebStr;
-        boostCoin(shitID, popularity/50.0);
+        boostCoin(shitID, popularity/35.0);
         mistrust_popularity += 0.5;
+        popularity -= 0.5;
         if ((lifetimeMaxCash > BIG_ENOUGH_TO_SUE) && Math.random() > 0.92) {
             makeLawsuit();
         }
+        // likes
+        let randLikesCoeff = getRandomNumber(1, 9);
+        likes = parseInt(popularity * randLikesCoeff);
+
+    } else if (tweetType === "twitterRadioPumpMy") {
+        // tweet str
+        let celebStr = "";
+        for (let i = 0; i < getRandomNumber(0, 2); i++) {
+            const randomCeleb = getRandFromArr(most_popular_tweeters);
+            celebStr += " " + randomCeleb;
+        }
+        const randomTweetTemplate = getRandFromArr(pump_tweet_functions);
+        const randomTweet = randomTweetTemplate("$SHIT");
+        newTweet = randomTweet + " " + celebStr;
+        boostMyCoin(popularity/35.0);
+        mistrust_popularity += 1.0;
+        popularity -= 3.0;
+        if ((lifetimeMaxCash > BIG_ENOUGH_TO_SUE) && Math.random() > 0.60) {
+            makeLawsuit();
+        }
+
+        // likes
+        let randLikesCoeff = getRandomNumber(1, 9);
+        likes = parseInt(popularity * randLikesCoeff);
+
     } else if (tweetType === "twitterRadioApologize") {
         newTweet = getRandFromArr(apology_tweets);
         let randLikesCoeff = getRandomNumber(30, 50);
@@ -1385,8 +1627,45 @@ function refreshDebug() {
     crypto_market_popularity_debug.html(` ${goingUp} crypto market: ${crypto_market_popularity.toFixed(2)}`);
 }
 
+function checkCashTriggers() {
+    if (!coinworld_sub && ((lifetimeMaxCash > 3000) || (nfts_sold > 100))) {
+        makeCoinworldAccountBtn.show();
+    }
+    if (!alreadyShowedCeleb2 && (lifetimeMaxCash > 7500)) {
+        teamUpWithCelebAction2.show();
+        alreadyShowedCeleb2 = true;
+    }
+    if (!alreadyShowedCeleb3 && (lifetimeMaxCash > 15000)) {
+        teamUpWithCelebAction3.show();
+        alreadyShowedCeleb3 = true;
+    }
+    if (!alreadyShowedCeleb4 && (lifetimeMaxCash > 45000)) {
+        teamUpWithCelebAction4.show();
+        alreadyShowedCeleb4 = true;
+    }
+    if (!alreadyShowedCeleb5 && (lifetimeMaxCash > 250000)) {
+        teamUpWithCelebAction5.show();
+        alreadyShowedCeleb5 = true;
+    }
+
+    if (!alreadyGotPol1 && (lifetimeMaxCash > 750000)) { // get into politics initially, next politics will just be triggered
+        getIntoPol1.show();
+    }
+
+    if (!alreadyGotPol1 && (lifetimeMaxCash > 5000000)) { // 5 mill
+        getIntoPol1.show();
+    }
+
+    if (!alreadyGotReal && (lifetimeMaxCash > 10000000)) { // 10 mill, get real
+        getRealAction.show();
+    }
+}
+
 function globalRefresh() {
     global_ticks++;
+    if (global_ticks % 500 === 0) {
+        checkCashTriggers();
+    }
 
     refreshPopularity();
     refreshNFTSales();
@@ -1406,10 +1685,87 @@ function globalRefresh() {
     }
 }
 
+function suspendRobinhood() {
+    clearInterval(refreshRobinhoodInterval);
+    cancelRob.html("Cancel Account");
+    buyGME.attr("disabled", "disabled");
+    buyNVDA.attr("disabled", "disabled");
+    buyTSLA.attr("disabled", "disabled");
+    robSuspensionMessage.show();
+    timeToCancelRob = true;
+    setTimeout(function() {
+        robinhoodPanel.hide();
+    }, 60000);
+}
+
 function startLegalProblems() {
     legalPanel.show();
+    suspendRobinhood();
     legalRefreshInterval = setInterval(legalRefresh, legalRefreshTickSpeed);
     legalProblemsStarted = true;    
+}
+
+getRealAction.click(function() {
+    alreadyGotReal = true;
+    twitterOptionFieldEngagement.hide();
+    nftPanel.hide();
+    prepPanel.show();
+});
+
+function goToLategame() {
+    console.log("todo this is for testing");
+
+    // social testing
+    socialsPanel.show(); // TODO
+    createXBtn.hide();
+    twitterOptionFieldPumpCoins.show(); // TODO remove
+    twitterOptionFieldEngagement.show();
+    $('#twitterRadioEngagement').attr("disabled", null);    
+
+    makeAccountNFT.remove();
+    makeRobBtn.remove();
+    createXBtn.remove();
+    nftRedesignAction.remove();
+    engagementBotBtn.remove();
+    learnEngagementBtn.remove();
+
+    // coinworld testing
+    coinworld_buy_amt = 1000;    
+    buyLimit1Used = true;
+    makeCoinworldAccountBtn.show();
+    makeCoinWorld(); // TODO remove
+    addShit(); // TODO remove
+    // coinworldBuyLimit1.show(); // TODO remove
+    coinworldBuyLimit2.show(); // TODO remove
+    // coinworldBuyLimit3.show(); // TODO remove
+    makeMyShitcoin();
+
+    refreshRobinhoodInterval = setInterval(refreshRob, refreshRobTickSpeed);
+    robinhoodPanel.show();
+    makeRobBtn.hide();
+    stockIndicatorDiv.show();
+
+
+    bank_worth -= 5000;
+    setCash();
+    engagementBotInterval = setInterval(makeEngagementBotTweet, 1300);    
+
+    // legal testing
+    // bank_worth = 10000000; // TODO remove
+    // coinworld_buy_amt = 1000; // TODO remove
+    // setCash(); // TODO remove
+
+    // nft testing
+    // makeAccountNFT.show(); // TODO remove
+    nftPanel.show(); // TODO remove
+    nft_eyes = true;
+    // nftRedesignAction.show(); // TODO remove
+
+    endWork();
+    popularity = 50; // TODO remove
+    bank_worth = 30000;
+    setCash();
+
 }
 
 function startGame() {
@@ -1426,10 +1782,10 @@ function startGame() {
     createXBtn.show(); // TODO uncomment
     projectsPanel.show(); // TODO uncomment
 
+    goToLategame();
+
     // rob testing
     // makeRobBtn.show();
-    // robinhoodPanel.show();
-    // enable_disable_btns_against_cash();
 
     // social testing
     // socialsPanel.show(); // TODO
@@ -1444,26 +1800,22 @@ function startGame() {
     // addShit(); // TODO remove
     // popularity = 80; // TODO remove
     // coinworldBuyLimit1.show(); // TODO remove
-    // coinworldBuyLimit1.prop("disabled", false);
     // coinworldBuyLimit2.show(); // TODO remove
     // coinworldBuyLimit3.show(); // TODO remove
     // makeShitcoin.show(); // TODO remove
 
-    // legal testingPP
+    // legal testing
     // bank_worth = 10000000; // TODO remove
     // coinworld_buy_amt = 1000; // TODO remove
     // setCash(); // TODO remove
-    // startLegalProblems(); // TODO remove
 
     // makeThatShitcoin(); // TODO remove
-
-    //robinhood testing
-    // robinhoodPanel.show();
 
     // nft testing
     // makeAccountNFT.show(); // TODO remove
     // nftPanel.show(); // TODO remove
     // nftRedesignAction.show(); // TODO remove
+
 
     debug = true;
     if (debug) {

@@ -46,6 +46,7 @@ var tsla_valuation = getRandomNumber(10, 20);
 var nvda_valuation = getRandomNumber(30, 50);
 var rob_going_up = false;
 var refreshRobinhoodInterval;
+var timeToCancelRob = false;
 
 // nftland
 var nft_vibrancy = 10;
@@ -56,6 +57,15 @@ const minNFTPrice = 0.01;
 const maxNFTPrice = 1000000.0;
 var my_nft_boost = 0.0003;
 var nfts_sold = 0;
+
+// cash triggers
+var alreadyGotReal = false;
+var alreadyGotCompound = false;
+var alreadyGotSecurity = false;
+var alreadyShowedCeleb2 = false;
+var alreadyShowedCeleb3 = false;
+var alreadyShowedCeleb4 = false;
+var alreadyShowedCeleb5 = false;
 
 // coinworld
 var shitCoins = new Object();
@@ -79,6 +89,7 @@ var LAWYER_RATE = 1000;
 var legalRefreshInterval;
 var numLawyers = 0;
 const MAX_LAWYERS = 21;
+const MAX_LAWSUITS = 8;
 var lawsuitsObj = new Object();
 const LAWSUIT_NAMES = [
     "W.D. TEXAS",
@@ -101,8 +112,8 @@ var buyLimit1Used = false;
 var buyLimit2Used = false;
 var buyLimit3Used = false;
 const UNLOCK_LIFETIME_I_BUY = 5;
-const UNLOCK_LIFETIME_II_BUY = 5000;
-const UNLOCK_LIFETIME_III_BUY = 100000;
+const UNLOCK_LIFETIME_II_BUY = 3000;
+const UNLOCK_LIFETIME_III_BUY = 50000;
 
 var default_shit_buy_quantity = 1;
 var coinworld_buy_amt = 1;
@@ -129,6 +140,7 @@ const shitNameArr = [
 ];
 
 //twitter
+var popularity_cap = 50;
 const most_popular_tweeters = ["@elonmusk", "@BarackObama", "@Cristiano", "@justinbieber", "@rihanna", "@katyperry", "@narendramodi", "@realDonaldTrump", "@taylorswift13", "@NASA", "@ladygaga", "@YouTube", "@KimKardashian", "@EllenDeGeneres", "@X", "@BillGates", "@selenagomez", "@imVkohli", "@neymarjr", "@cnnbrk", "@CNN", "@jtimberlake", "@PMOIndia", "@nytimes", "@espn", "@britneyspears", "@shakira", "@KingJames", "@ChampionsLeague", "@ddlovato", "@realmadrid", "@BBCBreaking", "@FCBarcelona", "@jimmyfallon", "@SrBachchan", "@BTS_twt", "@NBA", "@akshaykumar", "@MileyCyrus", "@BeingSalmanKhan", "@premierleague", "@bts_bighit", "@iamsrk", "@JLo", "@SportsCenter", "@BrunoMars", "@Oprah", "@BBCWorld", "@sachin_rt", "@NiallOfficial"];
 const max_tweets = 40;
 const phase_1_tweets = [
