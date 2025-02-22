@@ -836,7 +836,7 @@ function addShit() {
     }
     // Create the new div element
     var formattedValue = formatShitValue(value * quantity);
-    var newDiv = $(`<div class="coin-container" id="shitContainer_${newID}"><span class="coinValuation" id="shitValuation_${newID}">\$${formattedValue}</span><button class="coinBtn" id="buyShit_${newID}">${shitName}</button></div>`);
+    var newDiv = $(`<div class="coin-container" id="shitContainer_${newID}"><span class="coinValuation" id="shitValuation_${newID}">\$${formattedValue}</span><button class="btn coinBtn" id="buyShit_${newID}">${shitName}</button></div>`);
     shitHolder.append(newDiv);
     shitCache.buyBtns[newID] = $(`#buyShit_${newID}`);
     shitCache.containers[newID] = $(`#shitContainer_${newID}`);
