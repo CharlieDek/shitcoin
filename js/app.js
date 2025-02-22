@@ -80,6 +80,7 @@ var lawsuitHolder = $("#lawsuitHolder");
 var lawyerCountSpan = $("#lawyerCountSpan");
 var plusLawyerBtn = $("#plusLawyerBtn");
 var minusLawyerBtn = $("#minusLawyerBtn");
+var legalAttacks = $("#legalAttacks");
 
 // prepper
 var prepPanel = $("#prepPanel");
@@ -203,11 +204,15 @@ function getUniqueLawsuitName() {
     return suitName;
 }
 
+function politicalLegalSavesLawsuit() {
+    return Math.random() < politicalLegalHelp;
+}
+
 function makeLawsuit() {
     if (!legalProblemsStarted) {
         startLegalProblems();
     }
-    if (Math.random() < politicalLegalHelp) {
+    if (politicalLegalSavesLawsuit()) {
         return;
     }
     if (Object.keys(lawsuitsObj).length > MAX_LAWSUITS) return;
@@ -221,7 +226,7 @@ function makeLawsuit() {
         amtRemaining: lawsuitAmt,
     }
 
-    var lawsuit = `<div class="lawsuit freshLawsuit" id="lawsuit_${lawsuitID}"><span>${lawsuitName}</span><span id="lawsuitAmt_${lawsuitID}">\$${formatNumber(lawsuitAmt)}</span></div>`;
+    var lawsuit = `<div class="lawsuit freshLawsuit" id="lawsuit_${lawsuitID}"><span>${lawsuitName}</span><span id="lawsuitAmt_${lawsuitID}">\$${formatNumber(lawsuitAmt, 0)}</span></div>`;
     lawsuitHolder.append(lawsuit);
 }
 
@@ -323,15 +328,30 @@ getIntoPol4.click(function() {
     getIntoPol4.hide();
     bank_worth -= POL_4_FEE;
     politicalLegalHelp = 0.70;
+    getIntoPol5.show();
+    alreadyGotPol5 = true;    
     setCash();
 });
 
+function collapseIncrement() {
+    popularity -= 0.5;
+    popularity = Math.max(0, popularity);
+    crypto_market_popularity -= 0.0001;
+    if (crypto_market_popularity < 0.90) {
+        legalPanel.hide();
+    }
+    crypto_market_popularity = Math.max(crypto_market_popularity, 0.01);
+}
+
 getIntoPol5.click(function() {
     getIntoPol5.hide();
-    console.log("todo abolish legal stuff");
     bank_worth -= POL_5_FEE;
     politicalLegalHelp = 1.0;    
+    clearLawsuits();
+    $("#lawyerOptions").hide();
+    legalAttacks.show();
     setCash();
+    societalCollapseInterval = setInterval(collapseIncrement, 300);
 });
 
 learnEngagementBtn.click(function() {
@@ -910,6 +930,9 @@ function sellCoin(id_str) {
     var sell_payout = (shitCoins[id_str].quantity * shitCoins[id_str].price) / 100;
     bank_worth += sell_payout;
     setCash();
+    if ((sell_payout > 500000) && !politicalLegalSavesLawsuit()) {
+        makeLawsuit();
+    }
     shitCoins[id_str].chanceToDrop -= 0.00005;
     shitCoins[id_str].quantity = 0;
     paintShit(id_str, 0, 0);
@@ -919,6 +942,9 @@ function sellMyCoin() {
     var sell_payout = (myShitCoin.quantity * myShitCoin.price) / 100;
     bank_worth += sell_payout;
     setCash();
+    if ((sell_payout > 500000) && !politicalLegalSavesLawsuit()) {
+        makeLawsuit();
+    }
     console.log("todo lower price when u sell ur own coin");
     myShitCoin.quantity = 0;
     paintShit("MINE", 0, 0);
@@ -1018,6 +1044,8 @@ function refreshShit(shitID, shitDict) {
         boostCoin(shitID, coinUniqueBonus+0.5);
     }
 
+    newPrice *= crypto_market_popularity;
+
     // If the new price is below our floor, remove the coin.
     if (newPrice < 0.01) {
         removeShit(shitID);
@@ -1060,6 +1088,7 @@ function refreshMyShit() {
         newPrice = myShitCoin.price*2 - newPrice;
     }
 
+    newPrice *= crypto_market_popularity;    
     if (newPrice < 0.01) {
         newPrice = 0.01;
         myShitCoin.chanceToDrop = 0.99954,
@@ -1733,7 +1762,7 @@ function addTweet(tweetType) {
         boostCoin(shitID, popularity/35.0);
         mistrust_popularity += 0.5;
         popularity -= 0.5;
-        if ((lifetimeMaxCash > BIG_ENOUGH_TO_SUE) && Math.random() > 0.89) {
+        if ((lifetimeMaxCash > BIG_ENOUGH_TO_SUE) && Math.random() > 0.77) {
             makeLawsuit();
         }
         // likes
@@ -1753,7 +1782,7 @@ function addTweet(tweetType) {
         boostMyCoin(popularity/35.0);
         mistrust_popularity += 1.0;
         popularity -= 3.0;
-        if ((lifetimeMaxCash > BIG_ENOUGH_TO_SUE) && Math.random() > 0.60) {
+        if ((lifetimeMaxCash > BIG_ENOUGH_TO_SUE) && Math.random() > 0.55) {
             makeLawsuit();
         }
 
@@ -1901,6 +1930,11 @@ function startLegalProblems() {
     legalProblemsStarted = true;    
 }
 
+function clearLawsuits() {
+    clearInterval(legalRefreshInterval);
+    lawsuitHolder.hide();
+}
+
 getRealAction.click(function() {
     alreadyGotReal = true;
     // twitterOptionFieldEngagement.hide(); // TODO: still need popularity when successful...
@@ -1960,7 +1994,7 @@ function goToLategame() {
     endWork();
     popularity = 50; // TODO remove
     bank_worth = 30000;
-    bank_worth = 300000000;
+    bank_worth = 15000000000;
     setCash();
 
 }

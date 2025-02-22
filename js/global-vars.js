@@ -26,11 +26,12 @@ var popularity_fluctuation = 0.01;
 var crypto_market_popularity = 1.0;
 var crypto_market_going_up = true;
 var lifetimeMaxCash = 0;
+var societalCollapseInterval;
 
 // legal
 var num_boosts_used = 0;
 var mistrust_popularity = 0.0  // mistrust is a down-pressure on popularity, welcomes lawsuits, and can be alleviated
-const BIG_ENOUGH_TO_SUE = 300000;
+const BIG_ENOUGH_TO_SUE = 350000;
 var legalProblemsStarted = false;
 
 // work
