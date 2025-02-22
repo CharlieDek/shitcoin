@@ -336,6 +336,7 @@ getIntoPol5.click(function() {
 
 learnEngagementBtn.click(function() {
     learnEngagementBtn.hide();
+    $("#twitterRadioEngagement").prop("checked", true);
     $('#twitterRadioEngagement').attr("disabled", null);
 });
 
