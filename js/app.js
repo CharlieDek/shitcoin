@@ -267,7 +267,7 @@ teamUpWithCelebAction2.click(function() {
     bank_worth -= CELEB_2_FEE;
     setCash();
     popularity_cap += 5;
-    console.log("todo boost my own coin if that's in the tewet");    
+    console.log("todo boost my own coin if that's in the tewet");
     teamUpWithCeleb(3, "RT Simon Baker: I am teaming up with $SHIT, let's shit on that thing! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
 });
 
@@ -443,8 +443,6 @@ function getNftValue() {
 }
 
 function makeNFTRoundness(cornerRoundness=1) {
-    console.log(cornerRoundness);
-    // cornerRoundness = 1;
     let shapeType = ["square", "parallelogram", "triangle", "oval"][Math.floor(Math.random() * 4)];
     let color = `hsl(${Math.random() * 360}, ${nft_vibrancy}%, 50%)`;
   
@@ -825,6 +823,10 @@ function addShit() {
     var formattedValue = formatShitValue(value * quantity);
     var newDiv = $(`<div class="coin-container" id="shitContainer_${newID}"><span class="coinValuation" id="shitValuation_${newID}">\$${formattedValue}</span><button class="coinBtn" id="buyShit_${newID}">${shitName}</button></div>`);
     shitHolder.append(newDiv);
+    shitCache.buyBtns[newID] = $(`#buyShit_${newID}`);
+    shitCache.containers[newID] = $(`#shitContainer_${newID}`);
+    shitCache.valuations[newID] = $(`#shitValuation_${newID}`);
+
     setCash();
 }
 
@@ -860,8 +862,14 @@ function isEmpty(obj) {
   }
 
 function removeShit(shitID) {
+    shitCache.containers[shitID].remove();
+
     delete shitCoins[shitID];
-    $(`#shitContainer_${shitID}`).remove();
+
+    delete shitCache.buyBtns[shitID];
+    delete shitCache.containers[shitID];
+    delete shitCache.valuations[shitID];
+
     if (isEmpty(shitCoins)) {
         addShit();
     }
@@ -959,7 +967,7 @@ $(document).on('click', '.coinBtn', function () {
 
 
 function paintShit(shitID, price, quantity) {
-    $(`#shitValuation_${shitID}`).html(`\$${formatShitValue(price*quantity)}`);
+    shitCache.valuations[shitID].html(`\$${formatShitValue(price*quantity)}`);
 }
 
 
@@ -1079,8 +1087,7 @@ function refreshCoinPanel() {
         refreshShit(key, value);
         if (key in shitCoins) {
             const valueToClick = (coinworld_buy_amt * shitCoins[key].price) / 100;
-            let buyBtn = $(`#buyShit_${key}`);
-            enable_disable_btn_against_cash(buyBtn, valueToClick);
+            enable_disable_btn_against_cash(shitCache.buyBtns[key], valueToClick);
         }
     }
 
@@ -1106,6 +1113,9 @@ function refreshCoinPanel() {
 }
 
 function makeMyShitcoin() {
+    shitCache.valuations["MINE"] = $(`#shitValuation_MINE`);
+    shitCache.buyBtns["MINE"] = $(`#buyShit_MINE`);
+
     coins_held = 10000;
     coin_value = .00003
 
@@ -1379,7 +1389,6 @@ prepBuyCompound2.click(function(){
 });
 
 function enable_disable_prep_stuff() {
-    console.log("enable disable against prep");
     enable_disable_btn_against_cash(prepBuyGold, 5000);
     enable_disable_btn_against_cash(prepBuySecurity, 15000);
     enable_disable_btn_against_cash(prepBuyLong, 23000);
@@ -1406,8 +1415,7 @@ function enable_disable_btns_against_cash() {
     // iterate over shitCoins and enabledisable based on current buy amt
     for (const [key, value] of Object.entries(shitCoins)) {
         const valueToClick = (value.quantity * value.price) / 100;
-        let buyBtn = $(`#buyShit_${key}`);
-        enable_disable_btn_against_cash(buyBtn, valueToClick);
+        enable_disable_btn_against_cash(shitCache.buyBtns[key], valueToClick);
     }
 
     // iterate over actionBtns and enable/disable based on their cost
@@ -1512,7 +1520,7 @@ function setProgressPercent() {
 
 function deleteSuit(suitID) {
     delete lawsuitsObj[suitID];
-    $(`#lawsuit_${suitID}`).remove();    
+    $(`#lawsuit_${suitID}`).remove();
 }
 
 function paintSuit(suitID) {

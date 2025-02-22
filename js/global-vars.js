@@ -85,6 +85,12 @@ const POL_4_FEE = 3000000;
 const POL_5_FEE = 300000000;
 
 // coinworld
+var shitCache = {
+    containers: new Object(),
+    valuations: new Object(),
+    buyBtns: new Object(),
+};
+
 var shitCoins = new Object();
 const MY_SHIT_BUY_ID = "buyShit_MINE";
 const MY_SHIT_VALUE_ID = "shitValuation_MINE";
@@ -101,7 +107,7 @@ var myShitCoin = {
 }
 
 // legal
-const legalRefreshTickSpeed = 4001;
+const legalRefreshTickSpeed = 2501;
 var LAWYER_RATE = 1000;
 var politicalLegalHelp = 0.0;
 var legalRefreshInterval;
