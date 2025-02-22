@@ -433,7 +433,9 @@ function decideIfSale(demand, price) {
 
 function getNftValue() {
     let baseValue = 10 * Math.random();
-    if (nft_vibrancy > 90) {
+    if (nft_vibrancy === 62) {
+        baseValue *= 30;
+    } else if (nft_vibrancy > 90) {
         baseValue *= 2;
     } else if (nft_vibrancy > 70) {
         baseValue *= 10;
