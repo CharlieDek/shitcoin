@@ -277,7 +277,7 @@ teamUpWithCelebAction3.click(function() {
     setCash();
     popularity_cap += 10;
     console.log("todo boost my own coin if that's in the tewet");    
-    teamUpWithCeleb(5, "RT C-List: I am teaming up with $SHIT, let's shit on that thing! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
+    teamUpWithCeleb(5, "RT Christina Hendricks: I am MAD MEN about $SHIT! BUY NOW vvvv 82xuQkP4jlkWiDFiuz3SOO.");
 });
 
 teamUpWithCelebAction4.click(function() {
@@ -286,7 +286,7 @@ teamUpWithCelebAction4.click(function() {
     setCash();
     popularity_cap += 15;
     console.log("todo boost my own coin if that's in the tewet");    
-    teamUpWithCeleb(7, "RT B-List: I am teaming up with $SHIT, let's shit on that thing! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
+    teamUpWithCeleb(7, "RT Joe Jonas: Don't be a sucker, buy $SHIT like me! I'm HODLING for the long term! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
 });
 
 teamUpWithCelebAction5.click(function() {
@@ -295,7 +295,7 @@ teamUpWithCelebAction5.click(function() {
     setCash();
     popularity_cap += 20;
     console.log("todo boost my own coin if that's in the tewet");    
-    teamUpWithCeleb(10, "RT A-List: I am teaming up with $SHIT, let's shit on that thing! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
+    teamUpWithCeleb(10, "RT Cristiano Ronaldo: I'm not retiring just yet...I am teaming up with $SHIT! This is NOT a scam and I am NOT hacked. Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
 });
 
 getIntoPol1.click(function() {
