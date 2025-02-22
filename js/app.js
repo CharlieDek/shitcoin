@@ -401,15 +401,21 @@ function refreshNFTSales() {
     }
 }
 
-// NFT Land
-makeAccountNFT.click(function() {
+function makeNFTAccount() {
     nftPanel.show();
     makeAccountNFT.hide();
+    mintNFT.show();
     bank_worth -= 150.00;
     setCash();
     setTimeout(function() {
         teamUpWithCelebAction1.show();
     }, 60000);
+    $("#kikiInput").prop("checked", true);
+}
+
+// NFT Land
+makeAccountNFT.click(function() {
+    makeNFTAccount();
 });
 
 function insertSorted(list, newItem) {
@@ -442,8 +448,16 @@ function getNftValue() {
     return baseValue * my_nft_boost;
 }
 
-function makeNFTRoundness(cornerRoundness=1) {
+function makeNFTRoundness() {
     let shapeType = ["square", "parallelogram", "triangle", "oval"][Math.floor(Math.random() * 4)];
+    var cornerRoundness = 1;
+    var kikiBobo = $('input[name="twitter-option"]:checked').attr('id');
+    if (kikiBobo === "boboInput") {
+        cornerRoundness = 40;
+        if (shapeType === "parallelogram") {
+            shapeType = "oval";
+        }
+    }    
     let color = `hsl(${Math.random() * 360}, ${nft_vibrancy}%, 50%)`;
   
     let svgNS = "http://www.w3.org/2000/svg";
@@ -710,8 +724,7 @@ function makeNFT() {
 }
 
 mintNFT.click(function() {
-    // makeNFT();
-    makeNFTRoundness(nftCurveRange.val());
+    makeNFTRoundness();
 });
 
 function updateNftPricePerInput() {
@@ -748,6 +761,7 @@ makeRobBtn.click(function() {
 createXBtn.click(function() {
     twitterOptionFieldRegular.show();
     twitterOptionFieldEngagement.show();
+    $("#twitterRadioRegular").prop("checked", true);    
     socialsPanel.show();
     createXBtn.hide();
 });
@@ -761,7 +775,6 @@ function endWork() {
 }
 
 function restartWork() {
-    console.log("work progress bar to 0, work divs disappear plz");
     restartWorkBtn.hide();
     emptyEmailIndices = new Set(Array.from({ length: 33 }, (_, i) => i));
     unrespondedEmailIndices = new Set();        
@@ -1978,7 +1991,7 @@ function startGame() {
     setDisplayPrices();
 
     // ============== TESTING ==============
-    goToLategame();
+    // goToLategame();
     
     // bank_worth = 3000000000;
     // setCash();
@@ -1991,6 +2004,8 @@ function startGame() {
     // makeRobBtn.show();
 
     // social testing
+    // twitterOptionFieldRegular.show();
+    // twitterOptionFieldEngagement.show();
     // socialsPanel.show(); // TODO
     // twitterOptionFieldPumpCoins.show(); // TODO remove
 
@@ -2017,6 +2032,7 @@ function startGame() {
     // nft testing
     // makeAccountNFT.show(); // TODO remove
     // nftPanel.show(); // TODO remove
+    // makeNFTAccount();
     // nftRedesignAction.show(); // TODO remove
 
     debug = false;

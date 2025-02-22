@@ -424,10 +424,19 @@ fieldset {
     overflow: auto;
 }
 
-  #nftStack {
-    top: -179px;
-    left: -38px;
+#nftStack {
+    top: -117px;
+    left: -84px;
     position: relative; /* Needed for absolute positioning inside */
+}
+
+#kikiField {
+    margin-right: 5px;
+}
+
+#mintNFT {
+    font-size: 15px;
+    margin: 0px;
 }
 
 #nftCurveRangeField {

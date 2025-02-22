@@ -192,33 +192,26 @@
         <h3>NFTLand</h3>
         <div class="container-center-nft">
             <div id="nftPriceLabel">$0.01</div>
-            <div class="field-row" style="width: 180px"><span><b>$</b></span><input class="nftSlider" id="nftPriceRange" type="range" min="1" max="100" value="10" /></div>
-        </div>
+            <div class="field-row"><span><b>$</b></span><input class="nftSlider" id="nftPriceRange" type="range" min="1" max="100" value="10" /></div>
+            <div class="field-row"><span><b>S</b></span><input class="nftSlider" id="nftVibrancyRange" type="range" min="1" max="100" value="1" /></div>
 
+            <div id="kikiField" class="field-row">
+                <input checked id="kikiInput" type="radio" name="twitter-option">
+                <label for="kikiInput">Kiki</label>
+            </div>
+            <div id="boboField" class="field-row">
+                <input id="boboInput" type="radio" name="twitter-option">
+                <label for="boboInput">Bobo</label>
+            </div>
+        </div>
         <div class="container-center-nft">
             <div id="nftSpacer"></div>
-            <div class="field-row"><span><b>v</b></span><input class="nftSlider" id="nftVibrancyRange" type="range" min="1" max="100" value="10" /></div>
-            <span id="nftCurveSpacer">
-                <!-- <div id="kiki" class="field-row">
-                    <input checked id="kiki" type="radio" name="kiki">
-                    <label for="kiki">Kiki</label>
-                </div>
-                <div id="bobo" class="field-row">
-                    <input id="bobo" type="radio" name="bobo">
-                    <label for="bobo">Bobo</label>
-                </div>                 -->
-                <!-- <div class="field-row" id="nftCurveRangeField"> -->
-                    <!-- <span><b>k</b></span> -->
-                    <!-- <input class="nftSlider" id="nftCurveRange" type="range" min="1" max="100" value="1"/> -->
-                <!-- </div> -->
-            </span>
-            <div tabindex="0" id="mintNFT" class="btn regBtn">Mint NFT</div>
+            <div tabindex="0" id="mintNFT" class="btn actionBtn">Mint NFT</div>
             <div class="container-center-nft" id="nftStack"></div>
         </div>
     </div>
     <div class="item" id="legalPanel">
         <h3>Legal</h3>
-        <!-- <h3>Regain access to CoinWorld ($100,000.00)</h3> -->
         <div class="lawyer-container">
             <div tabindex="0" id="minusLawyerBtn" class="btn regBtn" disabled>–</div>
             <span id="lawyerCountSpan">0</span><span>&nbspLAWYERS</span>
