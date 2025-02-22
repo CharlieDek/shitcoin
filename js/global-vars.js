@@ -30,7 +30,7 @@ var lifetimeMaxCash = 0;
 // legal
 var num_boosts_used = 0;
 var mistrust_popularity = 0.0  // mistrust is a down-pressure on popularity, welcomes lawsuits, and can be alleviated
-const BIG_ENOUGH_TO_SUE = 500000;
+const BIG_ENOUGH_TO_SUE = 300000;
 var legalProblemsStarted = false;
 
 // work
@@ -75,14 +75,14 @@ var alreadyShowedCeleb5 = false;
 const CELEB_1_FEE = 1150;
 const CELEB_2_FEE = 15000;
 const CELEB_3_FEE = 60000;
-const CELEB_4_FEE = 350000;
-const CELEB_5_FEE = 2500000;
+const CELEB_4_FEE = 750000;
+const CELEB_5_FEE = 8500000;
 
-const POL_1_FEE = 50000;
-const POL_2_FEE = 150000;
-const POL_3_FEE = 250000;
-const POL_4_FEE = 3000000;
-const POL_5_FEE = 300000000;
+const POL_1_FEE = 500000;
+const POL_2_FEE = 1500000;
+const POL_3_FEE = 2500000;
+const POL_4_FEE = 30000000;
+const POL_5_FEE = 3000000000;
 
 // coinworld
 var shitCache = {
@@ -140,7 +140,7 @@ const UNLOCK_LIFETIME_II_BUY = 3000;
 const UNLOCK_LIFETIME_III_BUY = 50000;
 
 var default_shit_buy_quantity = 1;
-var coinworld_buy_amt = 1;
+var coinworld_buy_amt = 3;
 const shitNameArr = [
     "$ASS",
     "$ASS2",
@@ -194,6 +194,9 @@ const engagement_tweets = [
     "A WITCH WILL CURSE YOU IF YOU DONT LIKE THIS POST! SHARE TO SPREAD AWARENESS.",
     "where i'm from if you ask someone to take off their shoes they'll shoot you dead! who else?",
     "vaccines are a scam!",
+    "What do kids these days get WRONG?",
+    "I BET NOBODY CAN TELL ME WHAT THEIR FIRST ALCOHOL DRINK WAS",
+    "WOULD YOU HOLD THE DOOR FOR HITELR???",
     "all men need to hear this vvv!",
     "am i the only one who thinks stealing is ok?",
     "cheerleading is more of a sport than golf!",
@@ -206,6 +209,10 @@ const apology_tweets = [
 const pump_tweet_functions = [
     (coin_name) => `${coin_name} is going crazy!`,
     (coin_name) => `${coin_name} is Him right now!`,
+    (coin_name) => `${coin_name} going to the MOON! DM for special offer...`,
+    (coin_name) => `Blown away by the support for ${coin_name}! I love this community.`,
+    (coin_name) => `${coin_name} CRUSHING THE COMPETITION, but so much more to do #timetobuild #letsdothis`,
+    (coin_name) => `INSANE growth on ${coin_name} rn.`,
     (coin_name) => `${coin_name} is such a bargain rn omg i just bought like \$5,000 and it's way up`,
     (coin_name) => `who else just made %5000 today with ${coin_name}!? so awesome`,
 ];

@@ -410,7 +410,7 @@ function makeNFTAccount() {
     setTimeout(function() {
         teamUpWithCelebAction1.show();
     }, 60000);
-    $("#kikiInput").prop("checked", true);
+    // $("#kikiInput").prop("checked", true);
 }
 
 // NFT Land
@@ -451,7 +451,7 @@ function getNftValue() {
 function makeNFTRoundness() {
     let shapeType = ["square", "parallelogram", "triangle", "oval"][Math.floor(Math.random() * 4)];
     var cornerRoundness = 1;
-    var kikiBobo = $('input[name="twitter-option"]:checked').attr('id');
+    var kikiBobo = $('input[name="kiki-bobo-option"]:checked').attr('id');
     if (kikiBobo === "boboInput") {
         cornerRoundness = 40;
         if (shapeType === "parallelogram") {
@@ -761,7 +761,7 @@ makeRobBtn.click(function() {
 createXBtn.click(function() {
     twitterOptionFieldRegular.show();
     twitterOptionFieldEngagement.show();
-    $("#twitterRadioRegular").prop("checked", true);    
+    // $("#twitterRadioRegular").prop("checked", true);    
     socialsPanel.show();
     createXBtn.hide();
 });
@@ -1478,7 +1478,7 @@ function refreshRob() {
 
     if (Math.random() > 0.95) {
         rob_going_up = !rob_going_up;
-        if (!rob_going_up && Math.random() > 0.91) { // hacky way to make it go u more than down
+        if (!rob_going_up && Math.random() > 0.89) { // hacky way to make it go u more than down
             rob_going_up = true;
         } else {
             if (rob_going_up){
@@ -1730,7 +1730,7 @@ function addTweet(tweetType) {
         boostCoin(shitID, popularity/35.0);
         mistrust_popularity += 0.5;
         popularity -= 0.5;
-        if ((lifetimeMaxCash > BIG_ENOUGH_TO_SUE) && Math.random() > 0.92) {
+        if ((lifetimeMaxCash > BIG_ENOUGH_TO_SUE) && Math.random() > 0.89) {
             makeLawsuit();
         }
         // likes
@@ -1900,7 +1900,7 @@ function startLegalProblems() {
 
 getRealAction.click(function() {
     alreadyGotReal = true;
-    twitterOptionFieldEngagement.hide();
+    // twitterOptionFieldEngagement.hide(); // TODO: still need popularity when successful...
     getRealAction.hide();
     nftPanel.hide();
     prepPanel.show();

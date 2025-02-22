@@ -92,10 +92,6 @@
                         <input checked id="twitterRadioRegular" type="radio" name="twitter-option">
                         <label for="twitterRadioRegular">Normal tweet</label>
                     </div>
-                    <div id="twitterOptionPumpMy" class="field-row twitterOption">
-                        <input id="twitterRadioPumpMy" type="radio" name="twitter-option">
-                        <label for="twitterRadioPumpMy">Pump my coin</label>
-                    </div>
                     <div id="twitterOptionFieldPumpCoins" class="field-row twitterOption">
                     <input id="twitterRadioPumpCoins" type="radio" name="twitter-option">
                         <label for="twitterRadioPumpCoins">Pump coins</label>
@@ -103,6 +99,10 @@
                     <div id="twitterOptionFieldEngagement" class="field-row twitterOption">
                         <input disabled id="twitterRadioEngagement" type="radio" name="twitter-option">
                         <label for="twitterRadioEngagement">Engagement</label>
+                    </div>
+                    <div id="twitterOptionPumpMy" class="field-row twitterOption">
+                        <input id="twitterRadioPumpMy" type="radio" name="twitter-option">
+                        <label for="twitterRadioPumpMy">Pump my coin</label>
                     </div>
                     <div id="twitterOptionFieldApologize" class="field-row twitterOption">
                     <input id="twitterRadioApologize" type="radio" name="twitter-option">
@@ -165,6 +165,28 @@
         </div>
         <div id="robSuspensionMessage">Due to your legal situation you have lost access to Robinhood. Please sell your assets and cancel your account.</div>
     </div>
+    <div class="item" id="nftPanel">
+        <h3>NFTLand</h3>
+        <div class="container-center-nft">
+            <div id="nftPriceLabel">$0.01</div>
+            <div class="field-row"><span><b>$</b></span><input class="nftSlider" id="nftPriceRange" type="range" min="1" max="100" value="10" /></div>
+            <div class="field-row"><span><b>S</b></span><input class="nftSlider" id="nftVibrancyRange" type="range" min="1" max="100" value="1" /></div>
+
+            <div id="kikiField" class="field-row">
+                <input checked id="kikiInput" type="radio" name="kiki-bobo-option">
+                <label for="kikiInput">Kiki</label>
+            </div>
+            <div id="boboField" class="field-row">
+                <input id="boboInput" type="radio" name="kiki-bobo-option">
+                <label for="boboInput">Bobo</label>
+            </div>
+        </div>
+        <div class="container-center-nft">
+            <div id="nftSpacer"></div>
+            <div tabindex="0" id="mintNFT" class="btn actionBtn">Mint NFT</div>
+            <div class="container-center-nft" id="nftStack"></div>
+        </div>
+    </div>
     <div class="item" id="coinWorldPanel">
         <h3><!--<img src="img/fave-coin.png" height="15">-->  CoinWorld</h3>
         <fieldset id="shitHolder">
@@ -180,36 +202,7 @@
                 <div tabindex="0" class="btn coinBtn" id="buyShit_MINE">$SHIT</div>
             </div>
         </fieldset>
-
-        <!-- <div class="graph-container"> -->
-            <!-- <svg viewBox="0 0 300 150"> -->
-                <!-- <path id="graph-line" d="M0,75" /> -->
-            <!-- </svg> -->
-        <!-- </div> -->
-         <!-- buying and selling shitcoins -->
-    </div>
-    <div class="item" id="nftPanel">
-        <h3>NFTLand</h3>
-        <div class="container-center-nft">
-            <div id="nftPriceLabel">$0.01</div>
-            <div class="field-row"><span><b>$</b></span><input class="nftSlider" id="nftPriceRange" type="range" min="1" max="100" value="10" /></div>
-            <div class="field-row"><span><b>S</b></span><input class="nftSlider" id="nftVibrancyRange" type="range" min="1" max="100" value="1" /></div>
-
-            <div id="kikiField" class="field-row">
-                <input checked id="kikiInput" type="radio" name="twitter-option">
-                <label for="kikiInput">Kiki</label>
-            </div>
-            <div id="boboField" class="field-row">
-                <input id="boboInput" type="radio" name="twitter-option">
-                <label for="boboInput">Bobo</label>
-            </div>
-        </div>
-        <div class="container-center-nft">
-            <div id="nftSpacer"></div>
-            <div tabindex="0" id="mintNFT" class="btn actionBtn">Mint NFT</div>
-            <div class="container-center-nft" id="nftStack"></div>
-        </div>
-    </div>
+    </div>    
     <div class="item" id="legalPanel">
         <h3>Legal</h3>
         <div class="lawyer-container">
