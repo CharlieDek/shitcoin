@@ -5,7 +5,7 @@ function getRandomNumber(min, max) {
 var debug = false;
 var phase = 0;
 var global_ticks = 0;
-var globalIntervalTickSpeed = 9;
+var globalIntervalTickSpeed = 16.7;
 // globalIntervalTickSpeed = 500; // TODO remove
 
 var bank_worth = 1032.84;
@@ -50,7 +50,7 @@ var timeToCancelRob = false;
 
 // nftland
 var nft_vibrancy = 10;
-var nft_eyes = false;
+var nft_eyes = false
 var nfts_ordered_by_true_value = [];
 var nft_price = 1;
 const minNFTPrice = 0.01;
@@ -61,11 +61,28 @@ var nfts_sold = 0;
 // cash triggers
 var alreadyGotReal = false;
 var alreadyGotCompound = false;
+var alreadyGotPol1 = false;
+var alreadyGotPol2 = false;
+var alreadyGotPol3 = false;
+var alreadyGotPol4 = false;
+var alreadyGotPol5 = false;
 var alreadyGotSecurity = false;
 var alreadyShowedCeleb2 = false;
 var alreadyShowedCeleb3 = false;
 var alreadyShowedCeleb4 = false;
 var alreadyShowedCeleb5 = false;
+
+const CELEB_1_FEE = 1150;
+const CELEB_2_FEE = 15000;
+const CELEB_3_FEE = 60000;
+const CELEB_4_FEE = 350000;
+const CELEB_5_FEE = 2500000;
+
+const POL_1_FEE = 50000;
+const POL_2_FEE = 150000;
+const POL_3_FEE = 250000;
+const POL_4_FEE = 3000000;
+const POL_5_FEE = 300000000;
 
 // coinworld
 var shitCoins = new Object();
@@ -86,6 +103,7 @@ var myShitCoin = {
 // legal
 const legalRefreshTickSpeed = 4001;
 var LAWYER_RATE = 1000;
+var politicalLegalHelp = 0.0;
 var legalRefreshInterval;
 var numLawyers = 0;
 const MAX_LAWYERS = 21;

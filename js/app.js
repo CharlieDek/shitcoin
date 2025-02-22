@@ -26,27 +26,33 @@ var teamUpWithCelebAction2 = $("#teamUpWithCelebAction2");
 var teamUpWithCelebAction3 = $("#teamUpWithCelebAction3");
 var teamUpWithCelebAction4 = $("#teamUpWithCelebAction4");
 var teamUpWithCelebAction5 = $("#teamUpWithCelebAction5");
-var getIntoPoliticsAction1 = $("#getIntoPoliticsAction1");
-var getIntoPoliticsAction2 = $("#getIntoPoliticsAction2");
-var getIntoPoliticsAction3 = $("#getIntoPoliticsAction3");
+var getIntoPol1 = $("#getIntoPoliticsAction1");
+var getIntoPol2 = $("#getIntoPoliticsAction2");
+var getIntoPol3 = $("#getIntoPoliticsAction3");
+var getIntoPol4 = $("#getIntoPoliticsAction4");
+var getIntoPol5 = $("#getIntoPoliticsAction5");
 var getRealAction = $("#getRealAction");
+var dieAction = $("#dieAction");
+var fleeAction = $("#fleeAction");
 
-const projectToPrice = {
-    2500: makeStockIndicatorBtn,
-    15: makeCoinworldAccountBtn,
-    150: makeAccountNFT,
-    100: makeShitcoin,
-    500: nftRedesignAction,
-    5000: engagementBotBtn,
-    1150: teamUpWithCelebAction1,
-    15000: teamUpWithCelebAction2,
-    30000: teamUpWithCelebAction3,
-    90000: teamUpWithCelebAction4,
-    570000: teamUpWithCelebAction5,
-    10000: getIntoPoliticsAction1,
-    100000: getIntoPoliticsAction2,
-    1000000: getIntoPoliticsAction3,
-};
+const projectPriceTuples = [
+    [2500, makeStockIndicatorBtn],
+    [15, makeCoinworldAccountBtn],
+    [150, makeAccountNFT],
+    [100, makeShitcoin],
+    [500, nftRedesignAction],
+    [5000, engagementBotBtn],
+    [CELEB_1_FEE, teamUpWithCelebAction1],
+    [CELEB_2_FEE, teamUpWithCelebAction2],
+    [CELEB_3_FEE, teamUpWithCelebAction3],
+    [CELEB_4_FEE, teamUpWithCelebAction4],
+    [CELEB_5_FEE, teamUpWithCelebAction5],
+    [POL_1_FEE, getIntoPol1],
+    [POL_2_FEE, getIntoPol2],
+    [POL_3_FEE, getIntoPol3],
+    [POL_4_FEE, getIntoPol4],
+    [POL_5_FEE, getIntoPol5],
+];
 
 // robinhood
 var robinhoodPanel = $("#robinhoodPanel");
@@ -77,6 +83,17 @@ var minusLawyerBtn = $("#minusLawyerBtn");
 
 // prepper
 var prepPanel = $("#prepPanel");
+var prepAssetsHolder = $("#prepAssetsHolder");
+var prepBuyGold = $("#prepBuyGold");
+var prepBuySecurity = $("#prepBuySecurity");
+var prepBuyLong = $("#prepBuyLong");
+var prepBuyArt = $("#prepBuyArt");
+var prepBuyBunker = $("#prepBuyBunker");
+var prepBuyRanch = $("#prepBuyRanch");
+var prepBuyPlane = $("#prepBuyPlane");
+var prepBuyCompound1 = $("#prepBuyCompound1");
+var prepBuyYacht = $("#prepBuyYacht");
+var prepBuyCompound2 = $("#prepBuyCompound2");
 
 // socials
 var socialsPanel = $("#socialsPanel");
@@ -190,6 +207,9 @@ function makeLawsuit() {
     if (!legalProblemsStarted) {
         startLegalProblems();
     }
+    if (Math.random() < politicalLegalHelp) {
+        return;
+    }
     if (Object.keys(lawsuitsObj).length > MAX_LAWSUITS) return;
     let lawsuitName = getUniqueLawsuitName();
     let lawsuitID = Math.random().toString(36).substring(8);
@@ -236,7 +256,7 @@ function teamUpWithCeleb(popularityGain, celebTweet) {
 
 teamUpWithCelebAction1.click(function() {
     teamUpWithCelebAction1.hide();
-    bank_worth -= 1150;
+    bank_worth -= CELEB_1_FEE;
     my_nft_boost += 0.001;
     setCash();
     teamUpWithCeleb(2, "I'm teaming up with TikTok prankster K.J. Seter, our NFT's takin' over! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
@@ -244,7 +264,7 @@ teamUpWithCelebAction1.click(function() {
 
 teamUpWithCelebAction2.click(function() {
     teamUpWithCelebAction2.hide();
-    bank_worth -= 15000;
+    bank_worth -= CELEB_2_FEE;
     setCash();
     popularity_cap += 5;
     console.log("todo boost my own coin if that's in the tewet");    
@@ -253,7 +273,7 @@ teamUpWithCelebAction2.click(function() {
 
 teamUpWithCelebAction3.click(function() {
     teamUpWithCelebAction3.hide();
-    bank_worth -= 30000;
+    bank_worth -= CELEB_3_FEE;
     setCash();
     popularity_cap += 10;
     console.log("todo boost my own coin if that's in the tewet");    
@@ -262,7 +282,7 @@ teamUpWithCelebAction3.click(function() {
 
 teamUpWithCelebAction4.click(function() {
     teamUpWithCelebAction4.hide();
-    bank_worth -= 90000;
+    bank_worth -= CELEB_4_FEE;
     setCash();
     popularity_cap += 15;
     console.log("todo boost my own coin if that's in the tewet");    
@@ -271,11 +291,47 @@ teamUpWithCelebAction4.click(function() {
 
 teamUpWithCelebAction5.click(function() {
     teamUpWithCelebAction5.hide();
-    bank_worth -= 570000;
+    bank_worth -= CELEB_5_FEE;
     setCash();
     popularity_cap += 20;
     console.log("todo boost my own coin if that's in the tewet");    
     teamUpWithCeleb(10, "RT A-List: I am teaming up with $SHIT, let's shit on that thing! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
+});
+
+getIntoPol1.click(function() {
+    getIntoPol1.hide();
+    bank_worth -= POL_1_FEE;
+    politicalLegalHelp = 0.01;
+    setCash();
+});
+
+getIntoPol2.click(function() {
+    getIntoPol2.hide();
+    bank_worth -= POL_2_FEE;
+    politicalLegalHelp = 0.10;
+    setCash();
+});
+
+getIntoPol3.click(function() {
+    getIntoPol3.hide();
+    bank_worth -= POL_3_FEE;
+    politicalLegalHelp = 0.35;
+    setCash();
+});
+
+getIntoPol4.click(function() {
+    getIntoPol4.hide();
+    bank_worth -= POL_4_FEE;
+    politicalLegalHelp = 0.70;
+    setCash();
+});
+
+getIntoPol5.click(function() {
+    getIntoPol5.hide();
+    console.log("todo abolish legal stuff");
+    bank_worth -= POL_5_FEE;
+    politicalLegalHelp = 1.0;    
+    setCash();
 });
 
 learnEngagementBtn.click(function() {
@@ -301,7 +357,6 @@ learnApologiesBtn.click(function() {
 //     twitterOptionFieldPumpCoins.show();
 // });
 
-
 nftRedesignAction.click(function() {
     bank_worth -= 500.00;
     setCash();
@@ -321,6 +376,7 @@ function popBestNft(nftId) {
 // and may be enough to buy one
 function refreshNFTSales() {
     if (nfts_ordered_by_true_value.length === 0) return;
+
     // best nft
     var bestNft = nfts_ordered_by_true_value[0];
     var nft_demand_calculated = bestNft.key * popularity*popularity * crypto_market_popularity;
@@ -337,6 +393,10 @@ function refreshNFTSales() {
             my_nft_boost += 0.001;
         } else if (nfts_sold === 200) {
             my_nft_boost += 0.005;
+        }
+        if (nft_price > 5000) {
+            my_nft_boost -= 0.00003; // can't sell them for millions forever dawg..
+            my_nft_boost = Math.max(0.0001, my_nft_boost);
         }
     }
 }
@@ -688,6 +748,8 @@ makeRobBtn.click(function() {
 });
 
 createXBtn.click(function() {
+    twitterOptionFieldRegular.show();
+    twitterOptionFieldEngagement.show();
     socialsPanel.show();
     createXBtn.hide();
 });
@@ -996,6 +1058,7 @@ function refreshMyShit() {
 coinworldBuyLimit1.click(function() {
     coinworld_buy_amt = 1000;
     coinworldBuyLimit1.hide();
+    makeShitcoin.show();
 });
 
 coinworldBuyLimit2.click(function() {
@@ -1069,8 +1132,8 @@ makeShitcoin.click(function() {
 });
 
 buyGME.click(function() {
-    bank_worth += 3000; // ah cool cheat
-    setCash(); // ah cool cheat
+    // bank_worth += 3000000; // ah cool cheat
+    // setCash(); // ah cool cheat
 
     if (bank_worth < gme_valuation) {
         return;
@@ -1211,8 +1274,8 @@ function setNetWorth() {
     netWorth.html(`Net worth: \$${calculated_worth}`);
 }
 
-function formatNumber(num) {
-    return Number(num).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+function formatNumber(num, decimalPlaces = 2) {
+    return Number(num).toLocaleString('en-US', { minimumFractionDigits: decimalPlaces, maximumFractionDigits: decimalPlaces });
 }
 
 function formatShitValue(num) {
@@ -1235,11 +1298,109 @@ function enable_disable_btn_against_cash(btn, valueToClick) {
     }
 }
 
+prepBuyGold.click(function(){
+    bank_worth -= 5000;
+    prepAssetsHolder.append(
+        '<object data="img/prep_gold.svg" class="prepIcon" type="image/svg+xml"></object>'
+    );
+    setCash();
+});
+
+prepBuySecurity.click(function(){
+    bank_worth -= 15000;
+    prepAssetsHolder.append(
+        '<object data="img/prep_security.svg" class="prepIcon" type="image/svg+xml"></object>'
+    );
+    setCash();
+});
+
+prepBuyLong.click(function(){
+    bank_worth -= 23000;
+    prepAssetsHolder.append(
+        '<object data="img/prep_longevity.svg" class="prepIcon" type="image/svg+xml"></object>'
+    );
+    setCash();
+});
+
+prepBuyArt.click(function(){
+    bank_worth -= 200000;
+    prepAssetsHolder.append(
+        '<object data="img/prep_art.svg" class="prepIcon" type="image/svg+xml"></object>'
+    );
+    setCash();
+});
+
+prepBuyBunker.click(function(){
+    bank_worth -= 400000;
+    prepAssetsHolder.append(
+        '<object data="img/prep_bunker.svg" class="prepIcon" type="image/svg+xml"></object>'
+    );
+    setCash();
+});
+
+prepBuyRanch.click(function(){
+    bank_worth -= 2000000;
+    prepAssetsHolder.append(
+        '<object data="img/prep_ranch.svg" class="prepIcon" type="image/svg+xml"></object>'
+    );
+    setCash();
+});
+
+prepBuyPlane.click(function(){
+    bank_worth -= 20000000;
+    prepAssetsHolder.append(
+        '<object data="img/prep_plane.svg" class="prepIcon" type="image/svg+xml"></object>'
+    );
+    setCash();
+});
+
+prepBuyCompound1.click(function(){
+    bank_worth -= 30000000;
+    prepAssetsHolder.append(
+        '<object data="img/prep_malibu.svg" class="prepIcon" type="image/svg+xml"></object>'
+    );
+    setCash();
+});
+
+prepBuyYacht.click(function(){
+    bank_worth -= 75000000;
+    prepAssetsHolder.append(
+        '<object data="img/prep_yacht.svg" class="prepIcon" type="image/svg+xml"></object>'
+    );
+    setCash();
+});
+
+prepBuyCompound2.click(function(){
+    bank_worth -= 280000000;
+    prepAssetsHolder.append(
+        '<object data="img/prep_nz_2.svg" class="prepIcon" type="image/svg+xml"></object>'
+    );
+    setCash();
+});
+
+function enable_disable_prep_stuff() {
+    console.log("enable disable against prep");
+    enable_disable_btn_against_cash(prepBuyGold, 5000);
+    enable_disable_btn_against_cash(prepBuySecurity, 15000);
+    enable_disable_btn_against_cash(prepBuyLong, 23000);
+    enable_disable_btn_against_cash(prepBuyArt, 200000);
+    enable_disable_btn_against_cash(prepBuyBunker, 400000);
+    enable_disable_btn_against_cash(prepBuyRanch, 2000000);
+    enable_disable_btn_against_cash(prepBuyPlane, 20000000);
+    enable_disable_btn_against_cash(prepBuyCompound1, 30000000);
+    enable_disable_btn_against_cash(prepBuyYacht, 75000000);
+    enable_disable_btn_against_cash(prepBuyCompound2, 280000000);
+}
+
 function enable_disable_btns_against_cash() {
     if (!timeToCancelRob) {
         enable_disable_btn_against_cash(buyGME, gme_valuation);
         enable_disable_btn_against_cash(buyTSLA, tsla_valuation);
         enable_disable_btn_against_cash(buyNVDA, nvda_valuation);
+    }
+
+    if (alreadyGotReal) {
+        enable_disable_prep_stuff();
     }
 
     // iterate over shitCoins and enabledisable based on current buy amt
@@ -1250,10 +1411,9 @@ function enable_disable_btns_against_cash() {
     }
 
     // iterate over actionBtns and enable/disable based on their cost
-    for (const [price, projectBtn] of Object.entries(projectToPrice)) {
-        enable_disable_btn_against_cash(projectBtn, price);        
-    }    
-
+    projectPriceTuples.forEach(projectPriceTuple => {
+        enable_disable_btn_against_cash(projectPriceTuple[1], projectPriceTuple[0]);
+    });    
 
 }
 
@@ -1357,7 +1517,7 @@ function deleteSuit(suitID) {
 
 function paintSuit(suitID) {
     const amtRemaining = lawsuitsObj[suitID].amtRemaining;
-    $(`#lawsuitAmt_${suitID}`).html(`\$${formatNumber(amtRemaining)}`);
+    $(`#lawsuitAmt_${suitID}`).html(`\$${formatNumber(amtRemaining, 0)}`);
     $(`#lawsuit_${suitID}`).removeClass("freshLawsuit");
 }
 
@@ -1593,13 +1753,6 @@ tweetBtn.click(function() {
     addTweet();
 });
 
-function advancePhase() {
-    phase += 1;
-    if (phase === 1) {
-        popularity_fluctuation = 0.01;
-
-    }
-}
 
 function setPopularityProgress() {
     var percent_filled = popularity;
@@ -1631,41 +1784,60 @@ function checkCashTriggers() {
     if (!coinworld_sub && ((lifetimeMaxCash > 3000) || (nfts_sold > 100))) {
         makeCoinworldAccountBtn.show();
     }
-    if (!alreadyShowedCeleb2 && (lifetimeMaxCash > 7500)) {
+    if (!alreadyShowedCeleb2 && (lifetimeMaxCash > (CELEB_2_FEE / 2))) {
         teamUpWithCelebAction2.show();
         alreadyShowedCeleb2 = true;
     }
-    if (!alreadyShowedCeleb3 && (lifetimeMaxCash > 15000)) {
+    if (!alreadyShowedCeleb3 && (lifetimeMaxCash > (CELEB_3_FEE / 2))) {
         teamUpWithCelebAction3.show();
         alreadyShowedCeleb3 = true;
     }
-    if (!alreadyShowedCeleb4 && (lifetimeMaxCash > 45000)) {
+    if (!alreadyShowedCeleb4 && (lifetimeMaxCash > (CELEB_4_FEE / 2))) {
         teamUpWithCelebAction4.show();
         alreadyShowedCeleb4 = true;
     }
-    if (!alreadyShowedCeleb5 && (lifetimeMaxCash > 250000)) {
+    if (!alreadyShowedCeleb5 && (lifetimeMaxCash > (CELEB_5_FEE / 2))) {
         teamUpWithCelebAction5.show();
         alreadyShowedCeleb5 = true;
     }
 
-    if (!alreadyGotPol1 && (lifetimeMaxCash > 750000)) { // get into politics initially, next politics will just be triggered
+    if (!alreadyGotPol1 && (lifetimeMaxCash > (POL_1_FEE / 2))) {
         getIntoPol1.show();
+        alreadyGotPol1 = true;
     }
 
-    if (!alreadyGotPol1 && (lifetimeMaxCash > 5000000)) { // 5 mill
-        getIntoPol1.show();
+    if (!alreadyGotPol2 && (lifetimeMaxCash > (POL_2_FEE / 2))) {
+        getIntoPol2.show();
+        alreadyGotPol2 = true;
+    }
+
+    if (!alreadyGotPol3 && (lifetimeMaxCash > (POL_3_FEE / 2))) {
+        getIntoPol3.show();
+        alreadyGotPol3 = true;
+    }
+
+    if (!alreadyGotPol4 && (lifetimeMaxCash > (POL_4_FEE / 2))) {
+        getIntoPol4.show();
+        alreadyGotPol4 = true;
+    }
+
+    if (!alreadyGotPol5 && (lifetimeMaxCash > (POL_5_FEE / 2))) {
+        getIntoPol5.show();
+        alreadyGotPol5 = true;
     }
 
     if (!alreadyGotReal && (lifetimeMaxCash > 10000000)) { // 10 mill, get real
         getRealAction.show();
+        alreadyGotReal = true;
     }
 }
 
 function globalRefresh() {
     global_ticks++;
-    if (global_ticks % 500 === 0) {
+
+    if (global_ticks % 60 === 0) {
         checkCashTriggers();
-    }
+    }    
 
     refreshPopularity();
     refreshNFTSales();
@@ -1680,7 +1852,7 @@ function globalRefresh() {
         restartWorkBtn.show();
     }
 
-    if (debug) {
+    if (debug && global_ticks % 30 === 0) { // ~500ms
         refreshDebug();
     }
 }
@@ -1708,12 +1880,13 @@ function startLegalProblems() {
 getRealAction.click(function() {
     alreadyGotReal = true;
     twitterOptionFieldEngagement.hide();
+    getRealAction.hide();
     nftPanel.hide();
     prepPanel.show();
 });
 
 function goToLategame() {
-    console.log("todo this is for testing");
+    console.log("enter lategame mode, this is for testing");
 
     // social testing
     socialsPanel.show(); // TODO
@@ -1746,7 +1919,6 @@ function goToLategame() {
     stockIndicatorDiv.show();
 
 
-    bank_worth -= 5000;
     setCash();
     engagementBotInterval = setInterval(makeEngagementBotTweet, 1300);    
 
@@ -1764,8 +1936,24 @@ function goToLategame() {
     endWork();
     popularity = 50; // TODO remove
     bank_worth = 30000;
+    bank_worth = 300000000;
     setCash();
 
+}
+
+
+function setDisplayPrices() {
+    getIntoPoliticsAction1.append(`(\$${formatNumber(POL_1_FEE, 0)})`);
+    getIntoPoliticsAction2.append(`(\$${formatNumber(POL_2_FEE, 0)})`);
+    getIntoPoliticsAction3.append(`(\$${formatNumber(POL_3_FEE, 0)})`);
+    getIntoPoliticsAction4.append(`(\$${formatNumber(POL_4_FEE, 0)})`);
+    getIntoPoliticsAction5.append(`(\$${formatNumber(POL_5_FEE, 0)})`);
+
+    teamUpWithCelebAction1.append(`(\$${formatNumber(CELEB_1_FEE, 0)})`);
+    teamUpWithCelebAction2.append(`(\$${formatNumber(CELEB_2_FEE, 0)})`);
+    teamUpWithCelebAction3.append(`(\$${formatNumber(CELEB_3_FEE, 0)})`);
+    teamUpWithCelebAction4.append(`(\$${formatNumber(CELEB_4_FEE, 0)})`);
+    teamUpWithCelebAction5.append(`(\$${formatNumber(CELEB_5_FEE, 0)})`);
 }
 
 function startGame() {
@@ -1773,16 +1961,23 @@ function startGame() {
     setRob();
     refreshWork();
     updateNftPricePerInput();
-    twitterOptionFieldRegular.show();
-    twitterOptionFieldEngagement.show();
 
-    globalQuickInterval = setInterval(globalRefresh, globalIntervalTickSpeed); // TODO uncomment
-    workPanel.show(); // TODO uncomment
-    refreshWorkInterval = setInterval(refreshWork, workInterval); // TODO uncomment
-    createXBtn.show(); // TODO uncomment
-    projectsPanel.show(); // TODO uncomment
+    globalQuickInterval = setInterval(globalRefresh, globalIntervalTickSpeed);
+    workPanel.show();
+    refreshWorkInterval = setInterval(refreshWork, workInterval);
+    createXBtn.show();
+    projectsPanel.show();
+    setDisplayPrices();
 
+    // ============== TESTING ==============
     goToLategame();
+    
+    // bank_worth = 3000000000;
+    // setCash();
+    // alreadyGotReal = true;
+    // enable_disable_btns_against_cash();
+    // prepPanel.show();
+    // projectsPanel.show();
 
     // rob testing
     // makeRobBtn.show();
@@ -1816,8 +2011,7 @@ function startGame() {
     // nftPanel.show(); // TODO remove
     // nftRedesignAction.show(); // TODO remove
 
-
-    debug = true;
+    debug = false;
     if (debug) {
         debugContainer.show();
     }

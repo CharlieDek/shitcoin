@@ -916,6 +916,7 @@ button[disabled]:hover {
     background-color: pink;
 }
  */
+
 .robBtn {
     flex-grow: 0;
     background-color: transparent;
@@ -1132,6 +1133,41 @@ button[disabled]:hover {
     cursor: url("../img/hand-cursor.png"), auto;
 }
 
+
+/* Prep */
+
+.prepIcon {
+    height: 25px;
+    width: 25px;
+    margin: 2px;
+} 
+
+
+#prepAssetsHolder {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.prepBtn {
+    background-color: transparent;
+    color: var(--regular_text);
+    padding: 3px;
+    white-space: normal;
+    word-wrap: break-word;
+    flex-grow: 1;
+    text-align: center;
+    box-shadow: var(--border-raised-outer), var(--border-raised-inner);    
+    border: none;
+    margin: 0px;
+    font-size: 11px;    
+}
+
+#prepBuyOptions {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
 
 
 .animated {
