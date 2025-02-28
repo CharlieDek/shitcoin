@@ -696,14 +696,18 @@ mintNFT.click(function() {
 function updateNftPricePerInput() {
     let rangeValue = parseFloat(nftPriceRange.val());
     let new_price = minNFTPrice * Math.pow((maxNFTPrice / minNFTPrice), (rangeValue - 1) / 99);
+    var displayPrice = new_price;
     if (new_price > 10.0) {
         new_price = roundFloat(new_price, 0);
+        displayPrice = formatNumber(new_price, 0);
     } else if (new_price > 5.0) {
         new_price = roundFloat(new_price, 1);
+        displayPrice = formatNumber(new_price, 1);        
     } else {
         new_price = roundFloat(new_price, 2);
+        displayPrice = formatNumber(new_price, 2);        
     }
-    nftPriceLabel.text(`Sell price: $${formatNumber(new_price, 0)}`);
+    nftPriceLabel.text(`Sell price: $${displayPrice}`);
     nft_price = new_price;
 }
 
@@ -1285,8 +1289,8 @@ function setNetWorth() {
 }
 
 function formatNumber(num, decimalPlaces = 2) {
-    if (num > 1000000) {
-        if (num > 1000000000) {
+    if (num >= 1000000) {
+        if (num >= 1000000000) {
             num /= 1000000000;
             return Number(num).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + "B";
         } else {
