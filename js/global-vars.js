@@ -45,7 +45,9 @@ var nvda_holdings = 0;
 var gme_valuation = getRandomNumber(1, 5);
 var tsla_valuation = getRandomNumber(10, 20);
 var nvda_valuation = getRandomNumber(30, 50);
-var rob_going_up = false;
+var totalRobBuys = 0;
+var totalRobSales = 0;
+var rob_going_up = true;
 var refreshRobinhoodInterval;
 var timeToCancelRob = false;
 
@@ -56,8 +58,9 @@ var nfts_ordered_by_true_value = [];
 var nft_price = 1;
 const minNFTPrice = 0.01;
 const maxNFTPrice = 1000000.0;
-var my_nft_boost = 0.0003;
+var my_nft_boost = 0.0001;
 var nfts_sold = 0;
+var nftSaleRecords = new Object();
 
 // cash triggers
 var alreadyGotReal = false;

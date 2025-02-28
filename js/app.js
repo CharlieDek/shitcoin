@@ -36,7 +36,7 @@ var dieAction = $("#dieAction");
 var fleeAction = $("#fleeAction");
 
 const projectPriceTuples = [
-    [2500, makeStockIndicatorBtn],
+    [1500, makeStockIndicatorBtn],
     [15, makeCoinworldAccountBtn],
     [150, makeAccountNFT],
     [100, makeShitcoin],
@@ -59,8 +59,9 @@ var robinhoodPanel = $("#robinhoodPanel");
 var robinHoodNVDA = $("#robinHoodNVDA");
 var robinHoodTSLA = $("#robinHoodTSLA");
 var robinHoodGME = $("#robinHoodGME");
+var robNetPerformance = $("#robNetPerformance");
 var robSuspensionMessage = $("#robSuspensionMessage");
-var stockIndicatorDiv = $("#stockindicator");
+// var stockIndicatorDiv = $("#stockindicator");
 var buyNVDA = $("#buyNVDA");
 var buyGME = $("#buyGME");
 var buyTSLA = $("#buyTSLA");
@@ -281,9 +282,11 @@ makeCoinworldAccountBtn.click(function() {
 });
 
 makeStockIndicatorBtn.click(function() {
-    bank_worth -= 2500;
+    bank_worth -= 1500;
     setCash();
-    stockIndicatorDiv.show();
+    robNetPerformance.show();
+    totalRobBuys = 0;
+    totalRobSales = 0;
     makeStockIndicatorBtn.hide();
 });
 
@@ -428,7 +431,6 @@ function popBestNft(nftId) {
 // and may be enough to buy one
 function refreshNFTSales() {
     if (nfts_ordered_by_true_value.length === 0) return;
-
     // best nft
     var bestNft = nfts_ordered_by_true_value[0];
     var nft_demand_calculated = bestNft.key * popularity*popularity * crypto_market_popularity;
@@ -439,6 +441,7 @@ function refreshNFTSales() {
         nfts_sold++;
         if (nfts_sold === 10) {
             nftRedesignAction.show();
+            my_nft_boost += 0.0003;            
         } else if (nfts_sold === 50) {
             my_nft_boost += 0.0003;
         } else if (nfts_sold === 100) {
@@ -446,8 +449,8 @@ function refreshNFTSales() {
         } else if (nfts_sold === 200) {
             my_nft_boost += 0.005;
         }
-        if (nft_price > 5000) {
-            my_nft_boost -= 0.00003; // can't sell them for millions forever dawg..
+        if (nft_price > 900000) {
+            my_nft_boost -= 0.00009; // can't sell them for millions forever dawg..
             my_nft_boost = Math.max(0.0001, my_nft_boost);
         }
     }
@@ -483,8 +486,8 @@ function decideIfSale(demand, price) {
     return (demand * Math.random()) > price;
 }
 
-function getNftValue() {
-    let baseValue = 10 * Math.random();
+function getNftValue(settingsKey) {
+    let baseValue = 120 * Math.random();
     if (nft_vibrancy === 62) {
         baseValue *= 30;
     } else if (nft_vibrancy > 90) {
@@ -499,10 +502,15 @@ function getNftValue() {
     if (nft_eyes) {
         baseValue *= 50;
     }
-    return baseValue * my_nft_boost;
+    var boredomCost = 1;
+    if (settingsKey in nftSaleRecords) {
+        boredomCost -= ((nftSaleRecords[settingsKey]) * 0.02);
+        boredomCost = Math.max(0.001, boredomCost);
+    }
+    return baseValue * my_nft_boost * boredomCost;
 }
 
-function makeNFTRoundness() {
+function makeNFT() {
     let shapeType = ["square", "parallelogram", "triangle", "oval"][Math.floor(Math.random() * 4)];
     var cornerRoundness = 1;
     var kikiBobo = $('input[name="kiki-bobo-option"]:checked').attr('id');
@@ -669,117 +677,20 @@ function makeNFTRoundness() {
     // get random string for nft id and add id to svg before pushing to stack
     let nftID = Math.random().toString(36).substring(7);
     svg.setAttribute("id", nftID);
-    console.log("todo morenft settings and new ones and stuff. can sell first one for a lot, then 3/4, 3/4, and so forth. once they sell for more than $100?");
-    let nftValue = getNftValue(cornerRoundness, nft_vibrancy, nft_eyes); // todo take params, have them get less interesting as u make them w the same old look
-    nftStack.append(svg);
-    insertSorted(nfts_ordered_by_true_value, { key: nftValue, value: nftID});
-}
-
-function makeNFT() {
-    let shapeType = ["square", "parallelogram", "triangle", "oval"][Math.floor(Math.random() * 4)];
-    let color = `hsl(${Math.random() * 360}, ${nft_vibrancy}%, 50%)`;
-  
-    let svgNS = "http://www.w3.org/2000/svg";
-    let svg = document.createElementNS(svgNS, "svg");
-    svg.classList.add("nft-svg");    
-    svg.setAttribute("width", "100");
-    svg.setAttribute("height", "100");
-  
-    let shape;
-    
-    if (shapeType === "square") {
-      // Create a square (using a <rect>) then apply a random rotation
-      shape = document.createElementNS(svgNS, "rect");
-      shape.setAttribute("x", "10");
-      shape.setAttribute("y", "10");
-      shape.setAttribute("width", "80");
-      shape.setAttribute("height", "80");
-      
-      // Random rotation between -45 and 45 degrees about the center (50,50)
-      let angle = Math.random() * 90 - 45;
-      shape.setAttribute("transform", `rotate(${angle},50,50)`);
-      
-    } else if (shapeType === "parallelogram") {
-      // Build a parallelogram as a polygon.
-      // Define the top edge as a straight line from (10,10) to (90,10).
-      // For the bottom edge, shift both points by the same random offset.
-      let offset = Math.floor(Math.random() * 41) - 20; // random offset in [-20, 20]
-      let points = `10,10 90,10 ${90 + offset},90 ${10 + offset},90`;
-      shape = document.createElementNS(svgNS, "polygon");
-      shape.setAttribute("points", points);
-    } else if (shapeType === "triangle") {
-      // Create a triangle as a polygon.
-      // Start with a base triangle: (50,10), (10,90), (90,90)
-      // Then randomly shift the bottom corners a little.
-      let shiftLeft = Math.floor(Math.random() * 21) - 10;  // shift in [-10, 10]
-      let shiftRight = Math.floor(Math.random() * 21) - 10;
-      let points = `50,10 ${10 + shiftLeft},90 ${90 + shiftRight},90`;
-      shape = document.createElementNS(svgNS, "polygon");
-      shape.setAttribute("points", points);
-    } else if (shapeType === "oval") {
-        let rx = Math.random() * 22 + 26;
-        let ry = Math.random() * 22 + 26;
-        shape = document.createElementNS(svgNS, "ellipse");
-        shape.setAttribute("cx", "50");
-        shape.setAttribute("cy", "50");
-        shape.setAttribute("rx", rx);
-        shape.setAttribute("ry", ry);
+    const nftSettingsKey = [cornerRoundness, nft_vibrancy, nft_eyes];
+    const stringKey = JSON.stringify(nftSettingsKey);
+    let nftValue = getNftValue(stringKey);
+    if (stringKey in nftSaleRecords) {
+        nftSaleRecords[stringKey]++;
+    } else {
+        nftSaleRecords[stringKey] = 1;
     }
-    shape.setAttribute("fill", color);
-    svg.appendChild(shape);
-
-    if (nft_eyes) {
-        // Base positions for the left and right eyes
-        let baseLeftEye = { x: 43, y: 35 };
-        let baseRightEye = { x: 57, y: 35 };
-    
-        // Add slight random offsets to the eye positions (range: ±5 pixels)
-        let leftEyeX = baseLeftEye.x + (Math.random() * 10 - 5);
-        let leftEyeY = baseLeftEye.y + (Math.random() * 10 - 5);
-        let rightEyeX = baseRightEye.x + (Math.random() * 10 - 5);
-        let rightEyeY = baseRightEye.y + (Math.random() * 10 - 5);
-    
-        let leftEyeOuter = document.createElementNS(svgNS, "circle");
-        leftEyeOuter.setAttribute("cx", leftEyeX);
-        leftEyeOuter.setAttribute("cy", leftEyeY);
-        leftEyeOuter.setAttribute("r", "4");
-        leftEyeOuter.setAttribute("fill", "white");
-    
-        let leftEyeInner = document.createElementNS(svgNS, "circle");
-        leftEyeInner.setAttribute("cx", leftEyeX);
-        leftEyeInner.setAttribute("cy", leftEyeY);
-        leftEyeInner.setAttribute("r", "2");
-        leftEyeInner.setAttribute("fill", "black");
-    
-        let rightEyeOuter = document.createElementNS(svgNS, "circle");
-        rightEyeOuter.setAttribute("cx", rightEyeX);
-        rightEyeOuter.setAttribute("cy", rightEyeY);
-        rightEyeOuter.setAttribute("r", "4");
-        rightEyeOuter.setAttribute("fill", "white");
-    
-        let rightEyeInner = document.createElementNS(svgNS, "circle");
-        rightEyeInner.setAttribute("cx", rightEyeX);
-        rightEyeInner.setAttribute("cy", rightEyeY);
-        rightEyeInner.setAttribute("r", "2");
-        rightEyeInner.setAttribute("fill", "black");
-    
-        // Append eyes so they appear on top of the shape
-        svg.appendChild(leftEyeOuter);
-        svg.appendChild(leftEyeInner);
-        svg.appendChild(rightEyeOuter);
-        svg.appendChild(rightEyeInner);
-    }
-
-    // get random string for nft id and add id to svg before pushing to stack
-    let nftID = Math.random().toString(36).substring(7);
-    svg.setAttribute("id", nftID);
-    let nftValue = getNftValue();
     nftStack.append(svg);
     insertSorted(nfts_ordered_by_true_value, { key: nftValue, value: nftID});
 }
 
 mintNFT.click(function() {
-    makeNFTRoundness();
+    makeNFT();
 });
 
 function updateNftPricePerInput() {
@@ -792,7 +703,7 @@ function updateNftPricePerInput() {
     } else {
         new_price = roundFloat(new_price, 2);
     }
-    nftPriceLabel.text(`Sell price: $${new_price}`);
+    nftPriceLabel.text(`Sell price: $${formatNumber(new_price, 0)}`);
     nft_price = new_price;
 }
 
@@ -977,7 +888,6 @@ function sellMyCoin() {
     if ((sell_payout > 500000) && !politicalLegalSavesLawsuit()) {
         makeLawsuit();
     }
-    console.log("todo lower price when u sell ur own coin");
     myShitCoin.quantity = 0;
     paintShit("MINE", 0, 0);
 }
@@ -1227,7 +1137,7 @@ buyGME.click(function() {
     }
     bank_worth -= gme_valuation;
     gme_holdings += 1;
-
+    totalRobBuys += gme_valuation;
     setCash();
     setRob();
 });
@@ -1244,7 +1154,7 @@ buyTSLA.click(function() {
     }
     bank_worth -= tsla_valuation;
     tsla_holdings += 1;
-
+    totalRobBuys += tsla_valuation;
     setCash();
     setRob();
 });
@@ -1253,6 +1163,7 @@ buyNVDA.click(function() {
     if (bank_worth < nvda_valuation) {
         return;
     }
+    totalRobBuys += nvda_valuation;    
     bank_worth -= nvda_valuation;
     nvda_holdings += 1;
 
@@ -1264,8 +1175,8 @@ robinHoodGME.click(function() {
     robinHoodGME.html("$0.00");
     var totalValue = gme_holdings * gme_valuation;
     bank_worth += totalValue;
-
     setCash();
+    totalRobSales += totalValue;
     gme_holdings = 0.00;
 });
 
@@ -1274,6 +1185,7 @@ robinHoodTSLA.click(function() {
     var totalValue = tsla_holdings * tsla_valuation;
     bank_worth += totalValue;
     setCash();
+    totalRobSales += totalValue;
     tsla_holdings = 0.00;
 });
 
@@ -1282,6 +1194,7 @@ robinHoodNVDA.click(function() {
     var totalValue = nvda_holdings * nvda_valuation;
     bank_worth += totalValue;
     setCash();
+    totalRobSales += totalValue;
     nvda_holdings = 0.00;
 });
 
@@ -1373,8 +1286,13 @@ function setNetWorth() {
 
 function formatNumber(num, decimalPlaces = 2) {
     if (num > 1000000) {
-        num /= 1000000;
-        return Number(num).toLocaleString('en-US', { minimumFractionDigits: decimalPlaces, maximumFractionDigits: decimalPlaces }) + "M";
+        if (num > 1000000000) {
+            num /= 1000000000;
+            return Number(num).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + "B";
+        } else {
+            num /= 1000000;
+            return Number(num).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + "M";
+        }
     } else {
         return Number(num).toLocaleString('en-US', { minimumFractionDigits: decimalPlaces, maximumFractionDigits: decimalPlaces });
     }
@@ -1524,9 +1442,20 @@ function setCash() {
     cash.html(`Cash: \$${bank_str}`);
 }
 
+function refreshRobPerformance() {
+    var sign = "+";
+    var perfTotal = (gme_valuation*gme_holdings + tsla_valuation*tsla_holdings + nvda_valuation*nvda_holdings) - (totalRobBuys - totalRobSales);
+    if (perfTotal < 0) {
+        sign = "–";
+        perfTotal *= -1;
+    }
+    var perf_str = formatNumber(perfTotal);
+    robNetPerformance.html(`Performance: ${sign}\$${perf_str}`);
+}
+
 function refreshRob() {
     const percent_today = getRandomNumber(.01, .05);
-    stockIndicatorDiv.removeClass("upMarket downMarket");
+    // stockIndicatorDiv.removeClass("upMarket downMarket");
 
     var market_direction = 1;
     if (!rob_going_up) {
@@ -1554,25 +1483,27 @@ function refreshRob() {
     } else {
         tsla_valuation += tsla_diff_today;
     }
-
+ 
     if (Math.random() > 0.95) {
         rob_going_up = !rob_going_up;
-        if (!rob_going_up && Math.random() > 0.89) { // hacky way to make it go u more than down
+        if (!rob_going_up && Math.random() > 0.85) { // hacky way to make it go u more than down
             rob_going_up = true;
-        } else {
-            if (rob_going_up){
-                stockIndicatorDiv.html("Market: ^");
-                stockIndicatorDiv.addClass("upMarket");
-            } else {
-                stockIndicatorDiv.html("Market: v");
-                stockIndicatorDiv.addClass("downMarket");
-            }
         }
+        // } else {
+            // if (rob_going_up){
+                // stockIndicatorDiv.html("Market: ^");
+                // stockIndicatorDiv.addClass("upMarket");
+            // } else {
+                // stockIndicatorDiv.html("Market: v");
+                // stockIndicatorDiv.addClass("downMarket");
+            // }
+        // }
     }
     setRob();
     enable_disable_btn_against_cash(buyGME, gme_valuation);
     enable_disable_btn_against_cash(buyTSLA, tsla_valuation);
-    enable_disable_btn_against_cash(buyNVDA, nvda_valuation);    
+    enable_disable_btn_against_cash(buyNVDA, nvda_valuation);
+    refreshRobPerformance();
 }
 
 function setRob() {
@@ -1654,7 +1585,6 @@ function setNextPaymentAmt() {
 }
 
 function attackRefresh() {
-    console.log("attack refresh");
     for (const [suitID, suitObj] of Object.entries(attacksObj)) {
         var paymentAmt = suitObj.originalTotal/20;
         bank_worth += paymentAmt;
@@ -1922,6 +1852,9 @@ function refreshPopularity() {
     if (popularity < 0.1) {
         popularity = 0.1;
     }
+    if (popularity > 100){
+        popularity = 100;
+    }
     setPopularityProgress();
 }
 
@@ -2077,7 +2010,7 @@ function goToLategame() {
     refreshRobinhoodInterval = setInterval(refreshRob, refreshRobTickSpeed);
     robinhoodPanel.show();
     makeRobBtn.hide();
-    stockIndicatorDiv.show();
+    // stockIndicatorDiv.show();
 
 
     setCash();
@@ -2145,8 +2078,6 @@ function startGame() {
     // projectsPanel.show();
 
     // rob testing
-    // makeRobBtn.show();
-
     // social testing
     // twitterOptionFieldRegular.show();
     // twitterOptionFieldEngagement.show();
