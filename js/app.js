@@ -81,6 +81,8 @@ var lawyerCountSpan = $("#lawyerCountSpan");
 var plusLawyerBtn = $("#plusLawyerBtn");
 var minusLawyerBtn = $("#minusLawyerBtn");
 var legalAttacks = $("#legalAttacks");
+var legalAttackBtn = $("#legalAttackBtn");
+var legalPaymentsDue = $("#legalPaymentsDue");
 
 // prepper
 var prepPanel = $("#prepPanel");
@@ -204,11 +206,41 @@ function getUniqueLawsuitName() {
     return suitName;
 }
 
+function getUniqueAttackName() {
+    var suitName = getRandFromArr(ATTACK_NAMES);
+    while (suitNameUsed(suitName)) {
+        suitName = getRandFromArr(ATTACK_NAMES);
+    }
+    return suitName;
+}
+
 function politicalLegalSavesLawsuit() {
     return Math.random() < politicalLegalHelp;
 }
 
+function makeLegalAttack() {
+    if (numLawyers === 0) {
+        return;
+    }
+    if (Object.keys(attacksObj).length > MAX_LAWSUITS) return;
+    let attackName = getUniqueAttackName();
+    let attackID = Math.random().toString(36).substring(8);
+    const attackAmt = parseInt(numLawyers * Math.random() * 50000000);
+
+    attacksObj[attackID] = {
+        name: attackName,
+        originalTotal: attackAmt,
+        amtRemaining: attackAmt,
+    }
+
+    var attack = `<div class="lawsuit freshLawsuit" id="lawsuit_${attackID}"><span>${attackName}</span><span id="lawsuitAmt_${attackID}">\$${formatNumber(attackAmt, 0)}</span></div>`;
+    legalAttacks.append(attack);
+}
+
 function makeLawsuit() {
+    if (legalProblemsDone) {
+        return;
+    }
     if (!legalProblemsStarted) {
         startLegalProblems();
     }
@@ -228,6 +260,7 @@ function makeLawsuit() {
 
     var lawsuit = `<div class="lawsuit freshLawsuit" id="lawsuit_${lawsuitID}"><span>${lawsuitName}</span><span id="lawsuitAmt_${lawsuitID}">\$${formatNumber(lawsuitAmt, 0)}</span></div>`;
     lawsuitHolder.append(lawsuit);
+    setNextPaymentAmt();
 }
 
 function makeCoinWorld() {
@@ -346,10 +379,8 @@ function collapseIncrement() {
 getIntoPol5.click(function() {
     getIntoPol5.hide();
     bank_worth -= POL_5_FEE;
-    politicalLegalHelp = 1.0;    
-    clearLawsuits();
-    $("#lawyerOptions").hide();
-    legalAttacks.show();
+    politicalLegalHelp = 1.0;
+    endLegalProblems();
     setCash();
     societalCollapseInterval = setInterval(collapseIncrement, 300);
 });
@@ -638,7 +669,8 @@ function makeNFTRoundness() {
     // get random string for nft id and add id to svg before pushing to stack
     let nftID = Math.random().toString(36).substring(7);
     svg.setAttribute("id", nftID);
-    let nftValue = getNftValue();
+    console.log("todo morenft settings and new ones and stuff. can sell first one for a lot, then 3/4, 3/4, and so forth. once they sell for more than $100?");
+    let nftValue = getNftValue(cornerRoundness, nft_vibrancy, nft_eyes); // todo take params, have them get less interesting as u make them w the same old look
     nftStack.append(svg);
     insertSorted(nfts_ordered_by_true_value, { key: nftValue, value: nftID});
 }
@@ -760,7 +792,7 @@ function updateNftPricePerInput() {
     } else {
         new_price = roundFloat(new_price, 2);
     }
-    nftPriceLabel.text(`$${new_price}`);
+    nftPriceLabel.text(`Sell price: $${new_price}`);
     nft_price = new_price;
 }
 
@@ -1300,22 +1332,32 @@ plusLawyerBtn.click(function() {
     if (numLawyers < MAX_LAWYERS) {
         numLawyers++;
         lawyerCountSpan.html(numLawyers);
+        setNextPaymentAmt();
         minusLawyerBtn.attr("disabled", null);
+        legalAttackBtn.attr("disabled", null);        
     }
     if (numLawyers === MAX_LAWYERS) {
         plusLawyerBtn.attr("disabled", "disabled");
+        minusLawyerBtn.attr("disabled", "disabled");        
     } else {
         plusLawyerBtn.attr("disabled", null);
     }
+});
+
+legalAttackBtn.click(function() {
+    makeLegalAttack();
 });
 
 minusLawyerBtn.click(function() {
     if (numLawyers > 0) {
         numLawyers--;
         lawyerCountSpan.html(numLawyers);
-        plusLawyerBtn.attr("disabled", null);        
+        setNextPaymentAmt();
+        plusLawyerBtn.attr("disabled", null);
+        legalAttackBtn.attr("disabled", null);
     }
     if (numLawyers === 0) {
+        legalAttackBtn.attr("disabled", "disabled");
         minusLawyerBtn.attr("disabled", "disabled");
     } else {
         minusLawyerBtn.attr("disabled", null);
@@ -1330,7 +1372,12 @@ function setNetWorth() {
 }
 
 function formatNumber(num, decimalPlaces = 2) {
-    return Number(num).toLocaleString('en-US', { minimumFractionDigits: decimalPlaces, maximumFractionDigits: decimalPlaces });
+    if (num > 1000000) {
+        num /= 1000000;
+        return Number(num).toLocaleString('en-US', { minimumFractionDigits: decimalPlaces, maximumFractionDigits: decimalPlaces }) + "M";
+    } else {
+        return Number(num).toLocaleString('en-US', { minimumFractionDigits: decimalPlaces, maximumFractionDigits: decimalPlaces });
+    }
 }
 
 function formatShitValue(num) {
@@ -1568,18 +1615,70 @@ function deleteSuit(suitID) {
     $(`#lawsuit_${suitID}`).remove();
 }
 
+function deleteAttack(suitID) {
+    delete attacksObj[suitID];
+    $(`#lawsuit_${suitID}`).remove();
+}
+
 function paintSuit(suitID) {
     const amtRemaining = lawsuitsObj[suitID].amtRemaining;
     $(`#lawsuitAmt_${suitID}`).html(`\$${formatNumber(amtRemaining, 0)}`);
     $(`#lawsuit_${suitID}`).removeClass("freshLawsuit");
 }
 
+function paintAttack(suitID) {
+    const amtRemaining = attacksObj[suitID].amtRemaining;
+    $(`#lawsuitAmt_${suitID}`).html(`\$${formatNumber(amtRemaining, 0)}`);
+    $(`#lawsuit_${suitID}`).removeClass("freshLawsuit");
+}
+
+function setNextPaymentAmt() {
+    var legalCost = numLawyers * LAWYER_RATE;
+    var nextPaymentTotal = legalCost;
+    var lawyersRemaining = numLawyers;
+    for (const [suitID, suitObj] of Object.entries(lawsuitsObj)) {
+        var paymentAmt = suitObj.originalTotal/20;
+
+        // our lawyers help get payments down
+        var lawyerDiscountedAmt = paymentAmt;
+        if (lawyersRemaining > 2) {
+            lawyerDiscountedAmt /= 3;
+            lawyersRemaining -= 3;
+        } else if (lawyersRemaining > 0) {
+            lawyerDiscountedAmt /= lawyersRemaining;
+            lawyersRemaining = 0;
+        }
+        nextPaymentTotal += lawyerDiscountedAmt;
+    }
+    legalPaymentsDue.html(`Fees due: \$${formatNumber(nextPaymentTotal, 0)}`);
+}
+
+function attackRefresh() {
+    console.log("attack refresh");
+    for (const [suitID, suitObj] of Object.entries(attacksObj)) {
+        var paymentAmt = suitObj.originalTotal/20;
+        bank_worth += paymentAmt;
+        attacksObj[suitID].amtRemaining -= parseInt(paymentAmt);
+        paintAttack(suitID);
+        if (attacksObj[suitID].amtRemaining <= 1) {
+            deleteAttack(suitID);                
+        }
+    }
+    setCash();
+}
+
 function legalRefresh() {
+    if (legalProblemsDone) {
+        attackRefresh();
+        return;
+    }
     if (numLawyers === 0) {
         for (const [suitID, suitObj] of Object.entries(lawsuitsObj)) {
+            lawsuitsObj[suitID].originalTotal += Math.min(1000, parseInt(lawsuitsObj[suitID].amtRemaining * .01));
             lawsuitsObj[suitID].amtRemaining += Math.min(1000, parseInt(lawsuitsObj[suitID].amtRemaining * .01));
             paintSuit(suitID);
         }
+        setNextPaymentAmt();
         return;
     }
     var legalCost = numLawyers * LAWYER_RATE;
@@ -1625,6 +1724,7 @@ function legalRefresh() {
         }
     }
     setCash();
+    setNextPaymentAmt();
 }
 
 // work
@@ -1685,6 +1785,7 @@ document.querySelectorAll('table.interactive').forEach(element => {
 
 
 function paintNextTweet(tweetStr, likes) {
+    likes = Math.max(0, likes);
     const newRow = `<tr><td>${formatToInt(likes)}</td><td>${tweetStr}</td></tr>`;
     twitterTableBody.prepend(newRow);
     const tableLength = $("#twitterTL tbody tr:last").index();
@@ -1930,16 +2031,18 @@ function startLegalProblems() {
     legalProblemsStarted = true;    
 }
 
-function clearLawsuits() {
-    clearInterval(legalRefreshInterval);
-    lawsuitHolder.hide();
+function endLegalProblems() {
+    lawsuitHolder.hide();    
+    legalPaymentsDue.hide();
+    legalProblemsDone = true;
+    legalAttacks.show();
+    legalAttackBtn.show();
 }
 
 getRealAction.click(function() {
     alreadyGotReal = true;
-    // twitterOptionFieldEngagement.hide(); // TODO: still need popularity when successful...
     getRealAction.hide();
-    nftPanel.hide();
+    // nftPanel.hide();
     prepPanel.show();
 });
 
@@ -1980,6 +2083,9 @@ function goToLategame() {
     setCash();
     engagementBotInterval = setInterval(makeEngagementBotTweet, 1300);    
 
+    startLegalProblems();
+    endLegalProblems();
+
     // legal testing
     // bank_worth = 10000000; // TODO remove
     // coinworld_buy_amt = 1000; // TODO remove
@@ -1994,7 +2100,8 @@ function goToLategame() {
     endWork();
     popularity = 50; // TODO remove
     bank_worth = 30000;
-    bank_worth = 15000000000;
+    // bank_worth = 15000000000;
+    bank_worth = 400000000000;
     setCash();
 
 }
@@ -2067,6 +2174,7 @@ function startGame() {
     // makeThatShitcoin(); // TODO remove
 
     // nft testing
+    // popularity = 30;
     // makeAccountNFT.show(); // TODO remove
     // nftPanel.show(); // TODO remove
     // makeNFTAccount();

@@ -111,11 +111,13 @@ var myShitCoin = {
 const legalRefreshTickSpeed = 2501;
 var LAWYER_RATE = 1000;
 var politicalLegalHelp = 0.0;
+var legalProblemsDone = false;
 var legalRefreshInterval;
 var numLawyers = 0;
 const MAX_LAWYERS = 21;
 const MAX_LAWSUITS = 8;
 var lawsuitsObj = new Object();
+var attacksObj = new Object();
 const LAWSUIT_NAMES = [
     "W.D. TEXAS",
     "S.D. TEXAS",
@@ -129,6 +131,18 @@ const LAWSUIT_NAMES = [
     "SABIN V $SHIT",
     "LINSKY V $SHIT",
     "A.G. NY",
+];
+const ATTACK_NAMES = [
+    "$SHIT V S.E.C.",
+    "$SHIT V CA",
+    "$SHIT V NY",
+    "$SHIT V Pitt",
+    "$SHIT V Sabin",
+    "$SHIT V Linksy",
+    "$SHIT V Lu",
+    "$SHIT V DI",
+    "$SHIT V Coinzy",
+    "$SHIT V C.F.P.B.",
 ];
 
 var lifetimeCoinworldBuys = 0.0;

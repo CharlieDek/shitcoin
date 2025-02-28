@@ -691,6 +691,10 @@ html, body {
     color: var(--fresh-lawsuit-color);
 }
 
+#legalAttacks {
+    display: none;
+}
+
 .coin-container {
     display: flex;
     justify-content: space-between;
@@ -929,6 +933,7 @@ button[disabled]:hover {
 }
  */
 
+
 .robBtn {
     flex-grow: 0;
     background-color: transparent;
@@ -1023,7 +1028,7 @@ button[disabled]:hover {
 
 #twitterTL {
     background-color: transparent;
-    font-size: 9px;
+    font-size: 11px;
     width: 240px;
     max-height: 150px;
     margin-top: 10px;
@@ -1147,7 +1152,6 @@ button[disabled]:hover {
 
 
 /* Prep */
-
 .prepIcon {
     height: 25px;
     width: 25px;
@@ -1157,9 +1161,22 @@ button[disabled]:hover {
 
 #prepAssetsHolder {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
+
+#legalAttackBtn:active:enabled {
+    font-weight: bold;
+    color: white;
+    background-color: var(--cancel-color);
+}
+
+#legalAttackBtn:hover {
+    font-weight: bold;
+    color: white;
+    background-color: var(--cancel-color);
+}
+
 
 .prepBtn {
     background-color: transparent;
