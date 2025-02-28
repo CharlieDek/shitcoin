@@ -61,7 +61,6 @@ var robinHoodTSLA = $("#robinHoodTSLA");
 var robinHoodGME = $("#robinHoodGME");
 var robNetPerformance = $("#robNetPerformance");
 var robSuspensionMessage = $("#robSuspensionMessage");
-// var stockIndicatorDiv = $("#stockindicator");
 var buyNVDA = $("#buyNVDA");
 var buyGME = $("#buyGME");
 var buyTSLA = $("#buyTSLA");
@@ -111,7 +110,6 @@ var twitterOptionFieldRegular = $("#twitterOptionFieldRegular");
 var twitterOptionFieldPumpMy = $("#twitterOptionPumpMy");
 var twitterOptionFieldEngagement = $("#twitterOptionFieldEngagement");
 var twitterOptionFieldPumpCoins = $("#twitterOptionFieldPumpCoins");
-var twitterOptionFieldApologize = $("#twitterOptionFieldApologize");
 var twitterOptionApologize = $("#twitterOptionFieldApologize");
 
 //coinworld
@@ -128,8 +126,6 @@ var mintNFT = $("#mintNFT");
 var nftStack = $("#nftStack");
 var nftPriceRange = $('#nftPriceRange');
 var nftVibrancyRange = $('#nftVibrancyRange');
-var nftCurveRange = $('#nftCurveRange');
-var nftCurveRangeField = $('#nftCurveRangeField');
 var nftPriceLabel = $('#nftPriceLabel');
 
 // debug
@@ -159,21 +155,8 @@ function roundFloat(number, decimalPlaces) {
     return Math.round(number * factor) / factor;
 }
 
-function finishGame() {
-    const timeStr = gState.currentTime.toLocaleTimeString('en-US', {
-        hour: 'numeric',
-        minute: '2-digit'
-      })
-    $("#storyContent").html("You made it to " + timeStr + ". You did not get lunch.")
-    $("#story_option_1").hide();
-    $("#story_option_2").hide();
-
-    $("#particles-js").show();
-    if (!gState.showingPidge) {
-        window.pJSDom[0].pJS.fn.modes.pushParticles(1);
-        window.pJSDom[0].pJS.particles.move.speed = 30;
-    }
-}
+// function finishGame() {
+// }
 
 function colorChange(promptID) {
     let color1 = c_ORIGINAL_BG_COLORS[0];
@@ -318,7 +301,7 @@ teamUpWithCelebAction3.click(function() {
     setCash();
     popularity_cap += 10;
     console.log("todo boost my own coin if that's in the tewet");    
-    teamUpWithCeleb(5, "RT Christina Hendricks: I am MAD MEN about $SHIT! BUY NOW vvvv 82xuQkP4jlkWiDFiuz3SOO.");
+    teamUpWithCeleb(5, "RT Christina Hendricks: I am MAD (MEN) about $SHIT! BUY NOW vvvv 82xuQkP4jlkWiDFiuz3SOO.");
 });
 
 teamUpWithCelebAction4.click(function() {
@@ -327,7 +310,7 @@ teamUpWithCelebAction4.click(function() {
     setCash();
     popularity_cap += 15;
     console.log("todo boost my own coin if that's in the tewet");    
-    teamUpWithCeleb(7, "RT Joe Jonas: Don't be a sucker, buy $SHIT like me! I'm HODLING for the long term! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
+    teamUpWithCeleb(7, "RT Joe Jonas: Don't be a *sucker*, buy $SHIT like me! I'm HODLING for the long term! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
 });
 
 teamUpWithCelebAction5.click(function() {
@@ -406,18 +389,11 @@ learnApologiesBtn.click(function() {
     twitterOptionApologize.show();
 });
 
-// autoboyShit.click(function() {
-//     default_shit_buy_quantity = 1;
-//     autoboyShit.hide();
-//     twitterOptionFieldPumpCoins.show();
-// });
-
 nftRedesignAction.click(function() {
     bank_worth -= 500.00;
     setCash();
     nft_eyes = true;
     nftRedesignAction.hide();
-    // nftCurveRangeField.css('display', 'flex');
     popularity++;
 });
 
@@ -632,6 +608,9 @@ function makeNFT() {
     shape.setAttribute("fill", color);
     shape.setAttribute("stroke", "none"); // Prevent any outline
     svg.appendChild(shape);
+    if (nft_hat){
+        // add hat here
+    }
     if (nft_eyes) {
         // Base positions for the left and right eyes
         let baseLeftEye = { x: 43, y: 35 };
@@ -1037,7 +1016,7 @@ function refreshMyShit() {
     newPrice *= crypto_market_popularity;    
     if (newPrice < 0.01) {
         newPrice = 0.01;
-        myShitCoin.chanceToDrop = 0.99954,
+        myShitCoin.chanceToDrop = 0.99954;
         myShitCoin.boost = 0.0;
         my_shitcoin_crashes++;
         myShitCoin.goingUp = true;

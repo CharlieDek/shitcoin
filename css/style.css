@@ -439,15 +439,6 @@ fieldset {
     margin: 0px;
 }
 
-#nftCurveRangeField {
-    display: none;
-}
-
-#nftCurveSpacer {
-    height: 20px;
-    width: 162px;
-}
-
 #nftSpacer {
     height: 120px;
     width: 200px;

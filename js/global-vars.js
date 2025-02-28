@@ -54,6 +54,7 @@ var timeToCancelRob = false;
 // nftland
 var nft_vibrancy = 10;
 var nft_eyes = false
+var nft_hat = true;
 var nfts_ordered_by_true_value = [];
 var nft_price = 1;
 const minNFTPrice = 0.01;
@@ -299,14 +300,4 @@ const c_NODE_TO_BG_COLORS = {
     
     "6541c623": ["#000d2775", "#065588b5"], // swimming in deeper river
     "4c282d1e": ["#fe27ff1c", "#7d9de8"], // submarine garden
-};
-
-var gState = {
-    "currChosen": null,
-    "snackChosen": "cup of tap water",
-    "playerName": "Unnamed Employee",
-    "resto": "Land Of Plenty",
-    "showingPidge": false,
-    "currentTime": new Date("2024-12-04T12:50:00"),
-    "pathsTaken": new Set()
 };
