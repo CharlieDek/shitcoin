@@ -6,7 +6,6 @@ var debug = false;
 var phase = 0;
 var global_ticks = 0;
 var globalIntervalTickSpeed = 16.7;
-// globalIntervalTickSpeed = 500; // TODO remove
 
 var bank_worth = 1032.84;
 var coins_held = 0.0;
@@ -21,18 +20,26 @@ var emptyEmailIndices = new Set(Array.from({ length: 33 }, (_, i) => i));
 var unrespondedEmailIndices = new Set();
 
 // key dynamic globals
+const usedStories = new Set();
 var popularity = 0.1;
 var popularity_fluctuation = 0.01;
 var crypto_market_popularity = 1.0;
 var crypto_market_going_up = true;
 var lifetimeMaxCash = 0;
 var societalCollapseInterval;
+var collapseTicks = 0;
 
 // legal
 var num_boosts_used = 0;
 var mistrust_popularity = 0.0  // mistrust is a down-pressure on popularity, welcomes lawsuits, and can be alleviated
 const BIG_ENOUGH_TO_SUE = 350000;
 var legalProblemsStarted = false;
+
+// prep
+var goldValue = 5000;
+var longResearchCounter = 0;
+var goldCounter = 0;
+var artCounter = 0;
 
 // work
 var refreshWorkInterval;
@@ -54,6 +61,7 @@ var timeToCancelRob = false;
 // nftland
 var nft_vibrancy = 10;
 var nft_eyes = false
+var nft_hat = true;
 var nfts_ordered_by_true_value = [];
 var nft_price = 1;
 const minNFTPrice = 0.01;
@@ -80,7 +88,7 @@ const CELEB_1_FEE = 1150;
 const CELEB_2_FEE = 15000;
 const CELEB_3_FEE = 60000;
 const CELEB_4_FEE = 750000;
-const CELEB_5_FEE = 8500000;
+const CELEB_5_FEE = 37000000;
 
 const POL_1_FEE = 500000;
 const POL_2_FEE = 1500000;
@@ -94,7 +102,7 @@ var shitCache = {
     valuations: new Object(),
     buyBtns: new Object(),
 };
-
+var myShitPriceFloor = 0.01;
 var shitCoins = new Object();
 const MY_SHIT_BUY_ID = "buyShit_MINE";
 const MY_SHIT_VALUE_ID = "shitValuation_MINE";
@@ -118,7 +126,7 @@ var legalProblemsDone = false;
 var legalRefreshInterval;
 var numLawyers = 0;
 const MAX_LAWYERS = 21;
-const MAX_LAWSUITS = 8;
+const MAX_LAWSUITS = 7;
 var lawsuitsObj = new Object();
 var attacksObj = new Object();
 const LAWSUIT_NAMES = [
@@ -141,7 +149,7 @@ const ATTACK_NAMES = [
     "$SHIT V NY",
     "$SHIT V Pitt",
     "$SHIT V Sabin",
-    "$SHIT V Linksy",
+    "$SHIT v NFTLand",
     "$SHIT V Lu",
     "$SHIT V DI",
     "$SHIT V Coinzy",
@@ -299,14 +307,4 @@ const c_NODE_TO_BG_COLORS = {
     
     "6541c623": ["#000d2775", "#065588b5"], // swimming in deeper river
     "4c282d1e": ["#fe27ff1c", "#7d9de8"], // submarine garden
-};
-
-var gState = {
-    "currChosen": null,
-    "snackChosen": "cup of tap water",
-    "playerName": "Unnamed Employee",
-    "resto": "Land Of Plenty",
-    "showingPidge": false,
-    "currentTime": new Date("2024-12-04T12:50:00"),
-    "pathsTaken": new Set()
 };

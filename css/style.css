@@ -1,6 +1,6 @@
 :root {
     /* main colors */
-    --regular_text:#333531;
+    --regular_text:#353832;
     --bg_gradient_color_1: #f5f5f57d;
     --bg_gradient_color_2: #7a7a7a1f;
     --regular-box-shadow-color: gray;
@@ -17,6 +17,7 @@
     --fresh-lawsuit-color: #ff3232;
     --down-market-color: #ff794c;
     --up-market-color: #3baf5a;
+    --story-hint-background: #e4e4e4;
 
 
   /* From 98.css https://jdan.github.io/98.css/ */
@@ -439,15 +440,6 @@ fieldset {
     margin: 0px;
 }
 
-#nftCurveRangeField {
-    display: none;
-}
-
-#nftCurveSpacer {
-    height: 20px;
-    width: 162px;
-}
-
 #nftSpacer {
     height: 120px;
     width: 200px;
@@ -571,18 +563,6 @@ table {
 /* End 98.css */
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 html {
     background: linear-gradient(to left, 
                                 var(--bg_gradient_color_1),
@@ -617,9 +597,10 @@ html, body {
     bottom: 2px;
 }
 
-#cash {
+#topRight {
     position: fixed;
-    right: 5px;
+    right: 2px;
+    top: 2px;
 }
 
 #levelBadge {
@@ -632,16 +613,20 @@ html, body {
     color: var(--button-shadow);
 }
 
-#networth {
+#storyFixed {
     position: fixed;
-    left: 5px;
-    display: none;
+    width: 100%;
+    /* left: 12px; */
+    text-align: center;
+    bottom: 0px;
+    background-color: var(--story-hint-background);
 }
 
-#storyDiv {
-    position: fixed;
-    left: 5px;
+#storyHints {
     font-size: 12px;
+    /* color: var(--dialog-gray); */
+    font-style: italic;
+    font-weight: 100;
 }
 
 
@@ -653,6 +638,10 @@ html, body {
     flex-wrap: wrap;
 }
 
+#outerContainer {
+    margin-top: 15px;
+}
+
 /* 768 small stuff */
 @media (max-width: 610px) {
     .container {
@@ -660,9 +649,6 @@ html, body {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-    }
-    #outerContainer {
-        margin-top: 20px;
     }
 }
 
