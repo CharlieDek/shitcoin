@@ -280,11 +280,13 @@ function makeCoinWorld() {
     coinWorldPanel.show();
     // autoboyShit.show();
     coinsShowing = true;
+    paintStory("'The offer and sale of memecoins is not undertaken with a reasonable expectation of profits.'");
 }
 
 makeCoinworldAccountBtn.click(function() {
     makeCoinWorld();
     coinworldBuyLimit1.show();
+    paintStory("Buy more shitcoins to unlock higher spending tiers!");
     addShit();
 });
 
@@ -293,6 +295,7 @@ makeStockIndicatorBtn.click(function() {
     setCash();
     robNetPerformance.show();
     makeStockIndicatorBtn.hide();
+    paintStory("Buy low. Then: sell high.");
 });
 
 function teamUpWithCeleb(popularityGain, celebTweet) {
@@ -306,6 +309,7 @@ teamUpWithCelebAction1.click(function() {
     my_nft_boost += 0.001;
     setCash();
     teamUpWithCeleb(2, "I'm teaming up with TikTok prankster K.J. Seter, our NFT's takin' over! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
+    paintStory("'Our NFT's takin' over.'");
 });
 
 teamUpWithCelebAction2.click(function() {
@@ -365,7 +369,7 @@ getIntoPol3.click(function() {
     bank_worth -= POL_3_FEE;
     politicalLegalHelp = 0.35;
     setCash();
-    paintStory("You are 30% harder to sue, and a patriot.");
+    paintStory("You are 30% harder to sue.");
 });
 
 getIntoPol4.click(function() {
@@ -374,7 +378,7 @@ getIntoPol4.click(function() {
     setCash();
     politicalLegalHelp = 0.70;
     strategicReserve.show();
-    paintStory("Thanks to new regulations you are 70% harder to sue.");
+    paintStory("Thanks to sensible new regulations, you are 70% harder to sue.");
 });
 
 strategicReserve.click(function() {
@@ -383,7 +387,7 @@ strategicReserve.click(function() {
     myShitPriceFloor = 1000;
     getIntoPol5.show();
     alreadyGotPol5 = true;
-    paintStory("All coins are up. The revolution is here.");
+    paintStory("All coins are up.");
 });
 
 function collapseIncrement() {
@@ -401,16 +405,18 @@ function collapseIncrement() {
         paintStory("The server supporting your bot has been flaky...Your Twitter bot is gone.");        
     }
     if(crypto_market_popularity < 0.85) {
+        paintStory("The CoinWorld founder has fled the country.");        
         shitHolder.hide();
     }
     if (crypto_market_popularity < 0.82) {
+        paintStory("The NFTLand servers have all crashed.");
         nftPanel.hide();
-        paintStory("The CoinWorld founder has fled the country.");        
     }
     if (crypto_market_popularity < 0.9) {
         goldValue = 100000;
     }
     if (crypto_market_popularity < 0.7) {
+        paintStory("The dollar is hitting a bit of turbulence.");
         goldValue = 1000000;
         myShitPriceFloor = 0.01;
     }
@@ -735,6 +741,7 @@ function makeNFT() {
 }
 
 mintNFT.click(function() {
+    paintStory("Nice NFT!");
     makeNFT();
 });
 
@@ -770,7 +777,8 @@ makeRobBtn.click(function() {
     refreshRobinhoodInterval = setInterval(refreshRob, refreshRobTickSpeed);
     robinhoodPanel.show();
     makeRobBtn.hide();
-    makeStockIndicatorBtn.show();    
+    makeStockIndicatorBtn.show();
+    paintStory("We are all investors.");
 });
 
 createXBtn.click(function() {
@@ -1759,7 +1767,7 @@ function refreshWork() {
         unrespondedEmailIndices.add(newIndex);
         setProgressPercent();
     } else {
-        paintStory("Good luck out there.");
+        paintStory("You have been sacked.");
         endWork();
     }
     setCash();

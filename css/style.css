@@ -491,6 +491,7 @@ table {
 .workWarning {
     font-style: italic;
     display: none;
+    text-align: center;
 }
 
 #midWarning {
@@ -649,6 +650,12 @@ html, body {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
+    }
+}
+
+@media (min-width: 1200px) {
+    #storyHints {
+        font-size: 16px;
     }
 }
 
