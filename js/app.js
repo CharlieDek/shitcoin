@@ -940,7 +940,7 @@ function sellCoin(id_str) {
     if ((sell_payout > 500000) && !politicalLegalSavesLawsuit()) {
         makeLawsuit();
     }
-    shitCoins[id_str].chanceToDrop -= 0.00005;
+    shitCoins[id_str].chanceToDrop -= 0.00009;
     shitCoins[id_str].quantity = 0;
     paintShit(id_str, 0, 0);
 }
@@ -952,6 +952,7 @@ function sellMyCoin() {
     if ((sell_payout > 500000) && !politicalLegalSavesLawsuit()) {
         makeLawsuit();
     }
+    myShitCoin.chanceToDrop -= 0.0005;
     myShitCoin.quantity = 0;
     paintShit("MINE", 0, 0);
 }
@@ -1874,7 +1875,7 @@ function addTweet(tweetType) {
         }
         likes = parseInt(popularity * randLikesCoeff);
         if (popularity < popularity_cap) {
-            popularity += Math.min(0.35, likes / 3000);
+            popularity += Math.min(0.25, likes / 4000);
             popularity = roundFloat(popularity, 5);
             if (popularity > 15 && coinWorldPanel.is(':visible')) {
                 twitterOptionFieldPumpCoins.show();
