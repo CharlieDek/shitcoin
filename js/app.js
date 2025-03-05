@@ -216,12 +216,10 @@ function politicalLegalSavesLawsuit() {
     return Math.random() < politicalLegalHelp;
 }
 
-function paintStory(s) {
-    if (!usedStories.has(s)) {
+function paintStory(s, skipDupes = true) {
+    if (!usedStories.has(s) || (skipDupes === false)) {
         storyHints.html(s);
         usedStories.add(s);
-    } else {
-        console.log(s);
     }
 }
 
@@ -549,10 +547,10 @@ function getNftValue(settingsKey) {
         boredomCost -= ((nftSaleRecords[settingsKey]) * 0.02);
         boredomCost = Math.max(0.001, boredomCost);
         if (boredomCost < 0.5) {
-            paintStory("Try switching up your NFT styles.");
+            paintStory("Try switching up your NFT styles.", false);
         }
         if (boredomCost === 0.001) {
-            paintStory("People are sick of your repetitive NFT's");
+            paintStory("People are sick of your repetitive NFT's", false);
         }
     }
     return baseValue * my_nft_boost * boredomCost * crypto_market_popularity;
@@ -741,7 +739,7 @@ function makeNFT() {
 }
 
 mintNFT.click(function() {
-    paintStory("Nice NFT!");
+    paintStory("The more popular you are the more your NFT's are worth.");
     makeNFT();
 });
 
@@ -812,7 +810,7 @@ function restartWork() {
 
 quitWork.click(function() {
     endWork();
-    paintStory("You are going out on your own terms.");
+    paintStory("You are going out on your own terms.", false);
 });
 
 restartWorkBtn.click(function() {
@@ -1361,12 +1359,12 @@ function setNetWorth() {
 
 function formatNumber(num, decimalPlaces = 2) {
     if (num >= 1000000) {
-        if (num >= 1000000000) {
+        if (num >= 1000000000.0) {
             num /= 1000000000;
-            return Number(num).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + "B";
+            return Number(num).toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + "B";
         } else {
-            num /= 1000000;
-            return Number(num).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + "M";
+            num /= 1000000.0;
+            return Number(num).toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + "M";
         }
     } else {
         return Number(num).toLocaleString('en-US', { minimumFractionDigits: decimalPlaces, maximumFractionDigits: decimalPlaces });
@@ -1767,7 +1765,7 @@ function refreshWork() {
         unrespondedEmailIndices.add(newIndex);
         setProgressPercent();
     } else {
-        paintStory("You have been sacked.");
+        paintStory("You have been sacked.", false);
         endWork();
     }
     setCash();

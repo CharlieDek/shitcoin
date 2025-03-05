@@ -92,7 +92,7 @@ const CELEB_5_FEE = 37000000;
 
 const POL_1_FEE = 500000;
 const POL_2_FEE = 1500000;
-const POL_3_FEE = 2000000;
+const POL_3_FEE = 3600000;
 const POL_4_FEE = 150000000;
 const POL_5_FEE = 5000000000;
 
