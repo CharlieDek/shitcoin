@@ -421,6 +421,10 @@ function collapseIncrement() {
     crypto_market_popularity = Math.max(crypto_market_popularity, 0.01);
 }
 
+function animatePolitics5() {
+    startParticles();
+}
+
 getIntoPol5.click(function() {
     getIntoPol5.hide();
     bank_worth -= POL_5_FEE;
@@ -429,6 +433,7 @@ getIntoPol5.click(function() {
     setCash();
     paintStory("Your legal troubles are in the past.");
     societalCollapseInterval = setInterval(collapseIncrement, 300);
+    animatePolitics5();
 });
 
 learnEngagementBtn.click(function() {
@@ -741,10 +746,30 @@ function makeNFT() {
     nftStack.append(svg);
     insertSorted(nfts_ordered_by_true_value, { key: nftValue, value: nftID});
 }
+const stack = document.getElementById('nftStack');
+stack.addEventListener('mousemove', (e) => {
+    // const xAngle = (e.clientY / window.innerHeight - 0.5) * 40; // -20deg to 20deg
+    // const yAngle = (e.clientX / window.innerWidth - 0.5) * -40; // -20deg to 20deg
+    // stack.style.transform = `rotate3d(1, 0, 0, ${xAngle}deg) rotate3d(0, 1, 0, ${yAngle}deg)`;
+});
 
 mintNFT.click(function() {
     paintStory("The more popular you are the more your NFT's are worth.");
     makeNFT();
+    const svgs = Array.from(stack.querySelectorAll('svg'));
+    const totalSvgs = svgs.length;
+
+    const depthStep = 150; // Depth increment in pixels; adjust as needed
+    svgs.forEach((svg, index) => {
+        const zPosition = -depthStep * (totalSvgs - 1 - index);
+        svg.style.transform = `translateZ(${zPosition}px)`;
+
+        // const zPosition = -depthStep * (totalSvgs - 1 - index);
+        // const xOffset = (Math.random() - 0.5) * 20; // -10px to 10px
+        // const yOffset = (Math.random() - 0.5) * 20;
+        // const rotation = (Math.random() - 0.5) * 10; // -5deg to 5deg
+        // svg.style.transform = `translateX(${xOffset}px) translateY(${yOffset}px) rotate(${rotation}deg) translateZ(${zPosition}px)`;        
+    });    
 });
 
 function updateNftPricePerInput() {
@@ -1454,7 +1479,7 @@ museumAction.click(function() {
 })
 
 prepBuyBunker.click(function(){
-    bank_worth -= 400000;
+    bank_worth -= 1300000;
     prepAssetsHolder.append(
         '<object data="img/prep_bunker.svg" class="prepIcon" type="image/svg+xml"></object>'
     );
@@ -1462,7 +1487,7 @@ prepBuyBunker.click(function(){
 });
 
 prepBuyRanch.click(function(){
-    bank_worth -= 2000000;
+    bank_worth -= 2500000;
     prepAssetsHolder.append(
         '<object data="img/prep_ranch.svg" class="prepIcon" type="image/svg+xml"></object>'
     );
@@ -1502,16 +1527,16 @@ prepBuyCompound2.click(function(){
 });
 
 function enable_disable_prep_stuff() {
-    enable_disable_btn_against_cash(prepBuyGold, 5000);
+    enable_disable_btn_against_cash(prepBuyGold, goldValue);
     enable_disable_btn_against_cash(prepBuySecurity, 15000);
     enable_disable_btn_against_cash(prepBuyLong, 23000);
     enable_disable_btn_against_cash(prepBuyArt, 200000);
-    enable_disable_btn_against_cash(prepBuyBunker, 400000);
-    enable_disable_btn_against_cash(prepBuyRanch, 2000000);
+    enable_disable_btn_against_cash(prepBuyBunker, 1300000);
+    enable_disable_btn_against_cash(prepBuyRanch, 2500000);
     enable_disable_btn_against_cash(prepBuyPlane, 20000000);
-    enable_disable_btn_against_cash(prepBuyCompound1, 30000000);
-    enable_disable_btn_against_cash(prepBuyYacht, 75000000);
-    enable_disable_btn_against_cash(prepBuyCompound2, 280000000);
+    enable_disable_btn_against_cash(prepBuyCompound1, 300000000);
+    enable_disable_btn_against_cash(prepBuyYacht, 750000000);
+    enable_disable_btn_against_cash(prepBuyCompound2, 2800000000);
 }
 
 function enable_disable_btns_against_cash() {
@@ -2178,7 +2203,8 @@ function startGame() {
     setDisplayPrices();
 
     // ============== TESTING ==============
-    // goToLategame();
+    // startParticles();
+    goToLategame();
     
     // bank_worth = 3000000000;
     // setCash();
