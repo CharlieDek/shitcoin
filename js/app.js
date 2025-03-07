@@ -527,7 +527,7 @@ function decideIfSale(demand, price) {
 }
 
 function getNftValue(settingsKey) {
-    let baseValue = 90 * Math.random();
+    let baseValue = 80 * Math.random();
     if (nft_vibrancy === 62) {
         baseValue *= 30;
     } else if (nft_vibrancy > 90) {
@@ -540,11 +540,11 @@ function getNftValue(settingsKey) {
         baseValue *= 2;
     }
     if (nft_eyes) {
-        baseValue *= 50;
+        baseValue *= 40;
     }
     var boredomCost = 1;
     if (settingsKey in nftSaleRecords) {
-        boredomCost -= ((nftSaleRecords[settingsKey]) * 0.02);
+        boredomCost -= ((nftSaleRecords[settingsKey]) * 0.04);
         boredomCost = Math.max(0.001, boredomCost);
         if (boredomCost < 0.5) {
             paintStory("Try switching up your NFT styles.", false);
@@ -565,7 +565,11 @@ function makeNFT() {
         if (shapeType === "parallelogram") {
             shapeType = "oval";
         }
-    }    
+    } else {
+        if (shapeType === "oval") {
+            shapeType = "parallelogram";
+        }        
+    }
     let color = `hsl(${Math.random() * 360}, ${nft_vibrancy}%, 50%)`;
   
     let svgNS = "http://www.w3.org/2000/svg";
@@ -805,7 +809,7 @@ function restartWork() {
     refreshWorkInterval = setInterval(refreshWork, workInterval);
     workPanel.show();
     quitWork.show();
-    paintStory("Not everyone can hack it.");
+    paintStory("Not everyone can hack it.", false);
 }
 
 quitWork.click(function() {
@@ -1119,19 +1123,19 @@ function refreshMyShit() {
 coinworldBuyLimit1.click(function() {
     coinworld_buy_amt = 1000;
     coinworldBuyLimit1.hide();
-    paintStory("You buy 10x as much shitcoins per click.");
+    paintStory("You buy 10x as many shitcoins per click.");
     makeShitcoin.show();
 });
 
 coinworldBuyLimit2.click(function() {
     coinworld_buy_amt = 10000;
-    paintStory("You buy 10x as much shitcoins per click.");
+    paintStory("You buy 10x as many shitcoins per click.");
     coinworldBuyLimit2.hide();
 });
 
 coinworldBuyLimit3.click(function() {
     coinworld_buy_amt = 100000;
-    paintStory("You buy 10x as much shitcoins per click.");
+    paintStory("You buy 10x as many shitcoins per click.");
     coinworldBuyLimit3.hide();
 });
 
@@ -1206,7 +1210,7 @@ buyGME.click(function() {
     }
     bank_worth -= gme_valuation;
     gme_holdings += 1;
-    paintStory("You are the proud owner of one (1) share of GME.")    
+    paintStory(`You are the proud owner of ${gme_holdings} shares of GME (\$${formatNumber(gme_valuation, 2)} ea ).`, false);
     totalRobBuys += gme_valuation;
     setCash();
     setRob();
@@ -1224,7 +1228,7 @@ buyTSLA.click(function() {
     }
     bank_worth -= tsla_valuation;
     tsla_holdings += 1;
-    paintStory("You are the proud owner of one (1) share of TSLA.");
+    paintStory(`You are the proud owner of ${tsla_holdings} shares of TSLA (\$${formatNumber(tsla_valuation, 2)} ea ).`, false);
     totalRobBuys += tsla_valuation;
     setCash();
     setRob();
@@ -1237,7 +1241,7 @@ buyNVDA.click(function() {
     totalRobBuys += nvda_valuation;    
     bank_worth -= nvda_valuation;
     nvda_holdings += 1;
-    paintStory("You are the proud owner of one (1) share of NVDA.")
+    paintStory(`You are the proud owner of ${nvda_holdings} shares of NVDA (\$${formatNumber(nvda_valuation, 2)} ea ).`, false);
     
     setCash();
     setRob();
@@ -1553,8 +1557,7 @@ function refreshRobPerformance() {
 }
 
 function refreshRob() {
-    const percent_today = getRandomNumber(.01, .05);
-    // stockIndicatorDiv.removeClass("upMarket downMarket");
+    const percent_today = getRandomNumber(.01, .06);
 
     var market_direction = 1;
     if (!rob_going_up) {
@@ -1588,15 +1591,6 @@ function refreshRob() {
         if (!rob_going_up && Math.random() > 0.85) { // hacky way to make it go u more than down
             rob_going_up = true;
         }
-        // } else {
-            // if (rob_going_up){
-                // stockIndicatorDiv.html("Market: ^");
-                // stockIndicatorDiv.addClass("upMarket");
-            // } else {
-                // stockIndicatorDiv.html("Market: v");
-                // stockIndicatorDiv.addClass("downMarket");
-            // }
-        // }
     }
     setRob();
     enable_disable_btn_against_cash(buyGME, gme_valuation);
