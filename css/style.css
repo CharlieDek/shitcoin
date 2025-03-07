@@ -434,6 +434,23 @@ fieldset {
     transform: rotate3d(233, 468, 1500, 354deg);
 }
 
+
+.sell-animation {
+    animation: spinAndFly 1.2s ease-in-out;
+}
+
+@keyframes spinAndFly {
+    0% {
+        transform: rotate(0deg) translate3d(0, 0, 0) translateZ(var(--z-position));
+    }
+    75% {
+        transform: rotate(1840deg) translate3d(0, 0, 0) translateZ(var(--z-position));
+    }    
+    100% {
+        transform: rotate(1840deg) translate3d(15vw, -75vh, 0) translateZ(var(--z-position));
+    }
+}
+
 #kikiField {
     margin-right: 5px;
 }
@@ -441,6 +458,10 @@ fieldset {
 #mintNFT {
     font-size: 15px;
     margin: 0px;
+}
+
+#nftPanel {
+    overflow: hidden;
 }
 
 #nftSpacer {
