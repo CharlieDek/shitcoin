@@ -467,7 +467,12 @@ nftRedesignAction.click(function() {
 
 function popBestNft(nftId) {
     nfts_ordered_by_true_value = nfts_ordered_by_true_value.filter(nft => nft.value !== nftId);
-    $(`#${nftId}`).remove();
+    const elem = document.getElementById(nftId);
+    if (!elem) return; // Check if the element exists
+    elem.classList.add('sell-animation');
+    elem.addEventListener('animationend', function() {
+      elem.remove(); // Remove the element after animation
+    }, { once: true }); // Ensures the listener is removed after firing
 }
 
 // simulates nft market. you fix the nft price, demand fluctuates
@@ -579,7 +584,7 @@ function makeNFT() {
   
     let svgNS = "http://www.w3.org/2000/svg";
     let svg = document.createElementNS(svgNS, "svg");
-    svg.classList.add("nft-svg");    
+    svg.classList.add("nft-svg");
     svg.setAttribute("width", "100");
     svg.setAttribute("height", "100");
   
@@ -753,7 +758,7 @@ function makeNFT() {
     // stack.style.transform = `rotate3d(1, 0, 0, ${xAngle}deg) rotate3d(0, 1, 0, ${yAngle}deg)`;
 // });
 
-mintNFT.click(function() {
+function doMintNFT() {
     paintStory("The more popular you are the more your NFT's are worth.");
     makeNFT();
     const svgs = Array.from(stack.querySelectorAll('svg'));
@@ -762,7 +767,12 @@ mintNFT.click(function() {
     svgs.forEach((svg, index) => {
         const zPosition = -DEPTH_STEP * (totalSvgs - 1 - index);
         svg.style.transform = `translateZ(${zPosition}px)`;
+        svg.style.setProperty('--z-position', `${zPosition}px`);
     });    
+}
+
+mintNFT.click(function() {
+    doMintNFT();
 });
 
 function updateNftPricePerInput() {
@@ -2234,12 +2244,14 @@ function startGame() {
     // makeThatShitcoin(); // TODO remove
 
     // nft testing
-    // popularity = 30;
+    // popularity = 2;
     // makeAccountNFT.show(); // TODO remove
     // nftPanel.show(); // TODO remove
     // makeNFTAccount();
-    // nftRedesignAction.show(); // TODO remove
-
+    // nft_eyes = true;
+    // popularity = 100;
+    // setInterval(doMintNFT, 1000);
+    
     if (debug) {
         debugContainer.show();
     }
