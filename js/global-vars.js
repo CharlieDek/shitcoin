@@ -69,6 +69,7 @@ const maxNFTPrice = 1000000.0;
 var my_nft_boost = 0.0001;
 var nfts_sold = 0;
 var nftSaleRecords = new Object();
+const DEPTH_STEP = 150;
 
 // cash triggers
 var alreadyGotReal = false;

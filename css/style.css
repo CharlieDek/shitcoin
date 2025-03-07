@@ -432,14 +432,6 @@ fieldset {
     perspective: 2000px;          /* Sets the 3D perspective; adjust this value for effect intensity */
     transform-style: preserve-3d; /* Ensures 3D transforms are preserved */
     transform: rotate3d(233, 468, 1500, 354deg);
-    /* transform: rotate3d(1, 0.5, 0, 30deg); */
-
-}
-
-#nftStack > svg {
-    /* position: absolute; */
-    /* top: 0; */
-    /* left: 0; */
 }
 
 #kikiField {

@@ -129,6 +129,7 @@ var myShit = $("#myShit");
 var nftPanel = $("#nftPanel");
 var mintNFT = $("#mintNFT");
 var nftStack = $("#nftStack");
+const stack = document.getElementById('nftStack');
 var nftPriceRange = $('#nftPriceRange');
 var nftVibrancyRange = $('#nftVibrancyRange');
 var nftPriceLabel = $('#nftPriceLabel');
@@ -433,7 +434,6 @@ getIntoPol5.click(function() {
     setCash();
     paintStory("Your legal troubles are in the past.");
     societalCollapseInterval = setInterval(collapseIncrement, 300);
-    animatePolitics5();
 });
 
 learnEngagementBtn.click(function() {
@@ -746,12 +746,12 @@ function makeNFT() {
     nftStack.append(svg);
     insertSorted(nfts_ordered_by_true_value, { key: nftValue, value: nftID});
 }
-const stack = document.getElementById('nftStack');
-stack.addEventListener('mousemove', (e) => {
+
+// stack.addEventListener('mousemove', (e) => {
     // const xAngle = (e.clientY / window.innerHeight - 0.5) * 40; // -20deg to 20deg
     // const yAngle = (e.clientX / window.innerWidth - 0.5) * -40; // -20deg to 20deg
     // stack.style.transform = `rotate3d(1, 0, 0, ${xAngle}deg) rotate3d(0, 1, 0, ${yAngle}deg)`;
-});
+// });
 
 mintNFT.click(function() {
     paintStory("The more popular you are the more your NFT's are worth.");
@@ -759,16 +759,9 @@ mintNFT.click(function() {
     const svgs = Array.from(stack.querySelectorAll('svg'));
     const totalSvgs = svgs.length;
 
-    const depthStep = 150; // Depth increment in pixels; adjust as needed
     svgs.forEach((svg, index) => {
-        const zPosition = -depthStep * (totalSvgs - 1 - index);
+        const zPosition = -DEPTH_STEP * (totalSvgs - 1 - index);
         svg.style.transform = `translateZ(${zPosition}px)`;
-
-        // const zPosition = -depthStep * (totalSvgs - 1 - index);
-        // const xOffset = (Math.random() - 0.5) * 20; // -10px to 10px
-        // const yOffset = (Math.random() - 0.5) * 20;
-        // const rotation = (Math.random() - 0.5) * 10; // -5deg to 5deg
-        // svg.style.transform = `translateX(${xOffset}px) translateY(${yOffset}px) rotate(${rotation}deg) translateZ(${zPosition}px)`;        
     });    
 });
 
@@ -2204,7 +2197,7 @@ function startGame() {
 
     // ============== TESTING ==============
     // startParticles();
-    goToLategame();
+    // goToLategame();
     
     // bank_worth = 3000000000;
     // setCash();
