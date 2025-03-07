@@ -428,7 +428,10 @@ fieldset {
 #nftStack {
     top: -117px;
     left: -84px;
-    position: relative; /* Needed for absolute positioning inside */
+    position: relative;
+    perspective: 2000px;          /* Sets the 3D perspective; adjust this value for effect intensity */
+    transform-style: preserve-3d; /* Ensures 3D transforms are preserved */
+    transform: rotate3d(233, 468, 1500, 354deg);
 }
 
 #kikiField {
@@ -582,15 +585,20 @@ html, body {
 
 }
 
-#particles-js{
+#particles-js canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+#particles-js {
     position: fixed;
-    width: 108%;
-    height: 108%;
-    margin-top: -8%;
-    margin-left: -8%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: -1;
-    background: transparent;
-    /* display: none; */
+    background-color: rgba(255, 0, 0, 0.332);
+    display: none;
 }
 
 #debug {
@@ -642,24 +650,6 @@ html, body {
 #outerContainer {
     margin-top: 15px;
 }
-
-/* 768 small stuff */
-@media (max-width: 610px) {
-    .container {
-        margin: 5px;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-}
-
-@media (min-width: 1200px) {
-    #storyHints {
-        font-size: 16px;
-    }
-}
-
-
 
 .rob-container {
     display: flex;
@@ -1198,3 +1188,43 @@ button[disabled]:hover {
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
 }
+
+
+/* 768 small stuff */
+@media (max-width: 626px) {
+    .container {
+        /* margin: 5px; */
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    #outerContainer {
+        margin-top: 19px;
+    }
+}
+
+/* v small stuff */
+@media (max-width: 430px) {
+    .item {
+        margin: 1px;
+    }
+}
+
+@media (max-width: 411px) {
+    .item {
+        margin: 0px;
+        width: 170px;        
+    }
+    #twitterBtn {
+        padding: 1px 1px 1px 1px;
+    }
+
+}
+
+@media (min-width: 1200px) {
+    #storyHints {
+        font-size: 16px;
+    }
+}
+
