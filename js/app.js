@@ -16,6 +16,7 @@ var nftRedesignAction = $("#nftRedesignAction");
 var learnEngagementBtn = $("#learnEngagement");
 var learnApologiesBtn = $("#learnApologies");
 var makeStockIndicatorBtn = $("#makeStockIndicator");
+var increaseRobBuyLimit = $("#increaseRobBuyLimit");
 var coinworldBuyLimit1 = $("#coinworldBuyLimit1");
 var coinworldBuyLimit2 = $("#coinworldBuyLimit2");
 var coinworldBuyLimit3 = $("#coinworldBuyLimit3");
@@ -1230,46 +1231,66 @@ makeShitcoin.click(function() {
     makeMyShitcoin();
 });
 
-buyGME.click(function() {
-    // bank_worth += 3000000; // ah cool cheat
-    // setCash(); // ah cool cheat
 
-    if (bank_worth < gme_valuation) {
+function checkIncreaseBuyLimit() {
+    if (!increasedRobBuyLimitShown && (totalRobBuys > 500)) {
+        increaseRobBuyLimit.show();
+        increasedRobBuyLimitShown = true;
+    }
+    if (increasedRobBuyLimitShown && (totalRobBuys > 1500)) {
+        increaseRobBuyLimit.attr("disabled", null);
+    }
+}
+
+increaseRobBuyLimit.click(function() {
+    paintStory("You know buy ten (10) shares with a single click!");
+    robBuyAmt = 10;
+    increaseRobBuyLimit.hide();
+});
+
+buyGME.click(function() {
+    var wouldBeTotal = gme_valuation * robBuyAmt;
+    if (bank_worth < wouldBeTotal) {
         return;
     }
-    bank_worth -= gme_valuation;
-    gme_holdings += 1;
+    bank_worth -= wouldBeTotal;
+    gme_holdings += robBuyAmt;
     paintStory(`You are the proud owner of ${gme_holdings} shares of GME (\$${formatNumber(gme_valuation, 2)} ea ).`, false);
-    totalRobBuys += gme_valuation;
+    totalRobBuys += wouldBeTotal;
+    checkIncreaseBuyLimit();
     setCash();
     setRob();
 });
 
 buyTSLA.click(function() {
+    var wouldBeTotal = tsla_valuation * robBuyAmt;
     if (!quit_btn_shown) {
         quit_btn_shown = true;
         if (workPanel.is(":visible")) {
             quitWork.show();
         }
     }
-    if (bank_worth < tsla_valuation) {
+    if (bank_worth < wouldBeTotal) {
         return;
     }
-    bank_worth -= tsla_valuation;
-    tsla_holdings += 1;
+    bank_worth -= wouldBeTotal;
+    tsla_holdings += robBuyAmt;
     paintStory(`You are the proud owner of ${tsla_holdings} shares of TSLA (\$${formatNumber(tsla_valuation, 2)} ea ).`, false);
-    totalRobBuys += tsla_valuation;
+    totalRobBuys += wouldBeTotal;
+    checkIncreaseBuyLimit();
     setCash();
     setRob();
 });
 
 buyNVDA.click(function() {
-    if (bank_worth < nvda_valuation) {
+    var wouldBeTotal = nvda_valuation * robBuyAmt;
+    if (bank_worth < wouldBeTotal) {
         return;
     }
-    totalRobBuys += nvda_valuation;    
-    bank_worth -= nvda_valuation;
-    nvda_holdings += 1;
+    totalRobBuys += wouldBeTotal;    
+    checkIncreaseBuyLimit();
+    bank_worth -= wouldBeTotal;
+    nvda_holdings += robBuyAmt;
     paintStory(`You are the proud owner of ${nvda_holdings} shares of NVDA (\$${formatNumber(nvda_valuation, 2)} ea ).`, false);
     
     setCash();
@@ -1543,11 +1564,18 @@ function enable_disable_prep_stuff() {
     enable_disable_btn_against_cash(prepBuyCompound2, 2800000000);
 }
 
+function enableDisableRob() {
+    var gme_check = gme_valuation * robBuyAmt;
+    enable_disable_btn_against_cash(buyGME, gme_check);
+    var tsla_check = tsla_valuation * robBuyAmt;
+    enable_disable_btn_against_cash(buyTSLA, tsla_check);
+    var nvda_check = nvda_valuation * robBuyAmt;
+    enable_disable_btn_against_cash(buyNVDA, nvda_check);    
+}
+
 function enable_disable_btns_against_cash() {
     if (!timeToCancelRob) {
-        enable_disable_btn_against_cash(buyGME, gme_valuation);
-        enable_disable_btn_against_cash(buyTSLA, tsla_valuation);
-        enable_disable_btn_against_cash(buyNVDA, nvda_valuation);
+        enableDisableRob();
     }
 
     if (alreadyGotReal) {
@@ -1622,9 +1650,7 @@ function refreshRob() {
         }
     }
     setRob();
-    enable_disable_btn_against_cash(buyGME, gme_valuation);
-    enable_disable_btn_against_cash(buyTSLA, tsla_valuation);
-    enable_disable_btn_against_cash(buyNVDA, nvda_valuation);
+    enableDisableRob();
     refreshRobPerformance();
 }
 
@@ -2209,8 +2235,9 @@ function startGame() {
     // ============== TESTING ==============
     // startParticles();
     // goToLategame();
+
     
-    // bank_worth = 3000000000;
+    // bank_worth = 3000;
     // setCash();
     // alreadyGotReal = true;
     // enable_disable_btns_against_cash();

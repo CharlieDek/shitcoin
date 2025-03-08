@@ -54,6 +54,8 @@ var tsla_valuation = getRandomNumber(10, 20);
 var nvda_valuation = getRandomNumber(30, 50);
 var totalRobBuys = 0;
 var totalRobSales = 0;
+var increasedRobBuyLimitShown = false;
+var robBuyAmt = 1;
 var rob_going_up = true;
 var refreshRobinhoodInterval;
 var timeToCancelRob = false;
