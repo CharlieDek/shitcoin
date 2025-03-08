@@ -26,8 +26,12 @@ var popularity_fluctuation = 0.01;
 var crypto_market_popularity = 1.0;
 var crypto_market_going_up = true;
 var lifetimeMaxCash = 0;
+
+// collapse
+var barriers;
 var societalCollapseInterval;
 var collapseTicks = 0;
+const MAX_PARTICLES = 2000;
 
 // legal
 var num_boosts_used = 0;

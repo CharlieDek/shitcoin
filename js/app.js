@@ -391,31 +391,66 @@ strategicReserve.click(function() {
     paintStory("All coins are up.");
 });
 
+function flickerOut(divToRemove) {
+    let frameCount = 0;
+    const totalFrames = 60;
+    const cycleLength = 2; // 2 frames visible, 2 frames hidden
+
+    function flickerStep() {
+        if (frameCount < totalFrames) {
+            if (frameCount % cycleLength < cycleLength / 2) {
+                if (Math.random() > 0.15) divToRemove.css("visibility", "visible");
+            } else {
+                divToRemove.css("visibility", "hidden");
+            }
+            frameCount++;
+            requestAnimationFrame(flickerStep);
+        } else {
+            divToRemove.remove();
+        }
+    }
+
+    requestAnimationFrame(flickerStep);    
+}
+
 function collapseIncrement() {
     collapseTicks++;
+    if ((collapseTicks < MAX_PARTICLES) && ((collapseTicks % 2) === 0)) {
+        addParticle();
+    }
+
     myShitPriceFloor = Math.max(0.01, myShitPriceFloor-10);
     popularity -= 0.1;
     popularity = Math.max(0.1, popularity);
     crypto_market_popularity -= 0.0002;
-    // crypto_market_popularity -= 0.01;
     if (crypto_market_popularity < 0.75) {
-        legalPanel.hide();
+        paintStory("It's been hard to get ahold of your lawyers...");
+        flickerOut(legalPanel);
     }
     if (crypto_market_popularity < 0.92) {
         clearInterval(engagementBotInterval);
         paintStory("The server supporting your bot has been flaky...Your Twitter bot is gone.");        
     }
-    if(crypto_market_popularity < 0.85) {
-        paintStory("The CoinWorld founder has fled the country.");        
-        shitHolder.hide();
+
+    if(crypto_market_popularity < 0.87) {
+        paintStory("The shitcoins are all folding up...");
+        flickerOut(shitHolder);
     }
-    if (crypto_market_popularity < 0.82) {
+
+    if(crypto_market_popularity < 0.81) {
+        paintStory("The CoinWorld founder has fled the country.");
+        flickerOut(coinWorldPanel);
+    }
+
+    if (crypto_market_popularity < 0.77) {
         paintStory("The NFTLand servers have all crashed.");
-        nftPanel.hide();
+        flickerOut(nftPanel);
     }
+
     if (crypto_market_popularity < 0.9) {
         goldValue = 100000;
     }
+
     if (crypto_market_popularity < 0.7) {
         paintStory("The dollar is hitting a bit of turbulence.");
         goldValue = 1000000;
@@ -424,7 +459,29 @@ function collapseIncrement() {
     crypto_market_popularity = Math.max(crypto_market_popularity, 0.01);
 }
 
+function getBarrierElements() {
+    const elements = document.querySelectorAll('.item');
+    var barriers = [];
+    elements.forEach(element => {
+        const rect = element.getBoundingClientRect();
+        if (!(
+            rect.left === 0 && rect.right === 0 && rect.width === 0 && rect.height === 0 
+        )) {
+            barriers.push({
+                x: rect.left,
+                y: rect.top,
+                width: rect.width,
+                height: rect.height
+            });
+        }     
+    });
+    return barriers;
+}  
+
 function animatePolitics5() {
+    // barriers = getBarrierElements();
+    $("#storyFixed").css("background-color", "#cacaca");
+
     startParticles();
 }
 
@@ -435,7 +492,8 @@ getIntoPol5.click(function() {
     endLegalProblems();
     setCash();
     paintStory("Your legal troubles are in the past.");
-    societalCollapseInterval = setInterval(collapseIncrement, 300);
+    societalCollapseInterval = setInterval(collapseIncrement, 250);
+    animatePolitics5();
 });
 
 learnEngagementBtn.click(function() {
@@ -2235,8 +2293,6 @@ function startGame() {
     // ============== TESTING ==============
     // startParticles();
     // goToLategame();
-
-    
     // bank_worth = 3000;
     // setCash();
     // alreadyGotReal = true;

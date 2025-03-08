@@ -1,31 +1,23 @@
-function changeToBirdParticles() {
-    if (window.innerWidth < c_MAX_MOBILE_WIDTH) {
-        // window.pJSDom[0].pJS.particles.size.value = 45;
-    }
-    window.pJSDom[0].pJS.fn.modes.pushParticles(1);    
-}
-
-function removeBirdParticle() {
-    window.pJSDom[0].pJS.fn.modes.removeParticles(1);
+function addParticle(numParticles = 1) {
+    window.pJSDom[0].pJS.fn.modes.pushParticles(numParticles);    
 }
 
 function startParticles(){
     $("#particles-js").show();
-    console.log("go go");
     particlesJS("particles-js", {
         "particles": {
           "number": {
-            "value": 0,
+            "value": 1,
             "density": {
               "enable": false,
               "value_area": 1000
             }
           },
           "color": {
-            "value": "#f652ac"
+            "value": "#5f5f5f"
           },
           "shape": {
-            "type": "image",
+            "type": "triangle",
             "stroke": {
               "width": 0,
               "color": "#000000"
@@ -40,7 +32,7 @@ function startParticles(){
               }
           },
           "opacity": {
-            "value": 0.5,
+            "value": 1.0,
             "random": false,
             "anim": {
               "enable": false,
@@ -50,8 +42,8 @@ function startParticles(){
             }
           },
           "size": {
-            "value": 70,
-            "random": false,
+            "value": 1.5,
+            "random": true,
             "anim": {
               "enable": true,
               "speed": 1,
@@ -68,12 +60,12 @@ function startParticles(){
           },
           "move": {
             "enable": true,
-            "speed": 20,
-            "direction": "random",
-            "random": false,
+            "speed": 200,
+            "direction": "bottom",
+            "random": true,
             "straight": false,
-            "out_mode": "bounce",
-            "bounce": true,
+            "out_mode": "out",
+            "bounce": false,
             "attract": {
               "enable": false,
               "rotateX": 200,
@@ -86,11 +78,11 @@ function startParticles(){
           "events": {
             "onhover": {
               "enable": false,
-              "mode": "grab"
+              "mode": "none"
             },
             "onclick": {
               "enable": false,
-              "mode": "push"
+              "mode": "none"
             },
             "resize": false
           },
