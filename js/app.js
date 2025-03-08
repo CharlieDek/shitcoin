@@ -307,7 +307,8 @@ teamUpWithCelebAction1.click(function() {
     bank_worth -= CELEB_1_FEE;
     my_nft_boost += 0.001;
     setCash();
-    teamUpWithCeleb(2, "I'm teaming up with TikTok prankster K.J. Seter, our NFT's takin' over! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
+    popularity_cap = 35;
+    teamUpWithCeleb(4, "I'm teaming up with TikTok prankster K.J. Seter, our NFT's takin' over! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
     paintStory("'Our NFT's takin' over.'");
 });
 
@@ -315,7 +316,7 @@ teamUpWithCelebAction2.click(function() {
     teamUpWithCelebAction2.hide();
     bank_worth -= CELEB_2_FEE;
     setCash();
-    popularity_cap += 5;
+    popularity_cap += 50;
     teamUpWithCeleb(3, "RT Simon Baker: I am teaming up with $SHIT, let's shit on that thing! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
     paintStory("Simon Baker has always been passionate about financial innovation.");
 });
@@ -324,7 +325,7 @@ teamUpWithCelebAction3.click(function() {
     teamUpWithCelebAction3.hide();
     bank_worth -= CELEB_3_FEE;
     setCash();
-    popularity_cap += 10;
+    popularity_cap += 65;
     teamUpWithCeleb(5, "RT Christina Hendricks: I am MAD (MEN) about $SHIT! BUY NOW vvvv 82xuQkP4jlkWiDFiuz3SOO.");
     paintStory("Christina Hendricks has always been passionate about financial innovation.");    
 });
@@ -333,7 +334,7 @@ teamUpWithCelebAction4.click(function() {
     teamUpWithCelebAction4.hide();
     bank_worth -= CELEB_4_FEE;
     setCash();
-    popularity_cap += 15;
+    popularity_cap += 75;
     teamUpWithCeleb(7, "RT Joe Jonas: Don't be a *sucker*, buy $SHIT like me! I'm HODLING for the long term! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
     paintStory("Joe Jonas has always been passionate about financial innovation.");
 });
@@ -342,7 +343,7 @@ teamUpWithCelebAction5.click(function() {
     teamUpWithCelebAction5.hide();
     bank_worth -= CELEB_5_FEE;
     setCash();
-    popularity_cap += 20;
+    popularity_cap += 100;
     teamUpWithCeleb(10, "RT Tom Brady: I'm back out of retirement...teaming up with $SHIT! This is NOT a scam and I am NOT hacked. Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
     paintStory("Tom Brady has always been passionate about financial innovation.");    
 });
@@ -1897,7 +1898,7 @@ function addTweet(tweetType) {
         }
         likes = parseInt(popularity * randLikesCoeff);
         if (popularity < popularity_cap) {
-            popularity += Math.min(0.25, likes / 4000);
+            popularity += Math.min(0.25, likes / 1500);
             popularity = roundFloat(popularity, 5);
             if (popularity > 15 && coinWorldPanel.is(':visible')) {
                 twitterOptionFieldPumpCoins.show();

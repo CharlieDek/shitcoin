@@ -191,7 +191,7 @@ const shitNameArr = [
 ];
 
 //twitter
-var popularity_cap = 50;
+var popularity_cap = 25;
 const most_popular_tweeters = ["@elonmusk", "@BarackObama", "@Cristiano", "@justinbieber", "@rihanna", "@katyperry", "@narendramodi", "@realDonaldTrump", "@taylorswift13", "@NASA", "@ladygaga", "@YouTube", "@KimKardashian", "@EllenDeGeneres", "@X", "@BillGates", "@selenagomez", "@imVkohli", "@neymarjr", "@cnnbrk", "@CNN", "@jtimberlake", "@PMOIndia", "@nytimes", "@espn", "@britneyspears", "@shakira", "@KingJames", "@ChampionsLeague", "@ddlovato", "@realmadrid", "@BBCBreaking", "@FCBarcelona", "@jimmyfallon", "@SrBachchan", "@BTS_twt", "@NBA", "@akshaykumar", "@MileyCyrus", "@BeingSalmanKhan", "@premierleague", "@bts_bighit", "@iamsrk", "@JLo", "@SportsCenter", "@BrunoMars", "@Oprah", "@BBCWorld", "@sachin_rt", "@NiallOfficial"];
 const max_tweets = 40;
 const phase_1_tweets = [
