@@ -486,7 +486,7 @@ function collapseIncrement() {
         flickerOut(socialsPanel);
     }
 
-    if (crypto_market_popularity < 0.35) {
+    if (crypto_market_popularity < 0.54) {
         paintStory("Your bank has stopped returning your calls.");
         hideAction.show();
 
@@ -1431,7 +1431,7 @@ buyGME.click(function() {
     }
     bank_worth -= wouldBeTotal;
     gme_holdings += robBuyAmt;
-    paintStory(`You are the proud owner of ${gme_holdings} shares of GME (\$${formatNumber(gme_valuation, 2)} ea ).`, false);
+    paintStory(`You are the owner of ${gme_holdings} shares of GME (\$${formatNumber(gme_valuation, 2)} ea ).`, false);
     totalRobBuys += wouldBeTotal;
     checkIncreaseBuyLimit();
     setCash();
@@ -1451,7 +1451,7 @@ buyTSLA.click(function() {
     }
     bank_worth -= wouldBeTotal;
     tsla_holdings += robBuyAmt;
-    paintStory(`You are the proud owner of ${tsla_holdings} shares of TSLA (\$${formatNumber(tsla_valuation, 2)} ea ).`, false);
+    paintStory(`You are the owner of ${tsla_holdings} shares of TSLA (\$${formatNumber(tsla_valuation, 2)} ea ).`, false);
     totalRobBuys += wouldBeTotal;
     checkIncreaseBuyLimit();
     setCash();
@@ -1467,7 +1467,7 @@ buyNVDA.click(function() {
     checkIncreaseBuyLimit();
     bank_worth -= wouldBeTotal;
     nvda_holdings += robBuyAmt;
-    paintStory(`You are the proud owner of ${nvda_holdings} shares of NVDA (\$${formatNumber(nvda_valuation, 2)} ea ).`, false);
+    paintStory(`You are the owner of ${nvda_holdings} shares of NVDA (\$${formatNumber(nvda_valuation, 2)} ea ).`, false);
     
     setCash();
     setRob();
