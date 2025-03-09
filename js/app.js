@@ -36,10 +36,14 @@ var getIntoPol5 = $("#getIntoPoliticsAction5");
 var researchAwardAction = $("#researchAwardAction");
 var museumAction = $("#museumAction");
 var strategicReserve = $("#strategicReserve");
-
 var getRealAction = $("#getRealAction");
-var dieAction = $("#dieAction");
 var fleeAction = $("#fleeAction");
+var fleeNZAction = $("#fleeNZAction");
+var hideAction = $("#hideAction");
+var placateAction = $("#placateAction");
+var stayHiding = $("#stayHiding");
+var dieAction = $("#dieAction");
+
 
 const projectPriceTuples = [
     [1500, makeStockIndicatorBtn],
@@ -317,7 +321,7 @@ teamUpWithCelebAction2.click(function() {
     teamUpWithCelebAction2.hide();
     bank_worth -= CELEB_2_FEE;
     setCash();
-    popularity_cap += 50;
+    popularity_cap = 50;
     teamUpWithCeleb(3, "RT Simon Baker: I am teaming up with $SHIT, let's shit on that thing! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
     paintStory("Simon Baker has always been passionate about financial innovation.");
 });
@@ -326,7 +330,7 @@ teamUpWithCelebAction3.click(function() {
     teamUpWithCelebAction3.hide();
     bank_worth -= CELEB_3_FEE;
     setCash();
-    popularity_cap += 65;
+    popularity_cap = 65;
     teamUpWithCeleb(5, "RT Christina Hendricks: I am MAD (MEN) about $SHIT! BUY NOW vvvv 82xuQkP4jlkWiDFiuz3SOO.");
     paintStory("Christina Hendricks has always been passionate about financial innovation.");    
 });
@@ -335,7 +339,7 @@ teamUpWithCelebAction4.click(function() {
     teamUpWithCelebAction4.hide();
     bank_worth -= CELEB_4_FEE;
     setCash();
-    popularity_cap += 75;
+    popularity_cap = 75;
     teamUpWithCeleb(7, "RT Joe Jonas: Don't be a *sucker*, buy $SHIT like me! I'm HODLING for the long term! Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
     paintStory("Joe Jonas has always been passionate about financial innovation.");
 });
@@ -344,7 +348,7 @@ teamUpWithCelebAction5.click(function() {
     teamUpWithCelebAction5.hide();
     bank_worth -= CELEB_5_FEE;
     setCash();
-    popularity_cap += 100;
+    popularity_cap = 100;
     teamUpWithCeleb(10, "RT Tom Brady: I'm back out of retirement...teaming up with $SHIT! This is NOT a scam and I am NOT hacked. Buy here: 82xuQkP4jlkWiDFiuz3SOO.");
     paintStory("Tom Brady has always been passionate about financial innovation.");    
 });
@@ -413,49 +417,103 @@ function flickerOut(divToRemove) {
     requestAnimationFrame(flickerStep);    
 }
 
+
+function loseMoney() {
+    bank_worth = Math.max(0, bank_worth * 0.992);
+    setCash();
+    if (bank_worth === 0) {
+        clearInterval(loseMoneyInterval);
+    }
+}
+
 function collapseIncrement() {
     collapseTicks++;
-    if ((collapseTicks < MAX_PARTICLES) && ((collapseTicks % 2) === 0)) {
+    if ((collapseTicks < MAX_PARTICLES) && ((collapseTicks % 3) === 0)) {
         addParticle();
     }
 
     myShitPriceFloor = Math.max(0.01, myShitPriceFloor-10);
     popularity -= 0.1;
     popularity = Math.max(0.1, popularity);
-    crypto_market_popularity -= 0.0002;
-    if (crypto_market_popularity < 0.75) {
-        paintStory("It's been hard to get ahold of your lawyers...");
-        flickerOut(legalPanel);
-    }
-    if (crypto_market_popularity < 0.92) {
+    crypto_market_popularity -= 0.0015;
+
+    if (crypto_market_popularity < 0.94) {
         clearInterval(engagementBotInterval);
         paintStory("The server supporting your bot has been flaky...Your Twitter bot is gone.");        
-    }
-
-    if(crypto_market_popularity < 0.87) {
-        paintStory("The shitcoins are all folding up...");
-        flickerOut(shitHolder);
-    }
-
-    if(crypto_market_popularity < 0.81) {
-        paintStory("The CoinWorld founder has fled the country.");
-        flickerOut(coinWorldPanel);
-    }
-
-    if (crypto_market_popularity < 0.77) {
-        paintStory("The NFTLand servers have all crashed.");
-        flickerOut(nftPanel);
     }
 
     if (crypto_market_popularity < 0.9) {
         goldValue = 100000;
     }
 
+    if(crypto_market_popularity < 0.87) {
+        paintStory("The shitcoins are all folding up...");
+        flickerOut(shitHolder);
+        flickerOut(twitterOptionFieldPumpCoins);
+        if (!loseMoneyInterval) {
+            loseMoneyInterval = setInterval(loseMoney, 600);
+        }
+    }
+
+    if (crypto_market_popularity < 0.81) {
+        paintStory("The CoinWorld founder has fled the country.");
+        flickerOut(twitterOptionFieldPumpMy);
+        flickerOut(twitterOptionFieldEngagement);
+        popularity = 0;
+        flickerOut(coinWorldPanel);
+        coinsShowing = false;        
+    }
+
+    if (crypto_market_popularity < 0.77) {
+        paintStory("The NFTLand servers have all crashed.");
+        flickerOut(nftPanel);
+        flickerOut(twitterOptionFieldRegular);
+    }
+
+    if (crypto_market_popularity < 0.75) {
+        paintStory("It's been hard to get ahold of your lawyers...");
+        clearInterval(legalRefreshInterval);
+        flickerOut(legalPanel);
+    }    
+
     if (crypto_market_popularity < 0.7) {
         paintStory("The dollar is hitting a bit of turbulence.");
-        goldValue = 1000000;
+        goldValue = 15000000;
         myShitPriceFloor = 0.01;
     }
+
+    if (crypto_market_popularity < 0.55) {
+        flickerOut(socialsPanel);
+    }
+
+    if (crypto_market_popularity < 0.35) {
+        paintStory("Your bank has stopped returning your calls.");
+        hideAction.show();
+
+        fleeAction.show();
+        if ((bunkerCounter >= 1) && (goldCounter > 10)) {
+            fleeAction.attr("disabled", null);
+        }
+
+        fleeNZAction.show();
+        if ((nzCounter >= 1) && (goldCounter > 30) && (planeCounter >= 1)) {
+            fleeNZAction.attr("disabled", null);
+        }
+        
+        bank_worth = 0;
+        cashGone = true;
+        clearInterval(loseMoneyInterval);        
+        flickerOut(cash);
+        enable_disable_btns_against_cash();
+        if (researchAwardAction.is(':visible')) {
+            researchAwardAction.hide();
+        }
+        if (museumAction.is(':visible')){
+            museumAction.hide();
+        }
+        clearInterval(societalCollapseInterval);
+    }
+
     crypto_market_popularity = Math.max(crypto_market_popularity, 0.01);
 }
 
@@ -476,11 +534,71 @@ function getBarrierElements() {
         }     
     });
     return barriers;
-}  
+}
+
+fleeAction.click(function() {
+    fleeAction.hide();
+    fleeNZAction.hide();
+    hideAction.hide();
+    paintStory("Uh oh, the mob is already here..");
+    if ((goldCounter > 0) && (artCounter > 0)) {
+        placateAction.attr("disabled", null);
+    }
+    placateAction.show();
+    dieAction.show();
+});
+
+fleeNZAction.click(function() {
+    fleeAction.hide();
+    fleeNZAction.hide();
+    hideAction.hide();
+    paintStory("Uh oh, the mob is already here..");
+    if ((goldCounter > 0) && (artCounter > 0)) {
+        placateAction.attr("disabled", null);
+    }
+    placateAction.show();
+    dieAction.show();
+});
+
+hideAction.click(function() {
+    fleeAction.hide();
+    fleeNZAction.hide();
+    hideAction.hide();
+    paintStory("Great job, you hid.");
+    flickerOut(prepPanel);
+    stayHiding.show();
+    $("#particles-js").css("background-color", "#5f5f5f");
+    $("#storyFixed").css("background-color", "transparent");    
+});
+
+stayHiding.click(function() {
+    paintStory("Doesn't seem like a good time to come out.");
+    stayHiding.hide();
+    stayHiding.show();
+    dieAction.show();
+});
+
+placateAction.click(function() {
+    paintStory("They took your things but still don't seem satisfied.");
+    flickerOut(prepPanel);
+    placateAction.hide();
+    hideAction.show();
+    dieAction.show();
+});
+
+dieAction.click(function() {
+    dieAction.hide();
+    stayHiding.hide();
+    prepPanel.hide();
+    projectsPanel.hide();
+    $("#storyFixed").css("background-color", "transparent");
+    $("#particles-js").css("background-color", "red");
+    paintStory("You died.");
+});
 
 function animatePolitics5() {
     // barriers = getBarrierElements();
-    $("#storyFixed").css("background-color", "#cacaca");
+    $("#storyFixed").css("background-color", "#cdcdcd");
 
     startParticles();
 }
@@ -491,7 +609,7 @@ getIntoPol5.click(function() {
     politicalLegalHelp = 1.0;
     endLegalProblems();
     setCash();
-    paintStory("Your legal troubles are in the past.");
+    paintStory("Making the world a different place.");
     societalCollapseInterval = setInterval(collapseIncrement, 250);
     animatePolitics5();
 });
@@ -897,7 +1015,7 @@ function restartWork() {
     refreshWorkInterval = setInterval(refreshWork, workInterval);
     workPanel.show();
     quitWork.show();
-    paintStory("Not everyone can hack it.", false);
+    paintStory("Welcome back!", false);
 }
 
 quitWork.click(function() {
@@ -1504,13 +1622,17 @@ function enable_disable_btn_against_cash(btn, valueToClick) {
     }
 }
 
-prepBuyGold.click(function(){
+function buyGold() {
     bank_worth -= goldValue;
     goldCounter++;    
     prepAssetsHolder.append(
-        '<object data="img/prep_gold.svg" class="prepIcon" type="image/svg+xml"></object>'
+        '<object data="img/prep_gold.svg" class="prepIcon goldSVG" type="image/svg+xml"></object>'
     );
-    setCash();
+    setCash();    
+}
+
+prepBuyGold.click(function(){
+    buyGold();
 });
 
 prepBuySecurity.click(function(){
@@ -1541,7 +1663,7 @@ researchAwardAction.click(function() {
     paintStory("Nice job giving back.");
 });
 
-prepBuyArt.click(function(){
+function buyArt() {
     bank_worth -= 200000;
     prepAssetsHolder.append(
         '<object data="img/prep_art.svg" class="prepIcon" type="image/svg+xml"></object>'
@@ -1554,6 +1676,10 @@ prepBuyArt.click(function(){
         museumAction.attr("disabled", null);
     }
     setCash();
+}
+
+prepBuyArt.click(function(){
+    buyArt();
 });
 
 museumAction.click(function() {
@@ -1561,12 +1687,17 @@ museumAction.click(function() {
     museumAction.hide();
 })
 
-prepBuyBunker.click(function(){
+function buyBunker() {
     bank_worth -= 1300000;
+    bunkerCounter++;
     prepAssetsHolder.append(
-        '<object data="img/prep_bunker.svg" class="prepIcon" type="image/svg+xml"></object>'
+        '<object data="img/prep_bunker.svg" class="prepIcon bunkerSVG" type="image/svg+xml"></object>'
     );
     setCash();
+}
+
+prepBuyBunker.click(function(){
+    buyBunker();
 });
 
 prepBuyRanch.click(function(){
@@ -1577,12 +1708,18 @@ prepBuyRanch.click(function(){
     setCash();
 });
 
-prepBuyPlane.click(function(){
+function buyPlane() {
     bank_worth -= 20000000;
+    planeCounter++;
+    paintStory("We got a real pilot over here.");
     prepAssetsHolder.append(
-        '<object data="img/prep_plane.svg" class="prepIcon" type="image/svg+xml"></object>'
+        '<object data="img/prep_plane.svg" class="prepIcon planeSVG" type="image/svg+xml"></object>'
     );
     setCash();
+}
+
+prepBuyPlane.click(function(){
+    buyPlane();
 });
 
 prepBuyCompound1.click(function(){
@@ -1601,12 +1738,17 @@ prepBuyYacht.click(function(){
     setCash();
 });
 
-prepBuyCompound2.click(function(){
+function buyNZ() {
     bank_worth -= 2800000000;
+    nzCounter++;
     prepAssetsHolder.append(
-        '<object data="img/prep_nz_2.svg" class="prepIcon" type="image/svg+xml"></object>'
+        '<object data="img/prep_nz_2.svg" class="prepIcon nzSVG" type="image/svg+xml"></object>'
     );
     setCash();
+}
+
+prepBuyCompound2.click(function(){
+    buyNZ();
 });
 
 function enable_disable_prep_stuff() {
@@ -2140,7 +2282,7 @@ function globalRefresh() {
         }
     }
 
-    if (bank_worth <= 50 && !refreshWorkInterval) {
+    if (bank_worth <= 50 && !refreshWorkInterval && (!cashGone)) {
         restartWorkBtn.show();
     }
 

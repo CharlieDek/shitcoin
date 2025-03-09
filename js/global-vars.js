@@ -29,6 +29,8 @@ var lifetimeMaxCash = 0;
 
 // collapse
 var barriers;
+var loseMoneyInterval;
+var cashGone = false;
 var societalCollapseInterval;
 var collapseTicks = 0;
 const MAX_PARTICLES = 2000;
@@ -44,6 +46,9 @@ var goldValue = 5000;
 var longResearchCounter = 0;
 var goldCounter = 0;
 var artCounter = 0;
+var bunkerCounter = 0;
+var planeCounter = 0;
+var nzCounter = 0;
 
 // work
 var refreshWorkInterval;

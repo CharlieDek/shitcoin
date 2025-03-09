@@ -63,7 +63,7 @@ function startParticles(){
             "speed": 200,
             "direction": "bottom",
             "random": true,
-            "straight": false,
+            "straight": true,
             "out_mode": "out",
             "bounce": false,
             "attract": {
